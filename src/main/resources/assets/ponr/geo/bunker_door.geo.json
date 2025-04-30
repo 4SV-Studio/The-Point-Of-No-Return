@@ -1,0 +1,59 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 6,
+				"visible_bounds_height": 4.5,
+				"visible_bounds_offset": [0, 1.75, 0]
+			},
+			"bones": [
+				{
+					"name": "Doors",
+					"pivot": [23, 32, -7]
+				},
+				{
+					"name": "Right_door",
+					"parent": "Doors",
+					"pivot": [-24, 24, 0],
+					"cubes": [
+						{
+							"origin": [-24, 0, -4],
+							"size": [24, 48, 8],
+							"uv": {
+								"north": {"uv": [1, 48], "uv_size": [23, 48]},
+								"east": {"uv": [40, 48], "uv_size": [8, 48]},
+								"south": {"uv": [72, 0], "uv_size": [-24, 48]},
+								"west": {"uv": [48, 48], "uv_size": [8, 48]},
+								"up": {"uv": [56, 64], "uv_size": [24, 8]},
+								"down": {"uv": [72, 8], "uv_size": [24, -8]}
+							}
+						}
+					]
+				},
+				{
+					"name": "Left_door",
+					"parent": "Doors",
+					"pivot": [23, 24, -7],
+					"cubes": [
+						{
+							"origin": [0, 0, -4],
+							"size": [24, 48, 8],
+							"uv": {
+								"north": {"uv": [24, 0], "uv_size": [-23, 48]},
+								"east": {"uv": [24, 48], "uv_size": [8, 48]},
+								"south": {"uv": [24, 0], "uv_size": [24, 48]},
+								"west": {"uv": [32, 48], "uv_size": [8, 48]},
+								"up": {"uv": [80, 48], "uv_size": [-24, 8]},
+								"down": {"uv": [56, 64], "uv_size": [24, -8]}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,26 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"day": {
+			"loop": true,
+			"bones": {
+				"day_screen": {
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"night": {
+			"loop": true,
+			"bones": {
+				"day_screen": {
+					"position": {
+						"vector": [0, 0, 0.5]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

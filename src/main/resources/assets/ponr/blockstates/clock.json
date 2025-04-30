@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "ponr:block/clock", "y": 0 },
+    "facing=east":  { "model": "ponr:block/clock", "y": 90 },
+    "facing=south": { "model": "ponr:block/clock", "y": 180 },
+    "facing=west":  { "model": "ponr:block/clock", "y": 270 }
+  }
+}
