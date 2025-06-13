@@ -8,37 +8,66 @@ import org.studio4sv.ponr.PONR;
 import org.studio4sv.ponr.client.ClientStaminaData;
 
 public class StaminaHud {
-    private static int staminaAmount;
+    private static int staminaAmount = 25;
 
-    private final static ResourceLocation STAMINA_ICON = new ResourceLocation(PONR.MOD_ID,
-            "textures/gui/stamina/stamina_icon.png");
-
-    private final static ResourceLocation STAMINA_SIDE = new ResourceLocation(PONR.MOD_ID,
-            "textures/gui/stamina/stamina_side.png");
-
-    private final static ResourceLocation STAMINA_LINES = new ResourceLocation(PONR.MOD_ID,
-            "textures/gui/stamina/stamina_lines.png");
+    private final static ResourceLocation STAMINA_TEXTURE = new ResourceLocation(PONR.MOD_ID,
+            "textures/gui/stamina.png");
 
     public static void setStaminaAmount(int stamina) {
         staminaAmount = Math.max(0, Math.min(stamina, ClientStaminaData.getPlayerMaxStamina()));
     }
 
     public static final IGuiOverlay HUD_STAMINA = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
-
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F); // R, G, B, A
-        RenderSystem.setShaderTexture(0, STAMINA_ICON);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, STAMINA_TEXTURE);
 
-        int width = 11;
-        int height = 8;
-        int x = screenWidth / 2 - width / 2 - 1;
         int y = screenHeight - 35;
+        int maxStamina = ClientStaminaData.getPlayerMaxStamina();
+        int stamina = staminaAmount;
 
-        poseStack.blit(STAMINA_LINES, screenWidth / 2 - ClientStaminaData.getPlayerMaxStamina() / 2, y, 0, 0, ClientStaminaData.getPlayerMaxStamina(), 7, 1, 7); // texture, x, y, u, v, width, height, textureWidth, textureHeight
+        int textureWidth = 30;
+        int textureHeight = 8;
 
-        poseStack.blit(STAMINA_ICON, x, y, 0, 0, width, height, width, height); // texture, x, y, u, v, width, height, textureWidth, textureHeight
+        // Border
+        for (int i = 0; i < maxStamina; i += 7) {
+            int currentTileWidth = Math.min(7, maxStamina - i);
+            poseStack.blit(STAMINA_TEXTURE,
+                    screenWidth / 2 - maxStamina / 2 + i, y,
+                    21, 0,
+                    currentTileWidth, 7,
+                    textureWidth, textureHeight);
+        }
 
-        poseStack.blit(STAMINA_SIDE, screenWidth / 2 - ClientStaminaData.getPlayerMaxStamina() / 2 - 2, y, 0, 0,  2, 7, 2, 7); // texture, x, y, u, v, width, height, textureWidth, textureHeight
-        poseStack.blit(STAMINA_SIDE, screenWidth / 2 + ClientStaminaData.getPlayerMaxStamina() / 2    , y, 0, 0, 2, 7, 2, 7); // texture, x, y, u, v, width, height, textureWidth, textureHeight
+        // Stamina
+        for (int i = 0; i < stamina; i += 7) {
+            int currentTileWidth = Math.min(7, stamina - i);
+            poseStack.blit(STAMINA_TEXTURE,
+                    screenWidth / 2 - stamina / 2 + i, y,
+                    2, 0,
+                    currentTileWidth, 7,
+                    textureWidth, textureHeight);
+        }
+
+        // Icon
+        poseStack.blit(STAMINA_TEXTURE,
+                screenWidth / 2 - 12 / 2, y,
+                10, 0,
+                12, 8,
+                textureWidth, textureHeight);
+
+
+        // Sides
+        poseStack.blit(STAMINA_TEXTURE,
+                screenWidth / 2 - maxStamina / 2 - 2, y,
+                0, 0,
+                2, 7,
+                textureWidth, textureHeight);
+
+        poseStack.blit(STAMINA_TEXTURE,
+                screenWidth / 2 + maxStamina / 2, y,
+                28, 0,
+                2, 7,
+                textureWidth, textureHeight);
     };
 }
