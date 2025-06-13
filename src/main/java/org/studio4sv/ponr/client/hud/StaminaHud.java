@@ -8,7 +8,7 @@ import org.studio4sv.ponr.PONR;
 import org.studio4sv.ponr.client.ClientStaminaData;
 
 public class StaminaHud {
-    private static int staminaAmount = 25;
+    private static int staminaAmount;
 
     private final static ResourceLocation STAMINA_TEXTURE = new ResourceLocation(PONR.MOD_ID,
             "textures/gui/stamina.png");
