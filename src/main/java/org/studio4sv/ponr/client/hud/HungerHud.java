@@ -1,4 +1,4 @@
-package org.studio4sv.ponr.client;
+package org.studio4sv.ponr.client.hud;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.renderer.GameRenderer;
@@ -25,7 +25,7 @@ public class HungerHud {
     public static final IGuiOverlay HUD_HUNGER = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F); // R, G, B, A
         RenderSystem.setShaderTexture(0, HUNGER_STAGES[currentHungerStage - 1]);
 
         int padding = 10;

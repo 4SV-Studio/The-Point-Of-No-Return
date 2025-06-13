@@ -5,7 +5,7 @@ import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.studio4sv.ponr.PONR;
-import org.studio4sv.ponr.client.HungerHud;
+import org.studio4sv.ponr.client.hud.HungerHud;
 
 public class ClientEvents {
     @Mod.EventBusSubscriber(modid = PONR.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
