@@ -23,12 +23,11 @@ public class HungerHud {
 
         int padding = 10;
 
-        int scaledWidth = 35;
-        int scaledHeight = 35;
+        int scaledSize = 35;
 
         int textureSize = 26;
-        int x = screenWidth - scaledWidth - padding;
-        int y = scaledHeight + (padding * 2);
+        int x = screenWidth - scaledSize - padding;
+        int y = scaledSize + (padding * 2);
 
         PoseStack poseStack = guiGraphics.pose();
 
