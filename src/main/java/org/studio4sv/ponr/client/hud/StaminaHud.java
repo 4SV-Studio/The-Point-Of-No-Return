@@ -14,7 +14,7 @@ public class StaminaHud {
             "textures/gui/stamina.png");
 
     public static void setStaminaAmount(int stamina) {
-        staminaAmount = Math.max(0, Math.min(stamina, ClientStaminaData.getPlayerMaxStamina()));
+        staminaAmount = Math.max(0, Math.min(stamina, ClientStaminaData.getMax()));
     }
 
     public static final IGuiOverlay HUD_STAMINA = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
@@ -23,8 +23,8 @@ public class StaminaHud {
         RenderSystem.setShaderTexture(0, STAMINA_TEXTURE);
 
         int y = screenHeight - 35;
-        int maxStamina = ClientStaminaData.getPlayerMaxStamina();
-        int stamina = staminaAmount;
+        int maxStamina = ClientStaminaData.getMax()/3;
+        int stamina = staminaAmount/3;
 
         int textureWidth = 30;
         int textureHeight = 8;
@@ -49,14 +49,6 @@ public class StaminaHud {
                     textureWidth, textureHeight);
         }
 
-        // Icon
-        poseStack.blit(STAMINA_TEXTURE,
-                screenWidth / 2 - 12 / 2, y,
-                10, 0,
-                12, 8,
-                textureWidth, textureHeight);
-
-
         // Sides
         poseStack.blit(STAMINA_TEXTURE,
                 screenWidth / 2 - maxStamina / 2 - 2, y,
@@ -68,6 +60,13 @@ public class StaminaHud {
                 screenWidth / 2 + maxStamina / 2, y,
                 28, 0,
                 2, 7,
+                textureWidth, textureHeight);
+
+        // Icon
+        poseStack.blit(STAMINA_TEXTURE,
+                screenWidth / 2 - 12 / 2, y,
+                9, 0,
+                12, 8,
                 textureWidth, textureHeight);
     };
 }
