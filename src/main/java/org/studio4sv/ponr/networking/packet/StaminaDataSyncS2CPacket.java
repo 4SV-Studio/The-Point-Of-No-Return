@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 public class StaminaDataSyncS2CPacket {
     private final int stamina;
-    private int maxStamina;
+    private final int maxStamina;
 
 
     public StaminaDataSyncS2CPacket(int stamina, int maxStamina) {
