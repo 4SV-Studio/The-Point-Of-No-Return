@@ -29,6 +29,6 @@ public class HungerHud {
         int x = screenWidth - width - padding;
         int y = height + (padding * 2);
 
-        poseStack.blit(HUNGER_TEXTURE, x, y, 0, textureSize * currentHungerStage, width, height, textureSize, textureSize); // texture, x, y, u, v, width, height, textureSize, textureHeight
+        poseStack.blit(HUNGER_TEXTURE, x, y, 0, textureSize * (currentHungerStage - 1), textureSize, textureSize, textureSize, textureSize * 6); // texture, x, y, u, v, width, height, textureWidth, textureHeight
     };
 }
