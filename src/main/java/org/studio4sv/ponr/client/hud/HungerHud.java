@@ -9,7 +9,7 @@ import org.studio4sv.ponr.PONR;
 public class HungerHud {
     private static final ResourceLocation HUNGER_TEXTURE = new ResourceLocation(PONR.MOD_ID, "textures/gui/hunger.png");
 
-    private static int currentHungerStage = 1;
+    private static int currentHungerStage;
 
     public static void setHungerStage(int stage) {
         currentHungerStage = Math.max(1, Math.min(6, stage));
