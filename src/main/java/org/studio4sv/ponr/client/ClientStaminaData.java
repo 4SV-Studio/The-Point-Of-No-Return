@@ -4,6 +4,8 @@ public class ClientStaminaData {
     private static int playerStamina;
     private static int playerMaxStamina = 50;
 
+    private static final int staminaLimit = 250;
+
     public static void setPlayerStamina(int stamina) {
         ClientStaminaData.playerStamina = Math.min(stamina, playerMaxStamina);
     }
@@ -13,7 +15,7 @@ public class ClientStaminaData {
     }
 
     public static void setPlayerMaxStamina(int playerMaxStamina) {
-        ClientStaminaData.playerMaxStamina = playerMaxStamina;
+        ClientStaminaData.playerMaxStamina = Math.min(playerMaxStamina, staminaLimit);
     }
 
     public static int getPlayerMaxStamina() {
