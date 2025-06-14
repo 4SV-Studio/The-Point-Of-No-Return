@@ -49,18 +49,6 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if(event.side == LogicalSide.SERVER) {
-            event.player.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
-                if(stamina.getStamina() > 0 && event.player.getRandom().nextFloat() < 0.005f) { // Once Every 10 Seconds on Avg
-                    stamina.subStamina(1);
-                    ModMessages.sendToPlayer(new StaminaDataSyncS2CPacket(stamina.getStamina(), stamina.getMaxStamina()), ((ServerPlayer) event.player));
-                }
-            });
-        }
-    }
-
-    @SubscribeEvent
     public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
         if(!event.getLevel().isClientSide()) {
             if(event.getEntity() instanceof ServerPlayer player) {
