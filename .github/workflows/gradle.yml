@@ -46,7 +46,7 @@ jobs:
       - name: Rename artifact with commit info
         id: rename_jar
         run: |
-          NEW_NAME="the-poin-of-no-return-${{ steps.commit_info.outputs.short_sha }}.jar"
+          NEW_NAME="the-point-of-no-return-${{ steps.commit_info.outputs.short_sha }}.jar"
           mv "${{ steps.find_jar.outputs.jar_path }}" "./build/libs/${NEW_NAME}"
           echo "new_jar_path=./build/libs/${NEW_NAME}" >> $GITHUB_OUTPUT
           echo "new_jar_name=${NEW_NAME}" >> $GITHUB_OUTPUT
@@ -58,7 +58,7 @@ jobs:
           path: ${{ steps.rename_jar.outputs.new_jar_path }}
 
       - name: Send Discord notification
-        uses: Ilshidur/discord-action@master
+        uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with: 
