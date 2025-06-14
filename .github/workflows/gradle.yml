@@ -46,34 +46,23 @@ jobs:
       - name: Rename artifact with commit info
         id: rename_jar
         run: |
-          NEW_NAME="mod-${{ steps.commit_info.outputs.short_sha }}.jar"
+          NEW_NAME="the-poin-of-no-return-${{ steps.commit_info.outputs.short_sha }}.jar"
           mv "${{ steps.find_jar.outputs.jar_path }}" "./build/libs/${NEW_NAME}"
           echo "new_jar_path=./build/libs/${NEW_NAME}" >> $GITHUB_OUTPUT
           echo "new_jar_name=${NEW_NAME}" >> $GITHUB_OUTPUT
 
       - name: Upload artifact
-        id: upload_artifact
         uses: actions/upload-artifact@v4
         with:
           name: mod-build
           path: ${{ steps.rename_jar.outputs.new_jar_path }}
 
-      - name: Create nightly.link URL
-        id: nightly_link
-        run: |
-          ARTIFACT_URL="https://nightly.link/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/mod-build.zip"
-          echo "url=${ARTIFACT_URL}" >> $GITHUB_OUTPUT
-
       - name: Send Discord notification
-        uses: Ilshidur/action-discord@master
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: appleboy/discord-action@master  # More reliable action
         with:
-          args: |
-            **New Mod Build Available!** 
-            **Commit:** [${{ steps.commit_info.outputs.short_sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
-            **Message:** ${{ steps.commit_info.outputs.commit_msg }}
-            **Date:** ${{ steps.commit_info.outputs.commit_date }}
-            **Built by:** ${{ github.actor }}
-            **Download:** [${{ steps.rename_jar.outputs.new_jar_name }}](${{ steps.nightly_link.outputs.url }})
-            **Full Log:** https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          message: |
+            ## New Mod Build Available!
+            [${{ steps.commit_info.outputs.short_sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by ${{ github.actor }}
+            **Artifact:** ${{ steps.rename_jar.outputs.new_jar_name }}
+            **Download:** https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
