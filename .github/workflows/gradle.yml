@@ -62,31 +62,33 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          embeds: |
-            [
-              {
-                "title": "New Mod Build Available!",
-                "color": 5814783,
-                "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-                "fields": [
-                  {
-                    "name": "Commit",
-                    "value": "[`${{ steps.commit_info.outputs.short_sha }}`](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) ${{ steps.commit_info.outputs.commit_msg }}",
-                    "inline": true
-                  },
-                  {
-                    "name": "Built by",
-                    "value": "${{ github.actor }}",
-                    "inline": true
-                  },
-                  {
-                    "name": "Artifact",
-                    "value": "[${{ steps.rename_jar.outputs.new_jar_name }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})",
-                    "inline": false
+          args: |
+            {
+              "embeds": [
+                {
+                  "title": "New Mod Build Available!",
+                  "color": 5814783,
+                  "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+                  "fields": [
+                    {
+                      "name": "Commit",
+                      "value": "[`${{ steps.commit_info.outputs.short_sha }}`](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) ${{ steps.commit_info.outputs.commit_msg }}",
+                      "inline": true
+                    },
+                    {
+                      "name": "Built by",
+                      "value": "${{ github.actor }}",
+                      "inline": true
+                    },
+                    {
+                      "name": "Artifact",
+                      "value": "[${{ steps.rename_jar.outputs.new_jar_name }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                      "inline": false
+                    }
+                  ],
+                  "footer": {
+                    "text": "Build Date: ${{ steps.commit_info.outputs.commit_date }}"
                   }
-                ],
-                "footer": {
-                  "text": "Build Date: ${{ steps.commit_info.outputs.commit_date }}"
                 }
-              }
-            ]
+              ]
+            }
