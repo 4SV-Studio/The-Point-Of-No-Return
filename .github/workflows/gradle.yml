@@ -43,11 +43,10 @@ jobs:
           echo "commit_msg=${COMMIT_MSG}" >> $GITHUB_OUTPUT
           echo "commit_date=${COMMIT_DATE}" >> $GITHUB_OUTPUT
 
-      # Fixed this step with proper ID and outputs
       - name: Rename artifact with commit info
         id: rename_jar
         run: |
-          NEW_NAME="the-point-of-no-return-${{ steps.commit_info.outputs.short_sha }}.jar"
+          NEW_NAME="mod-${{ steps.commit_info.outputs.short_sha }}.jar"
           mv "${{ steps.find_jar.outputs.jar_path }}" "./build/libs/${NEW_NAME}"
           echo "new_jar_path=./build/libs/${NEW_NAME}" >> $GITHUB_OUTPUT
           echo "new_jar_name=${NEW_NAME}" >> $GITHUB_OUTPUT
@@ -67,8 +66,9 @@ jobs:
 
       - name: Send Discord notification
         uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
           args: |
             **New Mod Build Available!** 
             **Commit:** [${{ steps.commit_info.outputs.short_sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
