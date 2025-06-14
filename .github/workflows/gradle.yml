@@ -1,0 +1,68 @@
+name: Build mod
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'temurin'
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Find build artifact
+        id: find_jar
+        run: |
+          JAR_PATH=$(find ./build/libs -name '*.jar' ! -name '*sources*' ! -name '*dev*' -print -quit)
+          echo "jar_path=${JAR_PATH}" >> $GITHUB_OUTPUT
+          echo "Found JAR: ${JAR_PATH}"
+
+      - name: Prepare commit info
+        id: commit_info
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          COMMIT_MSG=$(git log -1 --pretty=%B | head -n1)
+          COMMIT_DATE=$(git log -1 --format=%cd --date=short)
+          echo "short_sha=${SHORT_SHA}" >> $GITHUB_OUTPUT
+          echo "commit_msg=${COMMIT_MSG}" >> $GITHUB_OUTPUT
+          echo "commit_date=${COMMIT_DATE}" >> $GITHUB_OUTPUT
+
+      - name: Rename artifact with commit info
+        id: rename_jar
+        run: |
+          NEW_NAME="the-point-of-no-return-${{ steps.commit_info.outputs.short_sha }}.jar"
+          mv "${{ steps.find_jar.outputs.jar_path }}" "./build/libs/${NEW_NAME}"
+          echo "new_jar_path=./build/libs/${NEW_NAME}" >> $GITHUB_OUTPUT
+          echo "new_jar_name=${NEW_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: the-point-of-no-return-nightly-build
+          path: ${{ steps.rename_jar.outputs.new_jar_path }}
+
+      - name: Send Discord notification
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with: 
+          args: |
+            ## New Mod Build Available!
+            Commit: [${{ steps.commit_info.outputs.short_sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by **${{ github.actor }}**
+            Artifact: [${{ steps.rename_jar.outputs.new_jar_name }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
