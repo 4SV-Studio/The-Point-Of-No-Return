@@ -54,16 +54,39 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: mod-build
+          name: the-point-of-no-return-nightly-build
           path: ${{ steps.rename_jar.outputs.new_jar_path }}
 
       - name: Send Discord notification
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        with: 
-          args: |
-            ## New Mod Build Available!
-            [${{ steps.commit_info.outputs.short_sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by ${{ github.actor }}
-            **Artifact:** ${{ steps.rename_jar.outputs.new_jar_name }}
-            **Download:** https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        with:
+          embeds: |
+            [
+              {
+                "title": "New Mod Build Available!",
+                "color": 5814783,
+                "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+                "fields": [
+                  {
+                    "name": "Commit",
+                    "value": "[`${{ steps.commit_info.outputs.short_sha }}`](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) ${{ steps.commit_info.outputs.commit_msg }}",
+                    "inline": true
+                  },
+                  {
+                    "name": "Built by",
+                    "value": "${{ github.actor }}",
+                    "inline": true
+                  },
+                  {
+                    "name": "Artifact",
+                    "value": "[${{ steps.rename_jar.outputs.new_jar_name }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                    "inline": false
+                  }
+                ],
+                "footer": {
+                  "text": "Build Date: ${{ steps.commit_info.outputs.commit_date }}"
+                }
+              }
+            ]
