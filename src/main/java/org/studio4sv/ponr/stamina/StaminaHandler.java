@@ -5,7 +5,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
@@ -16,8 +16,8 @@ import org.studio4sv.ponr.networking.packet.StaminaDataSyncS2CPacket;
 @Mod.EventBusSubscriber(modid = PONR.MOD_ID)
 public class StaminaHandler {
     public static final int SPRINT_COST = 1;
-    public static final int JUMP_COST = 1;
-    public static final int MINING_COST = 1;
+    public static final int JUMP_COST = 5;
+    public static final int MINING_COST = 10;
 
     private static final int REGEN_AMOUNT = 5;
     private static final int REGEN_COOLDOWN = 20;
@@ -34,6 +34,7 @@ public class StaminaHandler {
             boolean syncNeeded = false;
 
             // Sprinting logic
+            // TODO: fix sprinting
             if (serverPlayer.isSprinting()) {
                 if (stamina.getStamina() < SPRINT_COST) {
                     serverPlayer.setSprinting(false);
@@ -72,16 +73,16 @@ public class StaminaHandler {
     }
 
     @SubscribeEvent
-    public static void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
-        if (event.getLevel().isClientSide()) return;
+    public static void onBlockBreak(BlockEvent.BreakEvent event) {
+        if (!(event.getPlayer() instanceof ServerPlayer serverPlayer)) return;
 
-        Player player = event.getEntity();
-        player.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
+        serverPlayer.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
             if (stamina.getStamina() < MINING_COST) {
+                // TODO: damage arms with first aid
                 event.setCanceled(true);
             } else {
                 stamina.subStamina(MINING_COST);
-                syncStamina((ServerPlayer) player, stamina.getStamina(), stamina.getMaxStamina());
+                syncStamina(serverPlayer, stamina.getStamina(), stamina.getMaxStamina());
             }
         });
     }
