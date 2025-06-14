@@ -22,12 +22,12 @@ public class StaminaHud {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, STAMINA_TEXTURE);
 
-        int y = screenHeight - 35;
+        int y = screenHeight - 30;
         int maxStamina = ClientStaminaData.getMax()/3;
         int stamina = staminaAmount/3;
 
         int textureWidth = 30;
-        int textureHeight = 8;
+        int textureHeight = 16;
 
         // Border
         for (int i = 0; i < maxStamina; i += 7) {
