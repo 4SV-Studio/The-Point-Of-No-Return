@@ -58,10 +58,11 @@ jobs:
           path: ${{ steps.rename_jar.outputs.new_jar_path }}
 
       - name: Send Discord notification
-        uses: appleboy/discord-action@master  # More reliable action
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          message: |
+        uses: Ilshidur/discord-action@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with: 
+          args: |
             ## New Mod Build Available!
             [${{ steps.commit_info.outputs.short_sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}) by ${{ github.actor }}
             **Artifact:** ${{ steps.rename_jar.outputs.new_jar_name }}
