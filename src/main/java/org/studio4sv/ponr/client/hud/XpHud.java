@@ -26,6 +26,6 @@ public class XpHud {
 
         guiGraphics.blit(XP_TEXTURE, x, y, 0, 0, textureWidth, textureHeight, textureWidth, textureHeight);
 
-        guiGraphics.drawString(gui.getFont(), String.valueOf(xpText), x + textureWidth / 3 * 2 - gui.getFont().width(xpText) / 2, y + textureHeight / 2 - gui.getFont().lineHeight / 2, 0x59F5A4);
+        guiGraphics.drawString(gui.getFont(), String.valueOf(xpText), x + textureWidth / 3 * 2 - gui.getFont().width(xpText) / 2, y + textureHeight / 2 - gui.getFont().lineHeight / 2 + 1, 0x59F5A4, false);
     };
 }
