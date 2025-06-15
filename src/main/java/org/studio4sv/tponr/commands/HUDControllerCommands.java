@@ -22,6 +22,22 @@ public class HUDControllerCommands {
         dispatcher.register(Commands.literal(TPONR.MOD_ID)
                 .then(Commands.argument("player", EntityArgument.player())
                         .then(Commands.literal("widget")
+                                .then(Commands.literal("all")
+                                        .executes(context -> {
+                                            ServerPlayer executor = context.getSource().getPlayerOrException();
+                                            ServerPlayer target = EntityArgument.getPlayer(context, "player");
+
+                                            if (!executor.getUUID().equals(target.getUUID())) {
+                                                if (!context.getSource().hasPermission(2)) {
+                                                    throw new SimpleCommandExceptionType(Component.translatable("command.tponr.forbidden")).create();
+                                                }
+                                            }
+
+                                            ModMessages.sendToPlayer(new ToggleWidgetS2CPacket("all"), target);
+
+                                            return 1;
+                                        })
+                                )
                                 .then(Commands.literal("hunger")
                                         .executes(context -> {
                                             ServerPlayer executor = context.getSource().getPlayerOrException();

@@ -28,6 +28,11 @@ public class ToggleWidgetS2CPacket {
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
             switch (widget) {
+                case "all":
+                    HungerHud.toggle();
+                    StaminaHud.toggle();
+                    XpHud.toggle();
+                    break;
                 case "hunger":
                     HungerHud.toggle();
                     break;
