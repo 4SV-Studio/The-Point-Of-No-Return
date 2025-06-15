@@ -1,4 +1,4 @@
-package org.studio4sv.tponr.stamina;
+package org.studio4sv.tponr.mechanics.stamina;
 
 import net.minecraft.nbt.CompoundTag;
 

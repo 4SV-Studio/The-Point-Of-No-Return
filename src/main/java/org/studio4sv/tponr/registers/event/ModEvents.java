@@ -15,8 +15,8 @@ import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.commands.HUDControllerCommands;
 import org.studio4sv.tponr.networking.ModMessages;
 import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
-import org.studio4sv.tponr.stamina.PlayerStamina;
-import org.studio4sv.tponr.stamina.PlayerStaminaProvider;
+import org.studio4sv.tponr.mechanics.stamina.PlayerStamina;
+import org.studio4sv.tponr.mechanics.stamina.PlayerStaminaProvider;
 
 @Mod.EventBusSubscriber(modid = TPONR.MOD_ID)
 public class ModEvents {
