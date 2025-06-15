@@ -22,69 +22,71 @@ public class HUDControllerCommands {
         dispatcher.register(Commands.literal(TPONR.MOD_ID)
                 .then(Commands.argument("player", EntityArgument.player())
                         .then(Commands.literal("widget")
-                                .then(Commands.literal("all")
-                                        .executes(context -> {
-                                            ServerPlayer executor = context.getSource().getPlayerOrException();
-                                            ServerPlayer target = EntityArgument.getPlayer(context, "player");
+                                .then(Commands.literal("toggle")
+                                        .then(Commands.literal("all")
+                                                .executes(context -> {
+                                                    ServerPlayer executor = context.getSource().getPlayerOrException();
+                                                    ServerPlayer target = EntityArgument.getPlayer(context, "player");
 
-                                            if (!executor.getUUID().equals(target.getUUID())) {
-                                                if (!context.getSource().hasPermission(2)) {
-                                                    throw new SimpleCommandExceptionType(Component.translatable("command.tponr.forbidden")).create();
-                                                }
-                                            }
+                                                    if (!executor.getUUID().equals(target.getUUID())) {
+                                                        if (!context.getSource().hasPermission(2)) {
+                                                            throw new SimpleCommandExceptionType(Component.translatable("command.tponr.forbidden")).create();
+                                                        }
+                                                    }
 
-                                            ModMessages.sendToPlayer(new ToggleWidgetS2CPacket("all"), target);
+                                                    ModMessages.sendToPlayer(new ToggleWidgetS2CPacket("all"), target);
 
-                                            return 1;
-                                        })
-                                )
-                                .then(Commands.literal("hunger")
-                                        .executes(context -> {
-                                            ServerPlayer executor = context.getSource().getPlayerOrException();
-                                            ServerPlayer target = EntityArgument.getPlayer(context, "player");
+                                                    return 1;
+                                                })
+                                        )
+                                        .then(Commands.literal("hunger")
+                                                .executes(context -> {
+                                                    ServerPlayer executor = context.getSource().getPlayerOrException();
+                                                    ServerPlayer target = EntityArgument.getPlayer(context, "player");
 
-                                            if (!executor.getUUID().equals(target.getUUID())) {
-                                                if (!context.getSource().hasPermission(2)) {
-                                                    throw new SimpleCommandExceptionType(Component.translatable("command.tponr.forbidden")).create();
-                                                }
-                                            }
+                                                    if (!executor.getUUID().equals(target.getUUID())) {
+                                                        if (!context.getSource().hasPermission(2)) {
+                                                            throw new SimpleCommandExceptionType(Component.translatable("command.tponr.forbidden")).create();
+                                                        }
+                                                    }
 
-                                            ModMessages.sendToPlayer(new ToggleWidgetS2CPacket("hunger"), target);
+                                                    ModMessages.sendToPlayer(new ToggleWidgetS2CPacket("hunger"), target);
 
-                                            return 1;
-                                        })
-                                )
-                                .then(Commands.literal("stamina")
-                                        .executes(context -> {
-                                            ServerPlayer executor = context.getSource().getPlayerOrException();
-                                            ServerPlayer target = EntityArgument.getPlayer(context, "player");
+                                                    return 1;
+                                                })
+                                        )
+                                        .then(Commands.literal("stamina")
+                                                .executes(context -> {
+                                                    ServerPlayer executor = context.getSource().getPlayerOrException();
+                                                    ServerPlayer target = EntityArgument.getPlayer(context, "player");
 
-                                            if (!executor.getUUID().equals(target.getUUID())) {
-                                                if (!context.getSource().hasPermission(2)) {
-                                                    throw new SimpleCommandExceptionType(Component.translatable("command.tponr.forbidden")).create();
-                                                }
-                                            }
+                                                    if (!executor.getUUID().equals(target.getUUID())) {
+                                                        if (!context.getSource().hasPermission(2)) {
+                                                            throw new SimpleCommandExceptionType(Component.translatable("command.tponr.forbidden")).create();
+                                                        }
+                                                    }
 
-                                            ModMessages.sendToPlayer(new ToggleWidgetS2CPacket("stamina"), target);
+                                                    ModMessages.sendToPlayer(new ToggleWidgetS2CPacket("stamina"), target);
 
-                                            return 1;
-                                        })
-                                )
-                                .then(Commands.literal("points")
-                                        .executes(context -> {
-                                            ServerPlayer executor = context.getSource().getPlayerOrException();
-                                            ServerPlayer target = EntityArgument.getPlayer(context, "player");
+                                                    return 1;
+                                                })
+                                        )
+                                        .then(Commands.literal("points")
+                                                .executes(context -> {
+                                                    ServerPlayer executor = context.getSource().getPlayerOrException();
+                                                    ServerPlayer target = EntityArgument.getPlayer(context, "player");
 
-                                            if (!executor.getUUID().equals(target.getUUID())) {
-                                                if (!context.getSource().hasPermission(2)) {
-                                                    throw new SimpleCommandExceptionType(Component.translatable("command.tponr.forbidden")).create();
-                                                }
-                                            }
+                                                    if (!executor.getUUID().equals(target.getUUID())) {
+                                                        if (!context.getSource().hasPermission(2)) {
+                                                            throw new SimpleCommandExceptionType(Component.translatable("command.tponr.forbidden")).create();
+                                                        }
+                                                    }
 
-                                            ModMessages.sendToPlayer(new ToggleWidgetS2CPacket("points"), target);
+                                                    ModMessages.sendToPlayer(new ToggleWidgetS2CPacket("points"), target);
 
-                                            return 1;
-                                        })
+                                                    return 1;
+                                                })
+                                        )
                                 )
                         )
                         .then(Commands.literal("mechanic")
@@ -122,7 +124,7 @@ public class HUDControllerCommands {
                                                         }
                                                     }
 
-                                                    // TODO: toggle stamina system
+                                                    target.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(PlayerStamina::toggleStamina);
 
                                                     return 1;
                                                 })

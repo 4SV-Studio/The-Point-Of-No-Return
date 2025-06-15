@@ -5,6 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 public class PlayerStamina {
     private int stamina;
     private int maxStamina;
+    private boolean staminaEnabled;
     private static final int limit = 500;
 
     public static int getLimit() {
@@ -14,10 +15,19 @@ public class PlayerStamina {
     public PlayerStamina() {
         this.stamina = 150;
         this.maxStamina = 150;
+        this.staminaEnabled = true;
     }
 
     public void copyFrom(PlayerStamina source) {
         this.stamina = source.stamina;
+    }
+
+    public void toggleStamina() {
+        this.staminaEnabled = !this.staminaEnabled;
+    }
+
+    public boolean isEnabled() {
+        return this.staminaEnabled;
     }
 
     public int getStamina() {
@@ -37,20 +47,22 @@ public class PlayerStamina {
     }
 
     public void addStamina(int amount) {
-        this.stamina = Math.min(stamina + amount, maxStamina);
+        if (staminaEnabled) this.stamina = Math.min(stamina + amount, maxStamina);
     }
 
     public void subStamina(int amount) {
-        this.stamina = Math.max(stamina - amount, 0);
+        if (staminaEnabled) this.stamina = Math.max(stamina - amount, 0);
     }
 
     public void saveNBTData(CompoundTag nbt) {
         nbt.putInt("stamina", stamina);
         nbt.putInt("maxStamina", maxStamina);
+        nbt.putBoolean("staminaEnabled", staminaEnabled);
     }
 
     public void loadNBTData(CompoundTag nbt) {
         stamina = nbt.getInt("stamina");
         maxStamina = nbt.getInt("maxStamina");
+        staminaEnabled = nbt.getBoolean("staminaEnabled");
     }
 }
