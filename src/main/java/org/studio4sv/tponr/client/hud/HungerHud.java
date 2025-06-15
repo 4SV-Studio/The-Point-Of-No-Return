@@ -11,12 +11,19 @@ public class HungerHud {
     private static final ResourceLocation HUNGER_TEXTURE = new ResourceLocation(TPONR.MOD_ID, "textures/gui/hunger.png");
 
     private static int currentHungerStage;
+    private static boolean enabled = true;
+
+    public static void toggle() {
+        enabled = !enabled;
+    }
 
     public static void setHungerStage(int stage) {
         currentHungerStage = Math.max(1, Math.min(6, stage));
     }
 
     public static final IGuiOverlay HUD_HUNGER = (gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
+        if (!enabled) return;
+
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, HUNGER_TEXTURE);

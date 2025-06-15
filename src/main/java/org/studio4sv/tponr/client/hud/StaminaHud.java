@@ -9,6 +9,11 @@ import org.studio4sv.tponr.client.ClientStaminaData;
 
 public class StaminaHud {
     private static int staminaAmount;
+    private static boolean enabled = true;
+
+    public static void toggle() {
+        enabled = !enabled;
+    }
 
     private final static ResourceLocation STAMINA_TEXTURE = new ResourceLocation(TPONR.MOD_ID,
             "textures/gui/stamina.png");
@@ -18,6 +23,8 @@ public class StaminaHud {
     }
 
     public static final IGuiOverlay HUD_STAMINA = (gui, poseStack, partialTick, screenWidth, screenHeight) -> {
+        if (!enabled) return;
+
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, STAMINA_TEXTURE);
