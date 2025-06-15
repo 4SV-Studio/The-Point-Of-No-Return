@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "org.studio4sv.ponr.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "FoodDataMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "AnvilScreenMixin",
+    "EnchantmentScreenMixin"
+  ]
+}

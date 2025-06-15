@@ -3,6 +3,7 @@ package org.studio4sv.ponr;
 import com.mojang.logging.LogUtils;
 import org.studio4sv.ponr.client.entity.BunkerDoorBlockItem.BunkerDoorBlockRenderer;
 import org.studio4sv.ponr.client.entity.ClockItem.ClockRenderer;
+import org.studio4sv.ponr.networking.ModMessages;
 import org.studio4sv.ponr.registers.ModBlockEntities;
 import org.studio4sv.ponr.registers.ModBlocks;
 import org.studio4sv.ponr.registers.ModCreativeModTabs;
@@ -41,6 +42,8 @@ public class PONR
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("The Point Of No Return is starting");
+
+        ModMessages.register();
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
