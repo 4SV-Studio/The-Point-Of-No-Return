@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "tponr:block/clock", "y": 0 },
+    "facing=east":  { "model": "tponr:block/clock", "y": 90 },
+    "facing=south": { "model": "tponr:block/clock", "y": 180 },
+    "facing=west":  { "model": "tponr:block/clock", "y": 270 }
+  }
+}
