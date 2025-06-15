@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "org.studio4sv.ponr.mixin",
+  "package": "org.studio4sv.tponr.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "FoodDataMixin"
