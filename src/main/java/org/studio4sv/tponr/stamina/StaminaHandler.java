@@ -11,7 +11,7 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.networking.ModMessages;
-import org.studio4sv.tponr.networking.packet.StaminaDataSyncS2CPacket;
+import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
 
 @Mod.EventBusSubscriber(modid = TPONR.MOD_ID)
 public class StaminaHandler {

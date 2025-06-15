@@ -5,6 +5,11 @@ import net.minecraft.nbt.CompoundTag;
 public class PlayerStamina {
     private int stamina;
     private int maxStamina;
+    private static final int limit = 500;
+
+    public static int getLimit() {
+        return limit;
+    }
 
     public PlayerStamina() {
         this.stamina = 150;
@@ -24,7 +29,7 @@ public class PlayerStamina {
     }
 
     public void setMaxStamina(int maxStamina) {
-        this.maxStamina = Math.min(maxStamina, 500);
+        this.maxStamina = Math.min(maxStamina, limit);
 
         if (this.stamina > this.maxStamina) {
             this.stamina = this.maxStamina;

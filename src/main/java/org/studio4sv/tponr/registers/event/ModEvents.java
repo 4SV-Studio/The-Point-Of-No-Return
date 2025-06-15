@@ -6,13 +6,15 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.studio4sv.tponr.TPONR;
+import org.studio4sv.tponr.commands.HUDControllerCommands;
 import org.studio4sv.tponr.networking.ModMessages;
-import org.studio4sv.tponr.networking.packet.StaminaDataSyncS2CPacket;
+import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
 import org.studio4sv.tponr.stamina.PlayerStamina;
 import org.studio4sv.tponr.stamina.PlayerStaminaProvider;
 
@@ -54,4 +56,10 @@ public class ModEvents {
             }
         }
     }
+
+    @SubscribeEvent
+    public static void onCommandsRegister(RegisterCommandsEvent event) {
+        HUDControllerCommands.register(event.getDispatcher());
+    }
+
 }

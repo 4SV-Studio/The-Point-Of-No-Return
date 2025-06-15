@@ -7,7 +7,8 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.studio4sv.tponr.TPONR;
-import org.studio4sv.tponr.networking.packet.StaminaDataSyncS2CPacket;
+import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
+import org.studio4sv.tponr.networking.packet.S2C.ToggleWidgetS2CPacket;
 
 public class ModMessages {
     private static SimpleChannel INSTANCE;
@@ -31,6 +32,12 @@ public class ModMessages {
                 .decoder(StaminaDataSyncS2CPacket::new)
                 .encoder(StaminaDataSyncS2CPacket::toBytes)
                 .consumerMainThread(StaminaDataSyncS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(ToggleWidgetS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ToggleWidgetS2CPacket::new)
+                .encoder(ToggleWidgetS2CPacket::toBytes)
+                .consumerMainThread(ToggleWidgetS2CPacket::handle)
                 .add();
     }
 

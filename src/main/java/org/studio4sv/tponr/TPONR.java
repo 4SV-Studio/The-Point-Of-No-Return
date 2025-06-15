@@ -1,8 +1,10 @@
 package org.studio4sv.tponr;
 
 import com.mojang.logging.LogUtils;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import org.studio4sv.tponr.client.entity.BunkerDoorBlockItem.BunkerDoorBlockRenderer;
 import org.studio4sv.tponr.client.entity.ClockItem.ClockRenderer;
+import org.studio4sv.tponr.commands.HUDControllerCommands;
 import org.studio4sv.tponr.networking.ModMessages;
 import org.studio4sv.tponr.registers.ModBlockEntities;
 import org.studio4sv.tponr.registers.ModBlocks;
@@ -22,7 +24,7 @@ import software.bernie.geckolib.GeckoLib;
 @Mod(TPONR.MOD_ID)
 public class TPONR
 {
-    public static final String MOD_ID = "ponr";
+    public static final String MOD_ID = "tponr";
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public TPONR(FMLJavaModLoadingContext context) {

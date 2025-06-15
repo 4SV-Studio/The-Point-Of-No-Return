@@ -1,4 +1,4 @@
-package org.studio4sv.tponr.networking.packet;
+package org.studio4sv.tponr.networking.packet.S2C;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
@@ -34,7 +34,6 @@ public class StaminaDataSyncS2CPacket {
             StaminaHud.setStaminaAmount(stamina);
             ClientStaminaData.set(stamina);
             ClientStaminaData.setMax(maxStamina);
-            System.out.println("Stamina Data Synced: " + stamina + " / " + maxStamina);
         });
         return true;
     }
