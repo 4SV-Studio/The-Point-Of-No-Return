@@ -20,7 +20,7 @@ public class StaminaHandler {
     public static final int MINING_COST = 10;
 
     private static final int REGEN_AMOUNT = 5;
-    private static final int REGEN_COOLDOWN = 20;
+    private static final int REGEN_COOLDOWN = 30;
 
     private static int regenTickCounter = 0;
 
@@ -33,13 +33,10 @@ public class StaminaHandler {
         serverPlayer.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
             boolean syncNeeded = false;
 
-            // Sprinting logic
-            // TODO: fix sprinting
             if (serverPlayer.isSprinting()) {
-                if (stamina.getStamina() < SPRINT_COST) {
-                    serverPlayer.setSprinting(false);
-                } else {
+                if (stamina.getStamina() > SPRINT_COST) {
                     stamina.subStamina(SPRINT_COST);
+                    regenTickCounter = 0;
                     syncNeeded = true;
                 }
             }
@@ -65,9 +62,12 @@ public class StaminaHandler {
         if (!(event.getEntity() instanceof ServerPlayer serverPlayer)) return;
 
         serverPlayer.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
-            if (!serverPlayer.isInWater() && !serverPlayer.isInLava() && stamina.getStamina() >= JUMP_COST) {
-                stamina.subStamina(JUMP_COST);
-                syncStamina(serverPlayer, stamina.getStamina(), stamina.getMaxStamina());
+            if (!serverPlayer.isInWater() && !serverPlayer.isInLava()) {
+                if (stamina.getStamina() >= JUMP_COST) {
+                    stamina.subStamina(JUMP_COST);
+                    regenTickCounter = 0;
+                    syncStamina(serverPlayer, stamina.getStamina(), stamina.getMaxStamina());
+                }
             }
         });
     }
@@ -82,6 +82,7 @@ public class StaminaHandler {
                 event.setCanceled(true);
             } else {
                 stamina.subStamina(MINING_COST);
+                regenTickCounter = 0;
                 syncStamina(serverPlayer, stamina.getStamina(), stamina.getMaxStamina());
             }
         });
