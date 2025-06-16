@@ -13,7 +13,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.commands.HUDControllerCommands;
+import org.studio4sv.tponr.mechanics.attributes.PlayerAttributesProvider;
 import org.studio4sv.tponr.networking.ModMessages;
+import org.studio4sv.tponr.networking.packet.S2C.AttributesDataSyncS2CPacket;
 import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStamina;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStaminaProvider;
@@ -27,6 +29,9 @@ public class ModEvents {
             if(!event.getObject().getCapability(PlayerStaminaProvider.PLAYER_STAMINA).isPresent()) {
                 event.addCapability(new ResourceLocation(TPONR.MOD_ID, "properties"), new PlayerStaminaProvider());
             }
+            if(!event.getObject().getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).isPresent()) {
+                event.addCapability(new ResourceLocation(TPONR.MOD_ID, "properties"), new PlayerAttributesProvider());
+            }
         }
     }
 
@@ -35,6 +40,11 @@ public class ModEvents {
         if(event.isWasDeath()) {
             event.getOriginal().getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(oldStore -> {
                 event.getOriginal().getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(newStore -> {
+                    newStore.copyFrom(oldStore);
+                });
+            });
+            event.getOriginal().getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(oldStore -> {
+                event.getOriginal().getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(newStore -> {
                     newStore.copyFrom(oldStore);
                 });
             });
@@ -52,6 +62,9 @@ public class ModEvents {
             if(event.getEntity() instanceof ServerPlayer player) {
                 player.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
                     ModMessages.sendToPlayer(new StaminaDataSyncS2CPacket(stamina.getStamina(), stamina.getMaxStamina()), player);
+                });
+                player.getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(attributes -> {
+                    ModMessages.sendToPlayer(new AttributesDataSyncS2CPacket(attributes.getAttributes()), player);
                 });
             }
         }

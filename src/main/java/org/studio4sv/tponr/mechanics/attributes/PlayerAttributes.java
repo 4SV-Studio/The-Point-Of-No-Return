@@ -17,6 +17,10 @@ public class PlayerAttributes {
         attributes.put("Luck", 10);
     }
 
+    public Map<String, Integer> getAttributes() {
+        return attributes;
+    }
+
     public int get(String key) {
         return attributes.getOrDefault(key, 10);
     }
@@ -25,13 +29,11 @@ public class PlayerAttributes {
         attributes.put(key, value);
     }
 
-
     public void copyFrom(PlayerAttributes source) {
         for (String key : attributes.keySet()) {
             this.set(key, source.get(key));
         }
     }
-
 
     public void saveNBTData(CompoundTag nbt) {
         for (String key : attributes.keySet()) {
