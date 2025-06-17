@@ -21,7 +21,7 @@ public abstract class FoodDataMixin {
         return newFoodLevel;
     }
 
-    @ModifyConstant(method = "eat(IF)V", constant = @Constant(intValue = 20))
+    @ModifyConstant(method = "eat", constant = @Constant(intValue = 20))
     private int modifyEatMaxFoodLevel(int original) {
         return newFoodLevel;
     }
