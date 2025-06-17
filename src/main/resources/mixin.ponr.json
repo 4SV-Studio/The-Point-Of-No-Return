@@ -2,6 +2,8 @@
   "required": true,
   "package": "org.studio4sv.tponr.mixin",
   "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8.5",
+  "refmap": "refmap.ponr.json",
   "mixins": [
     "FoodDataMixin"
   ],
