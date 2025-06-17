@@ -19,6 +19,7 @@ public class AttributesHandler {
     private static final UUID HEALTH_MODIFIER_UUID = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
     private static final UUID STRENGTH_MODIFIER_UUID = UUID.fromString("550e8400-e29b-41d4-a716-446655440001");
     private static final UUID AGILITY_MODIFIER_UUID = UUID.fromString("550e8400-e29b-41d4-a716-446655440002");
+    private static final UUID LUCK_MODIFIER_UUID = UUID.fromString("550e8400-e29b-41d4-a716-446655440003");
     
     @SubscribeEvent
     public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
@@ -68,6 +69,12 @@ public class AttributesHandler {
                 int newMaxStamina = 150 + staminaBonus;
                 stamina.setMaxStamina(newMaxStamina);
             });
+
+            // Stamina modifier
+            int luckValue = attributes.get("Stamina");
+            int luckBonus = (luckValue - 10);
+            applyAttributeModifier(player, Attributes.LUCK, LUCK_MODIFIER_UUID,
+                    "Luck Attribute Bonus", luckBonus, AttributeModifier.Operation.MULTIPLY_BASE);
         });
     }
     
