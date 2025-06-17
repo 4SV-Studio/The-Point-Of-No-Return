@@ -1,4 +1,4 @@
-package org.studio4sv.tponr.stamina;
+package org.studio4sv.tponr.mechanics.stamina;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;

@@ -1,6 +1,13 @@
 {
+  "creativetab.tponr_tab": "The Point Of No Return",
+
   "block.tponr.bunker_door_block": "Bunker Door",
   "block.tponr.clock": "Clock",
-  "creativetab.tponr_tab": "The Point Of No Return",
-  "command.tponr.forbidden": "Must be OP to execute for other players!"
+
+  "command.tponr.forbidden": "Must be OP to execute for other players!",
+
+  "tooltip.tponr.required_stats": "Requirements to use:",
+
+  "stat.tponr.intelligence": "Intelligence",
+  "stat.tponr.agility": "Agility"
 }
