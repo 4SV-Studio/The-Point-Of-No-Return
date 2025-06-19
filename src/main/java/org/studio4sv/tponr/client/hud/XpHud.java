@@ -7,7 +7,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import org.studio4sv.tponr.TPONR;
 
 public class XpHud {
-    private static final ResourceLocation XP_TEXTURE = new ResourceLocation(TPONR.MOD_ID, "textures/gui/xp.png");
+    private static final ResourceLocation XP_TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/xp.png");
     private static String xpText = "0";
     private static boolean enabled = true;
 
