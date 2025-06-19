@@ -15,7 +15,7 @@ public class StaminaHud {
         enabled = !enabled;
     }
 
-    private final static ResourceLocation STAMINA_TEXTURE = new ResourceLocation(TPONR.MOD_ID,
+    private final static ResourceLocation STAMINA_TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID,
             "textures/gui/stamina.png");
 
     public static void setStaminaAmount(int stamina) {
