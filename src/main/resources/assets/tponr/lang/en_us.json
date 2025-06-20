@@ -6,8 +6,16 @@
 
   "command.tponr.forbidden": "Must be OP to execute for other players!",
 
+  "key.categories.tponr": "The Point Of No Return Keybinds",
+
   "tooltip.tponr.required_stats": "Requirements to use:",
 
   "stat.tponr.intelligence": "Intelligence",
-  "stat.tponr.agility": "Agility"
+  "stat.tponr.agility": "Agility",
+
+  "gui.tponr.upgrade": "Upgrade",
+  "gui.tponr.level": "Level",
+  "key.tponr.open_upgrade_screen": "Open Upgrade Screen",
+  "gui.tponr.stats": "Stats",
+  "stat.tponr.health": "Health"
 }

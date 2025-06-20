@@ -47,7 +47,11 @@ public class PlayerAttributes {
             if (nbt.contains(key)) {
                 attributes.put(key, nbt.getInt(key));
             } else {
-                attributes.put(key, 10);
+                if (!key.equals("Level")) {
+                    attributes.put(key, 10);
+                } else {
+                    attributes.put(key, 1);
+                }
             }
         }
     }
