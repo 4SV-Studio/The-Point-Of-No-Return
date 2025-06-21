@@ -19,6 +19,11 @@ public class ModCreativeModTabs {
                     .displayItems((pParameters, pOutput) -> {
                         pOutput.accept(ModItems.BUNKER_DOOR_ITEM.get());
                         pOutput.accept(ModItems.CLOCK_ITEM.get());
+
+                        pOutput.accept(ModItems.ORANGE_SUIT_ONE_HELMET.get());
+                        pOutput.accept(ModItems.ORANGE_SUIT_ONE_CHESTPLATE.get());
+                        pOutput.accept(ModItems.ORANGE_SUIT_ONE_LEGGINGS.get());
+                        pOutput.accept(ModItems.ORANGE_SUIT_ONE_BOOTS.get());
                     })
                     .build());
 

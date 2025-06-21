@@ -4,6 +4,11 @@
   "block.tponr.bunker_door_block": "Bunker Door",
   "block.tponr.clock": "Clock",
 
+  "item.tponr.orange_hazard_suit_one_helmet": "Hazmat Suit Helmet",
+  "item.tponr.orange_hazard_suit_one_chestplate": "Hazmat Suit Chestplate",
+  "item.tponr.orange_hazard_suit_one_leggings": "Hazmat Suit Leggings",
+  "item.tponr.orange_hazard_suit_one_boots": "Hazmat Suit Boots",
+
   "command.tponr.forbidden": "Must be OP to execute for other players!",
 
   "tooltip.tponr.required_stats": "Requirements to use:",
