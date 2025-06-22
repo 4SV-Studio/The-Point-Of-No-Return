@@ -12,10 +12,14 @@
 
   "stat.tponr.intelligence": "Intelligence",
   "stat.tponr.agility": "Agility",
+  "stat.tponr.health": "Health",
+  "stat.tponr.stamina": "Stamina",
+  "stat.tponr.mana": "Mana",
+
+  "stat.tponr.stamina_capacity": "Stamina",
 
   "gui.tponr.upgrade": "Upgrade",
   "gui.tponr.level": "Level",
   "key.tponr.open_upgrade_screen": "Open Upgrade Screen",
-  "gui.tponr.stats": "Stats",
-  "stat.tponr.health": "Health"
+  "gui.tponr.stats": "Stats"
 }
