@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.Mod;
 import org.studio4sv.tponr.client.UpgradeScreenKeyHandler;
 import org.studio4sv.tponr.client.gui.UpgradeScreen;
 import org.studio4sv.tponr.client.hud.XpHud;
-import org.studio4sv.tponr.util.xpConverter;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
 public class ClientEvents {
@@ -29,10 +28,8 @@ public class ClientEvents {
     public static void onTick(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
 
-        int level = player.experienceLevel;
-        float progress = player.experienceProgress;
-        int totalXP = xpConverter.calculate(level, progress);
-        XpHud.setPoints(totalXP);
+        int points = player.totalExperience;
+        XpHud.setPoints(points);
     }
 
     @SubscribeEvent
