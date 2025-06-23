@@ -2,6 +2,7 @@ package org.studio4sv.tponr.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -10,24 +11,60 @@ import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.client.ClientAttributesData;
 import org.studio4sv.tponr.mechanics.attributes.PlayerAttributesProvider;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStaminaProvider;
+import org.studio4sv.tponr.util.TextOnlyButton;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class UpgradeScreen extends Screen {
-    private Map<String, Integer> addedPoints = new HashMap<String, Integer>();
-    private Map<String, Integer> currentStats = new HashMap<String, Integer>();
+    private Map<String, Integer> addedPoints = new HashMap<>();
+    private Map<String, Integer> currentStats = new HashMap<>();
+
+    private int upgradeScreenWidth;
+    private int upgradeScreenHeight;
+    private int screenWidthStart;
+    private int screenHeightStart;
+
+    private int currentExp;
+    private int currentExpEdited;
+    private int level;
+    private int getNeededXP() {
+        return 804 + (level - 1) * 3;
+    }
 
     public UpgradeScreen() {
         super(Component.translatable("gui.tponr.upgrade_screen"));
     }
 
+    private void addPointTo(String stat) {
+        if (currentExpEdited > getNeededXP()) {
+            currentExpEdited = currentExp - getNeededXP();
+            addedPoints.put(stat, addedPoints.get(stat) + 1);
+        }
+    };
+
+    private void removePointFrom(String stat) {
+        if (addedPoints.get(stat) > 0) {
+            addedPoints.put(stat, addedPoints.get(stat) - 1);
+            currentExpEdited = currentExp;
+        }
+    }
+
     @Override
     protected void init() {
+        upgradeScreenWidth = 286;
+        upgradeScreenHeight = 168;
+        screenWidthStart = this.width / 2 - upgradeScreenWidth / 2;
+        screenHeightStart = this.height / 2 - upgradeScreenHeight / 2;
+
         this.getMinecraft().player.getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(attributes -> {
             currentStats = attributes.getAttributes();
         });
+
+        currentExp = this.getMinecraft().player.totalExperience;
+        currentExpEdited = currentExp;
+        level = currentStats.get("Level");
 
         addedPoints.put("Health", 0);
         addedPoints.put("Stamina", 0);
@@ -35,6 +72,134 @@ public class UpgradeScreen extends Screen {
         addedPoints.put("Agility", 0);
         addedPoints.put("Intelligence", 0);
         addedPoints.put("Luck", 0);
+
+        float buttonScale = 0.7F;
+
+        this.addRenderableWidget(new TextOnlyButton(
+                screenWidthStart + 265,
+                screenHeightStart + 39,
+                font.width(">"),
+                font.lineHeight,
+                Component.literal(">"),
+                button -> addPointTo("Health"),
+                buttonScale,
+                0x11FC67
+        ));
+        this.addRenderableWidget(new TextOnlyButton(
+                screenWidthStart + 240,
+                screenHeightStart + 39,
+                font.width("<"),
+                font.lineHeight,
+                Component.literal("<"),
+                button -> removePointFrom("Health"),
+                buttonScale,
+                0x11FC67
+        ));
+
+        this.addRenderableWidget(new TextOnlyButton(
+                screenWidthStart + 265,
+                screenHeightStart + 51,
+                font.width(">"),
+                font.lineHeight,
+                Component.literal(">"),
+                button -> addPointTo("Stamina"),
+                buttonScale,
+                0x11FC67
+        ));
+        this.addRenderableWidget(new TextOnlyButton(
+                screenWidthStart + 240,
+                screenHeightStart + 51,
+                font.width("<"),
+                font.lineHeight,
+                Component.literal("<"),
+                button -> removePointFrom("Stamina"),
+                buttonScale,
+                0x11FC67
+        ));
+
+        this.addRenderableWidget(new TextOnlyButton(
+                screenWidthStart + 265,
+                screenHeightStart + 63,
+                font.width(">"),
+                font.lineHeight,
+                Component.literal(">"),
+                button -> addPointTo("Strength"),
+                buttonScale,
+                0x11FC67
+        ));
+        this.addRenderableWidget(new TextOnlyButton(
+                screenWidthStart + 240,
+                screenHeightStart + 63,
+                font.width("<"),
+                font.lineHeight,
+                Component.literal("<"),
+                button -> removePointFrom("Strength"),
+                buttonScale,
+                0x11FC67
+        ));
+
+        this.addRenderableWidget(new TextOnlyButton(
+                screenWidthStart + 265,
+                screenHeightStart + 75,
+                font.width(">"),
+                font.lineHeight,
+                Component.literal(">"),
+                button -> addPointTo("Agility"),
+                buttonScale,
+                0x11FC67
+        ));
+        this.addRenderableWidget(new TextOnlyButton(
+                screenWidthStart + 240,
+                screenHeightStart + 75,
+                font.width("<"),
+                font.lineHeight,
+                Component.literal("<"),
+                button -> removePointFrom("Agility"),
+                buttonScale,
+                0x11FC67
+        ));
+
+        this.addRenderableWidget(new TextOnlyButton(
+                screenWidthStart + 265,
+                screenHeightStart + 87,
+                font.width(">"),
+                font.lineHeight,
+                Component.literal(">"),
+                button -> addPointTo("Intelligence"),
+                buttonScale,
+                0x11FC67
+        ));
+        this.addRenderableWidget(new TextOnlyButton(
+                screenWidthStart + 240,
+                screenHeightStart + 87,
+                font.width("<"),
+                font.lineHeight,
+                Component.literal("<"),
+                button -> removePointFrom("Intelligence"),
+                buttonScale,
+                0x11FC67
+        ));
+
+        this.addRenderableWidget(new TextOnlyButton(
+                screenWidthStart + 265,
+                screenHeightStart + 99,
+                font.width(">"),
+                font.lineHeight,
+                Component.literal(">"),
+                button -> addPointTo("Luck"),
+                buttonScale,
+                0x11FC67
+        ));
+        this.addRenderableWidget(new TextOnlyButton(
+                screenWidthStart + 240,
+                screenHeightStart + 99,
+                font.width("<"),
+                font.lineHeight,
+                Component.literal("<"),
+                button -> removePointFrom("Luck"),
+                buttonScale,
+                0x11FC67
+        ));
 
         super.init();
     }
@@ -57,9 +222,9 @@ public class UpgradeScreen extends Screen {
 
     private void renderStatText(GuiGraphics pGuiGraphics, String stat, int x, int y) {
         if(addedPoints.get(stat) > 0) {
-            pGuiGraphics.drawString(this.font, String.valueOf(currentStats.get(stat) + addedPoints.get(stat)), x, y, 0x26A042, false);
+            pGuiGraphics.drawString(this.font, String.valueOf(currentStats.get(stat) + addedPoints.get(stat)), x - font.width(String.valueOf(currentStats.get(stat) + addedPoints.get(stat))) / 2, y, 0x26A042, false);
         } else {
-            pGuiGraphics.drawString(this.font, String.valueOf(currentStats.get(stat)), x, y, 0xF6F6F6, false);
+            pGuiGraphics.drawString(this.font, String.valueOf(currentStats.get(stat)), x - font.width(String.valueOf(currentStats.get(stat))) / 2, y, 0xF6F6F6, false);
         }
     }
 
@@ -73,8 +238,7 @@ public class UpgradeScreen extends Screen {
 
         Player player = Minecraft.getInstance().player;
 
-        int upgradeScreenWidth = 286;
-        int upgradeScreenHeight = 168;
+
         pGuiGraphics.blit(ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/upgrade_screen.png"),
                 this.width / 2 - upgradeScreenWidth / 2,
                 this.height / 2 - upgradeScreenHeight / 2,
@@ -86,14 +250,9 @@ public class UpgradeScreen extends Screen {
                 upgradeScreenHeight
         );
 
-        int screenWidthStart = this.width / 2 - upgradeScreenWidth / 2;
-        int screenHeightStart = this.height / 2 - upgradeScreenHeight / 2;
-
         pGuiGraphics.drawString(this.font, getTranslation("gui.tponr.level") + " " + ClientAttributesData.getValue("Level"), screenWidthStart + 36, screenHeightStart + 21, 0x11FC67, false);
 
-        int level = ClientAttributesData.getValue("Level");
-        int neededXP = 804 + (level - 1) * 3;
-        renderScaledText(pGuiGraphics, "EXP: " + neededXP + " / " + player.totalExperience, screenWidthStart + 26, screenHeightStart + 41, 0x252726, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, "EXP: " + getNeededXP() + " / " + currentExpEdited, screenWidthStart + 26, screenHeightStart + 41, 0x252726, 0.9F, pMouseX, pMouseY, null);
 
         renderScaledText(pGuiGraphics, getTranslation("gui.tponr.stats"), screenWidthStart + 36, screenHeightStart + 62, 0x11FC67, 1.0F, pMouseX, pMouseY, null);
 
@@ -107,8 +266,8 @@ public class UpgradeScreen extends Screen {
         player.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
             currentStaminaText.set(String.valueOf(stamina.getStamina()));
         });
-        renderScaledText(pGuiGraphics, currentStaminaText.get(), screenWidthStart + 94 - font.width(currentStaminaText.get()), screenHeightStart + 106, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
-        renderScaledText(pGuiGraphics, "???", screenWidthStart + 94 - font.width("???"), screenHeightStart + 116, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, currentStaminaText.get(), screenWidthStart + 94 - font.width(currentStaminaText.get()), screenHeightStart + 105, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, "???", screenWidthStart + 94 - font.width("???"), screenHeightStart + 117, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
 
         renderScaledText(pGuiGraphics, getTranslation("gui.tponr.attributes"), screenWidthStart + 172, screenHeightStart + 20, 0x11FC67, 1.0F, pMouseX, pMouseY, null);
 
@@ -121,12 +280,12 @@ public class UpgradeScreen extends Screen {
 
         renderScaledText(pGuiGraphics, getTranslation("gui.tponr.level_up"), screenWidthStart + 146 + 131 / 2 - font.width(getTranslation("gui.tponr.level_up")) / 2 + 5, screenHeightStart + 119, 0x0B0E0E, 0.7F, pMouseX, pMouseY, null);
 
-        renderStatText(pGuiGraphics, "Health", screenWidthStart + 250, screenHeightStart + 39);
-        renderStatText(pGuiGraphics, "Stamina", screenWidthStart + 250, screenHeightStart + 52);
-        renderStatText(pGuiGraphics, "Strength", screenWidthStart + 250, screenHeightStart + 64);
-        renderStatText(pGuiGraphics, "Agility", screenWidthStart + 250, screenHeightStart + 76);
-        renderStatText(pGuiGraphics, "Intelligence", screenWidthStart + 250, screenHeightStart + 88);
-        renderStatText(pGuiGraphics, "Luck", screenWidthStart + 250, screenHeightStart + 100);
+        renderStatText(pGuiGraphics, "Health", screenWidthStart + 255,  screenHeightStart + 39);
+        renderStatText(pGuiGraphics, "Stamina", screenWidthStart + 255, screenHeightStart + 52);
+        renderStatText(pGuiGraphics, "Strength", screenWidthStart + 255, screenHeightStart + 64);
+        renderStatText(pGuiGraphics, "Agility", screenWidthStart + 255, screenHeightStart + 76);
+        renderStatText(pGuiGraphics, "Intelligence", screenWidthStart + 255, screenHeightStart + 88);
+        renderStatText(pGuiGraphics, "Luck", screenWidthStart + 255, screenHeightStart + 100);
 
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
     }

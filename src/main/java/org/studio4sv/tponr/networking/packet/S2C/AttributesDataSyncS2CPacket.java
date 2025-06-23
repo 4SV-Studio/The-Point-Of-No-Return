@@ -38,9 +38,6 @@ public class AttributesDataSyncS2CPacket {
         context.enqueueWork(() -> {
             // HERE WE ARE ON THE CLIENT!
             ClientAttributesData.set(attributes);
-            for (Map.Entry<String, Integer> entry : attributes.entrySet()) {
-                System.out.println(entry.getKey() + " : " + entry.getValue());
-            }
         });
         return true;
     }
