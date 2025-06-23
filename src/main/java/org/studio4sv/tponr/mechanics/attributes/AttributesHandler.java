@@ -55,6 +55,8 @@ public class AttributesHandler {
             double strengthBonus = (strengthValue - 10) * 0.5; // Each point above 10 gives 0.5 extra damage
             applyAttributeModifier(player, Attributes.ATTACK_DAMAGE, STRENGTH_MODIFIER_UUID,
                                  "Strength Attribute Bonus", strengthBonus, AttributeModifier.Operation.ADDITION);
+
+            // TODO: connect to inventory slots lock system
             
             // Agility modifier
             int agilityValue = attributes.get("Agility");
@@ -89,9 +91,5 @@ public class AttributesHandler {
                 attributeInstance.addPermanentModifier(modifier);
             }
         }
-    }
-    
-    public static void updatePlayerAttributes(ServerPlayer player) {
-        applyAttributeModifiers(player);
     }
 }
