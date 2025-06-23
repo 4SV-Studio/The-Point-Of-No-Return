@@ -4,9 +4,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorMaterial;
 import org.studio4sv.tponr.TPONR;
 
-public class OrangeSuitOneItem extends BaseHazmatSuitItem {
+public class BlueSuitOneItem extends BaseHazmatSuitItem {
 
-    public OrangeSuitOneItem(ArmorMaterial material, Type type, Properties properties) {
+    public BlueSuitOneItem(ArmorMaterial material, Type type, Properties properties) {
         super(material, type, properties);
     }
 
@@ -17,7 +17,7 @@ public class OrangeSuitOneItem extends BaseHazmatSuitItem {
 
     @Override
     public ResourceLocation getTextureResource() {
-        return ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/armor/orange_suit_1.png");
+        return ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/armor/blue_suit_1.png");
     }
 
     @Override

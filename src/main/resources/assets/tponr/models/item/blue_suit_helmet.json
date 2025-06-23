@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "tponr:item/orange_hazmat_suit_helmet"
+    "layer0": "tponr:item/hazmat_suits/blue/blue_suit_helmet"
   }
 }
