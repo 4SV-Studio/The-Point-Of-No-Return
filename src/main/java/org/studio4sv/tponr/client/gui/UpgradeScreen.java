@@ -11,10 +11,9 @@ import org.studio4sv.tponr.client.ClientAttributesData;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStaminaProvider;
 
 import java.util.concurrent.atomic.AtomicReference;
-
 public class UpgradeScreen extends Screen {
     public UpgradeScreen() {
-        super(Component.translatable("gui.tponr.upgrade"));
+        super(Component.translatable("gui.tponr.upgrade_screen"));
     }
 
     @Override
@@ -22,71 +21,70 @@ public class UpgradeScreen extends Screen {
         super.init();
     }
 
+    private void renderScaledText(GuiGraphics pGuiGraphics, String text, int x, int y, int color, boolean pDropShadow, float scale) {
+        pGuiGraphics.pose().pushPose();
+        pGuiGraphics.pose().scale(scale, scale, 1.0F);
+        pGuiGraphics.drawString(this.font, text, (int) ((x) / scale), (int) ((y) / scale), color, pDropShadow);
+        pGuiGraphics.pose().popPose();
+    }
+
+    private String getTranslation(String key) {
+        return Component.translatable(key).getString();
+    }
+
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        this.renderBackground(pGuiGraphics);
+
         Player player = Minecraft.getInstance().player;
 
         int upgradeScreenWidth = 286;
         int upgradeScreenHeight = 168;
-        pGuiGraphics.blit(ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/upgrade_screen.png"), this.width / 2 - upgradeScreenWidth / 2, this.height / 2 - upgradeScreenHeight / 2, 0, 0, upgradeScreenWidth, upgradeScreenHeight, upgradeScreenWidth, upgradeScreenHeight);
+        pGuiGraphics.blit(ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/upgrade_screen.png"),
+                this.width / 2 - upgradeScreenWidth / 2,
+                this.height / 2 - upgradeScreenHeight / 2,
+                0,
+                0,
+                upgradeScreenWidth,
+                upgradeScreenHeight,
+                upgradeScreenWidth,
+                upgradeScreenHeight
+        );
 
         int screenWidthStart = this.width / 2 - upgradeScreenWidth / 2;
         int screenHeightStart = this.height / 2 - upgradeScreenHeight / 2;
 
+        pGuiGraphics.drawString(this.font, getTranslation("gui.tponr.level") + " " + ClientAttributesData.getValue("Level"), screenWidthStart + 36, screenHeightStart + 21, 0x11FC67, false);
+
         int level = ClientAttributesData.getValue("Level");
-        String levelText = Component.translatable("gui.tponr.level").getString() + " " + level;
-        pGuiGraphics.drawString(this.font, levelText, screenWidthStart + 36, screenHeightStart + 21, 0x11FC67, false);
+        int neededXP = 804 + 50 * (level - 1);
+        renderScaledText(pGuiGraphics, "EXP: " + neededXP + " / " + player.totalExperience, screenWidthStart + 26, screenHeightStart + 41, 0x252726, false, 0.9F);
 
-        int neededXP = 807 + 50 * (level - 1);
+        renderScaledText(pGuiGraphics, getTranslation("gui.tponr.stats"), screenWidthStart + 36, screenHeightStart + 62, 0x11FC67, false, 1.0F);
 
-        pGuiGraphics.pose().pushPose();
-        pGuiGraphics.pose().scale(0.9F, 0.9F, 1.0F);
-        String expText = "EXP: " + player.totalExperience + " / " + neededXP;
-        pGuiGraphics.drawString(this.font, expText,  (int) ((screenWidthStart + 26) / 0.9F), (int) ((screenHeightStart + 41) / 0.9F), 0x252726, false);
-        pGuiGraphics.pose().popPose();
+        renderScaledText(pGuiGraphics, getTranslation("gui.tponr.health_capacity"), screenWidthStart + 38, screenHeightStart + 91, 0xF6F6F6, false, 0.9F);
+        renderScaledText(pGuiGraphics, getTranslation("gui.tponr.stamina_capacity"), screenWidthStart + 38, screenHeightStart + 104, 0xF6F6F6, false, 0.9F);
+        renderScaledText(pGuiGraphics, "§k" + getTranslation("gui.tponr.mana_capacity"), screenWidthStart + 38, screenHeightStart + 118, 0xF6F6F6, false, 0.9F);
 
-        String statsText = Component.translatable("gui.tponr.stats").getString();
-        pGuiGraphics.drawString(this.font, statsText, screenWidthStart + 36, screenHeightStart + 62, 0x11FC67, false);
-
-        String healthText = Component.translatable("stat.tponr.health").getString();
-        pGuiGraphics.pose().pushPose();
-        pGuiGraphics.pose().scale(0.9F, 0.9F, 1.0F);
-        pGuiGraphics.drawString(this.font, healthText, (int) ((screenWidthStart + 38) / 0.9F), (int) ((screenHeightStart + 92) / 0.9F), 0xF6F6F6, false);
-        pGuiGraphics.pose().popPose();
-
-        String staminaText = Component.translatable("stat.tponr.stamina_capacity").getString();
-        pGuiGraphics.pose().pushPose();
-        pGuiGraphics.pose().scale(0.9F, 0.9F, 1.0F);
-        pGuiGraphics.drawString(this.font, staminaText, (int) ((screenWidthStart + 38) / 0.9F), (int) ((screenHeightStart + 104) / 0.9F), 0xF6F6F6, false);
-        pGuiGraphics.pose().popPose();
-
-        String manaText = Component.translatable("stat.tponr.mana").getString();
-        pGuiGraphics.pose().pushPose();
-        pGuiGraphics.pose().scale(0.9F, 0.9F, 1.0F);
-        pGuiGraphics.drawString(this.font, "§k" + manaText, (int) ((screenWidthStart + 38) / 0.9F), (int) ((screenHeightStart + 117) / 0.9F), 0xF6F6F6, false);
-        pGuiGraphics.pose().popPose();
-
-
-
-        String currentHealthText = String.valueOf((int) player.getHealth());
-        pGuiGraphics.pose().pushPose();
-        pGuiGraphics.pose().scale(0.9F, 0.9F, 1.0F);
-        pGuiGraphics.drawString(this.font, currentHealthText, (int) ((screenWidthStart + 94 - font.width(currentHealthText)) / 0.9F), (int) ((screenHeightStart + 92) / 0.9F), 0xF6F6F6, false);
-        pGuiGraphics.pose().popPose();
+        renderScaledText(pGuiGraphics, String.valueOf((int) player.getHealth()), screenWidthStart + 94 - font.width(String.valueOf((int) player.getHealth())), screenHeightStart + 91, 0xF6F6F6, false, 0.9F);
 
         AtomicReference<String> currentStaminaText = new AtomicReference<>();
         player.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
             currentStaminaText.set(String.valueOf(stamina.getStamina()));
         });
-        pGuiGraphics.pose().pushPose();
-        pGuiGraphics.pose().scale(0.9F, 0.9F, 1.0F);
-        pGuiGraphics.drawString(this.font, currentStaminaText.get(), (int) ((screenWidthStart + 94 - font.width(currentStaminaText.get())) / 0.9F), (int) ((screenHeightStart + 105) / 0.9F), 0xF6F6F6, false);
-        pGuiGraphics.pose().popPose();
+        renderScaledText(pGuiGraphics, currentStaminaText.get(), screenWidthStart + 94 - font.width(currentStaminaText.get()), screenHeightStart + 106, 0xF6F6F6, false, 0.9F);
+        renderScaledText(pGuiGraphics, "???", screenWidthStart + 94 - font.width("???"), screenHeightStart + 116, 0xF6F6F6, false, 0.9F);
 
-        pGuiGraphics.pose().pushPose();
-        pGuiGraphics.pose().scale(0.9F, 0.9F, 1.0F);
-        pGuiGraphics.drawString(this.font, "???", (int) ((screenWidthStart + 94 - font.width("???")) / 0.9F), (int) ((screenHeightStart + 117) / 0.9F), 0xF6F6F6, false);
-        pGuiGraphics.pose().popPose();
+        renderScaledText(pGuiGraphics, getTranslation("gui.tponr.attributes"), screenWidthStart + 172, screenHeightStart + 20, 0x11FC67, false, 1.0F);
+
+        renderScaledText(pGuiGraphics, getTranslation("stat.tponr.health"), screenWidthStart + 166, screenHeightStart + 39, 0xF6F6F6, false, 0.9F);
+        renderScaledText(pGuiGraphics, getTranslation("stat.tponr.stamina"), screenWidthStart + 166, screenHeightStart + 52, 0xF6F6F6, false, 0.9F);
+        renderScaledText(pGuiGraphics, getTranslation("stat.tponr.strength"), screenWidthStart + 166, screenHeightStart + 64, 0xF6F6F6, false, 0.9F);
+        renderScaledText(pGuiGraphics, getTranslation("stat.tponr.agility"), screenWidthStart + 166, screenHeightStart + 76, 0xF6F6F6, false, 0.9F);
+        renderScaledText(pGuiGraphics, getTranslation("stat.tponr.intelligence"), screenWidthStart + 166, screenHeightStart + 88, 0xF6F6F6, false, 0.9F);
+        renderScaledText(pGuiGraphics, getTranslation("stat.tponr.luck"), screenWidthStart + 166, screenHeightStart + 100, 0xF6F6F6, false, 0.9F);
+
+        renderScaledText(pGuiGraphics, getTranslation("gui.tponr.level_up"), screenWidthStart + 146 + 131 / 2 - font.width(getTranslation("gui.tponr.level_up")) / 2 + 5, screenHeightStart + 119, 0x0B0E0E, false, 0.7F);
 
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
     }
