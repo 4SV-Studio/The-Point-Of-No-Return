@@ -11,6 +11,8 @@ import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.client.ClientAttributesData;
 import org.studio4sv.tponr.mechanics.attributes.PlayerAttributesProvider;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStaminaProvider;
+import org.studio4sv.tponr.networking.ModMessages;
+import org.studio4sv.tponr.networking.packet.C2S.UpgradeStatsC2SPacket;
 import org.studio4sv.tponr.util.TextOnlyButton;
 
 import java.util.HashMap;
@@ -29,6 +31,7 @@ public class UpgradeScreen extends Screen {
     private int currentExp;
     private int currentExpEdited;
     private int level;
+    private int levelsToAdd;
     private int getNeededXP() {
         return 804 + (level - 1) * 3;
     }
@@ -44,6 +47,7 @@ public class UpgradeScreen extends Screen {
         if (currentExpEdited > getNeededXP()) {
             currentExpEdited = currentExp - getNeededXP();
             addedPoints.put(stat, addedPoints.get(stat) + 1);
+            levelsToAdd += 1;
         }
     }
 
@@ -51,6 +55,7 @@ public class UpgradeScreen extends Screen {
         if (addedPoints.get(stat) > 0) {
             addedPoints.put(stat, addedPoints.get(stat) - 1);
             currentExpEdited = currentExp;
+            levelsToAdd -= 1;
         }
     }
 
@@ -64,6 +69,9 @@ public class UpgradeScreen extends Screen {
         assert this.getMinecraft().player != null;
         this.getMinecraft().player.getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(attributes -> currentStats = attributes.getAttributes());
         this.getMinecraft().player.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> currentStamina = stamina.getMaxStamina());
+
+        newHp = (int) this.getMinecraft().player.getMaxHealth();
+        newStamina = currentStamina;
 
         currentExp = this.getMinecraft().player.totalExperience;
         currentExpEdited = currentExp;
@@ -216,6 +224,29 @@ public class UpgradeScreen extends Screen {
                 0x11FC67
         ));
 
+        this.addRenderableWidget(new TextOnlyButton(
+                screenWidthStart + 146,
+                screenHeightStart + 116,
+                131,
+                10,
+                Component.translatable("gui.tponr.level_up"),
+                button -> {
+                    level += levelsToAdd;
+                    ModMessages.sendToServer(new UpgradeStatsC2SPacket(addedPoints, getNeededXP(), levelsToAdd));
+
+                    currentStats.forEach((stat, value) -> {
+                        if (stat.equals("Level")) return;
+                        currentStats.put(stat, value + addedPoints.get(stat));
+                    });
+
+                    currentExp = currentExpEdited;
+                    newHp = (int) this.getMinecraft().player.getMaxHealth();
+                    newStamina = currentStamina;
+                },
+                0.8F,
+                0x0B0E0E
+        ));
+
         super.init();
     }
 
@@ -266,7 +297,7 @@ public class UpgradeScreen extends Screen {
                 upgradeScreenHeight
         );
 
-        pGuiGraphics.drawString(this.font, getTranslation("gui.tponr.level") + " " + ClientAttributesData.getValue("Level"), screenWidthStart + 36, screenHeightStart + 21, 0x11FC67, false);
+        pGuiGraphics.drawString(this.font, getTranslation("gui.tponr.level") + " " + level, screenWidthStart + 36, screenHeightStart + 21, 0x11FC67, false);
 
         renderScaledText(pGuiGraphics, "EXP: " + getNeededXP() + " / " + currentExpEdited, screenWidthStart + 26, screenHeightStart + 41, 0x252726, 0.9F, pMouseX, pMouseY, null);
 
@@ -280,9 +311,9 @@ public class UpgradeScreen extends Screen {
         renderScaledText(pGuiGraphics, String.valueOf(currentStamina), screenWidthStart + 94 - font.width(String.valueOf(currentStamina)), screenHeightStart + 105, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
         renderScaledText(pGuiGraphics, "???", screenWidthStart + 94 - font.width("???"), screenHeightStart + 117, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
 
-        renderScaledText(pGuiGraphics, String.valueOf(newHp), screenWidthStart + 100, screenHeightStart + 91, (newHp != player.getMaxHealth()) ? 0x26A042 : 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
-        renderScaledText(pGuiGraphics, String.valueOf(newStamina), screenWidthStart + 100, screenHeightStart + 105, (newStamina != currentStamina) ? 0x26A042 : 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
-        renderScaledText(pGuiGraphics, "???", screenWidthStart + 100, screenHeightStart + 117, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, String.valueOf(newHp), screenWidthStart + 101, screenHeightStart + 91, (newHp != player.getMaxHealth()) ? 0x26A042 : 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, String.valueOf(newStamina), screenWidthStart + 101, screenHeightStart + 105, (newStamina != currentStamina) ? 0x26A042 : 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, "???", screenWidthStart + 101, screenHeightStart + 117, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
 
         renderScaledText(pGuiGraphics, getTranslation("gui.tponr.attributes"), screenWidthStart + 172, screenHeightStart + 20, 0x11FC67, 1.0F, pMouseX, pMouseY, null);
 
@@ -292,8 +323,6 @@ public class UpgradeScreen extends Screen {
         renderScaledText(pGuiGraphics, getTranslation("stat.tponr.agility"), screenWidthStart + 166, screenHeightStart + 76, 0xF6F6F6, 0.9F, pMouseX, pMouseY, "tooltip.tponr.agility");
         renderScaledText(pGuiGraphics, getTranslation("stat.tponr.intelligence"), screenWidthStart + 166, screenHeightStart + 88, 0xF6F6F6, 0.9F, pMouseX, pMouseY, "tooltip.tponr.intelligence");
         renderScaledText(pGuiGraphics, getTranslation("stat.tponr.luck"), screenWidthStart + 166, screenHeightStart + 100, 0xF6F6F6, 0.9F, pMouseX, pMouseY, "tooltip.tponr.luck");
-
-        renderScaledText(pGuiGraphics, getTranslation("gui.tponr.level_up"), screenWidthStart + 146 + 131 / 2 - font.width(getTranslation("gui.tponr.level_up")) / 2 + 5, screenHeightStart + 119, 0x0B0E0E, 0.7F, pMouseX, pMouseY, null);
 
         renderStatText(pGuiGraphics, "Health", screenWidthStart + 255,  screenHeightStart + 39);
         renderStatText(pGuiGraphics, "Stamina", screenWidthStart + 255, screenHeightStart + 52);

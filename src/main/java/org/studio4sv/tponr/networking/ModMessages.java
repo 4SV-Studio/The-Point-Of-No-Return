@@ -7,6 +7,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.studio4sv.tponr.TPONR;
+import org.studio4sv.tponr.networking.packet.C2S.UpgradeStatsC2SPacket;
 import org.studio4sv.tponr.networking.packet.S2C.AttributesDataSyncS2CPacket;
 import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
 import org.studio4sv.tponr.networking.packet.S2C.ToggleWidgetS2CPacket;
@@ -29,6 +30,7 @@ public class ModMessages {
 
         INSTANCE = net;
 
+        // S2C
         net.messageBuilder(StaminaDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(StaminaDataSyncS2CPacket::new)
                 .encoder(StaminaDataSyncS2CPacket::toBytes)
@@ -45,6 +47,13 @@ public class ModMessages {
                 .decoder(AttributesDataSyncS2CPacket::new)
                 .encoder(AttributesDataSyncS2CPacket::toBytes)
                 .consumerMainThread(AttributesDataSyncS2CPacket::handle)
+                .add();
+
+        // C2S
+        net.messageBuilder(UpgradeStatsC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(UpgradeStatsC2SPacket::new)
+                .encoder(UpgradeStatsC2SPacket::toBytes)
+                .consumerMainThread(UpgradeStatsC2SPacket::handle)
                 .add();
     }
 

@@ -37,7 +37,7 @@ public class TextOnlyButton extends Button {
             guiGraphics.pose().pushPose();
             guiGraphics.pose().translate(xPos, yPos, 0);
             guiGraphics.pose().scale(scale, scale, 1.0F);
-            guiGraphics.drawString(font, message, 0, 0, color, false);
+            guiGraphics.drawString(font, message, -2, 0, color, false);
             guiGraphics.pose().popPose();
         }
     }

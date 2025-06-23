@@ -92,4 +92,8 @@ public class AttributesHandler {
             }
         }
     }
+
+    public static void updatePlayerAttributes(ServerPlayer player) {
+        applyAttributeModifiers(player);
+    }
 }
