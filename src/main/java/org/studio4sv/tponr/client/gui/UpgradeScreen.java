@@ -8,15 +8,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 import org.studio4sv.tponr.TPONR;
-import org.studio4sv.tponr.client.ClientAttributesData;
 import org.studio4sv.tponr.mechanics.attributes.PlayerAttributesProvider;
-import org.studio4sv.tponr.mechanics.stamina.PlayerStaminaProvider;
 import org.studio4sv.tponr.networking.ModMessages;
 import org.studio4sv.tponr.networking.packet.C2S.UpgradeStatsC2SPacket;
 import org.studio4sv.tponr.util.TextOnlyButton;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class UpgradeScreen extends Screen {
     private final Map<String, Integer> addedPoints = new HashMap<>();
@@ -27,13 +26,27 @@ public class UpgradeScreen extends Screen {
     private int screenWidthStart;
     private int screenHeightStart;
 
-    private int currentStamina;
     private int currentExp;
     private int currentExpEdited;
-    private int level;
-    private int levelsToAdd;
+
+    private int unAppliedLevels;
+
+    private int calculateStamina() {
+        return 300 + currentStats.get("Stamina") * 8;
+    }
+
+    private int calculateLevel() {
+        AtomicInteger level = new AtomicInteger(1);
+        currentStats.forEach((key, value) -> {
+            if (value > 10) {
+                level.addAndGet(value - 10);
+            }
+        });
+        return level.get();
+    }
+
     private int getNeededXP() {
-        return 804 + (level - 1) * 3;
+        return 804 + (calculateLevel() - 1 + unAppliedLevels) * 3;
     }
 
     private int newHp;
@@ -45,17 +58,17 @@ public class UpgradeScreen extends Screen {
 
     private void addPointTo(String stat) {
         if (currentExpEdited > getNeededXP()) {
-            currentExpEdited = currentExp - getNeededXP();
+            currentExpEdited = currentExpEdited - getNeededXP();
             addedPoints.put(stat, addedPoints.get(stat) + 1);
-            levelsToAdd += 1;
+            unAppliedLevels += 1;
         }
     }
 
     private void removePointFrom(String stat) {
         if (addedPoints.get(stat) > 0) {
             addedPoints.put(stat, addedPoints.get(stat) - 1);
-            currentExpEdited = currentExp;
-            levelsToAdd -= 1;
+            currentExpEdited = currentExpEdited + getNeededXP();
+            unAppliedLevels -= 1;
         }
     }
 
@@ -68,14 +81,12 @@ public class UpgradeScreen extends Screen {
 
         assert this.getMinecraft().player != null;
         this.getMinecraft().player.getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(attributes -> currentStats = attributes.getAttributes());
-        this.getMinecraft().player.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> currentStamina = stamina.getMaxStamina());
 
         newHp = (int) this.getMinecraft().player.getMaxHealth();
-        newStamina = currentStamina;
+        newStamina = calculateStamina();
 
         currentExp = this.getMinecraft().player.totalExperience;
         currentExpEdited = currentExp;
-        level = currentStats.get("Level");
 
         addedPoints.put("Health", 0);
         addedPoints.put("Stamina", 0);
@@ -121,7 +132,7 @@ public class UpgradeScreen extends Screen {
                 Component.literal(">"),
                 button -> {
                     addPointTo("Stamina");
-                    newStamina = currentStamina + addedPoints.get("Stamina") * 8;
+                    newStamina = calculateStamina() + addedPoints.get("Stamina") * 8;
                 },
                 buttonScale,
                 0x11FC67
@@ -134,7 +145,7 @@ public class UpgradeScreen extends Screen {
                 Component.literal("<"),
                 button -> {
                     removePointFrom("Stamina");
-                    newStamina = currentStamina + addedPoints.get("Stamina") * 8;
+                    newStamina = calculateStamina() + addedPoints.get("Stamina") * 8;
                 },
                 buttonScale,
                 0x11FC67
@@ -231,20 +242,23 @@ public class UpgradeScreen extends Screen {
                 10,
                 Component.translatable("gui.tponr.level_up"),
                 button -> {
-                    level += levelsToAdd;
-                    ModMessages.sendToServer(new UpgradeStatsC2SPacket(addedPoints, getNeededXP(), levelsToAdd));
+                    if (currentExp < getNeededXP()) return;
 
-                    currentStats.forEach((stat, value) -> {
-                        if (stat.equals("Level")) return;
-                        currentStats.put(stat, value + addedPoints.get(stat));
-                    });
+                    ModMessages.sendToServer(new UpgradeStatsC2SPacket(addedPoints, currentExp - currentExpEdited));
+
+                    for (Map.Entry<String, Integer> entry : currentStats.entrySet()) {
+                        String key = entry.getKey();
+                        Integer v = entry.getValue();
+                        currentStats.put(key, v + addedPoints.get(key));
+                    }
 
                     currentExp = currentExpEdited;
-                    newHp = (int) this.getMinecraft().player.getMaxHealth();
-                    newStamina = currentStamina;
+                    newStamina = calculateStamina();
+                    addedPoints.forEach((stat, value) -> addedPoints.put(stat, 0));
                 },
                 0.8F,
-                0x0B0E0E
+                0x0B0E0E,
+                1
         ));
 
         super.init();
@@ -297,7 +311,7 @@ public class UpgradeScreen extends Screen {
                 upgradeScreenHeight
         );
 
-        pGuiGraphics.drawString(this.font, getTranslation("gui.tponr.level") + " " + level, screenWidthStart + 36, screenHeightStart + 21, 0x11FC67, false);
+        pGuiGraphics.drawString(this.font, getTranslation("gui.tponr.level") + " " + calculateLevel(), screenWidthStart + 36, screenHeightStart + 21, 0x11FC67, false);
 
         renderScaledText(pGuiGraphics, "EXP: " + getNeededXP() + " / " + currentExpEdited, screenWidthStart + 26, screenHeightStart + 41, 0x252726, 0.9F, pMouseX, pMouseY, null);
 
@@ -308,11 +322,11 @@ public class UpgradeScreen extends Screen {
         renderScaledText(pGuiGraphics, "§k" + getTranslation("gui.tponr.mana_capacity"), screenWidthStart + 38, screenHeightStart + 118, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
 
         renderScaledText(pGuiGraphics, String.valueOf((int) player.getHealth()), screenWidthStart + 94 - font.width(String.valueOf((int) player.getHealth())), screenHeightStart + 91, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
-        renderScaledText(pGuiGraphics, String.valueOf(currentStamina), screenWidthStart + 94 - font.width(String.valueOf(currentStamina)), screenHeightStart + 105, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, String.valueOf(calculateStamina()), screenWidthStart + 94 - font.width(String.valueOf(calculateStamina())), screenHeightStart + 105, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
         renderScaledText(pGuiGraphics, "???", screenWidthStart + 94 - font.width("???"), screenHeightStart + 117, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
 
         renderScaledText(pGuiGraphics, String.valueOf(newHp), screenWidthStart + 101, screenHeightStart + 91, (newHp != player.getMaxHealth()) ? 0x26A042 : 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
-        renderScaledText(pGuiGraphics, String.valueOf(newStamina), screenWidthStart + 101, screenHeightStart + 105, (newStamina != currentStamina) ? 0x26A042 : 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, String.valueOf(newStamina), screenWidthStart + 101, screenHeightStart + 105, (newStamina != calculateStamina()) ? 0x26A042 : 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
         renderScaledText(pGuiGraphics, "???", screenWidthStart + 101, screenHeightStart + 117, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
 
         renderScaledText(pGuiGraphics, getTranslation("gui.tponr.attributes"), screenWidthStart + 172, screenHeightStart + 20, 0x11FC67, 1.0F, pMouseX, pMouseY, null);

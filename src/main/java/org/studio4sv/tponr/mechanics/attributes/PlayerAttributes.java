@@ -9,7 +9,6 @@ public class PlayerAttributes {
     private final Map<String, Integer> attributes = new HashMap<>();
 
     public PlayerAttributes() {
-        attributes.put("Level", 1);
         attributes.put("Health", 10);
         attributes.put("Stamina", 10);
         attributes.put("Strength", 10);
@@ -47,11 +46,7 @@ public class PlayerAttributes {
             if (nbt.contains(key)) {
                 attributes.put(key, nbt.getInt(key));
             } else {
-                if (!key.equals("Level")) {
-                    attributes.put(key, 10);
-                } else {
-                    attributes.put(key, 1);
-                }
+                attributes.put(key, 10);
             }
         }
     }

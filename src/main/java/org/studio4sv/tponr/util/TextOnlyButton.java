@@ -9,11 +9,13 @@ import net.minecraft.network.chat.Component;
 public class TextOnlyButton extends Button {
     private final float scale;
     private final int color;
+    private final int yOffset;
 
-    public TextOnlyButton(int x, int y, int width, int height, Component message, OnPress onPress, float scale, int color) {
+    public TextOnlyButton(int x, int y, int width, int height, Component message, OnPress onPress, float scale, int color, int yOffset) {
         super(x, y, width, height, message, onPress, DEFAULT_NARRATION);
         this.scale = scale;
         this.color = color;
+        this.yOffset = yOffset;
     }
 
     public TextOnlyButton(int x, int y, int width, int height, Component message, OnPress onPress) {
@@ -22,6 +24,10 @@ public class TextOnlyButton extends Button {
 
     public TextOnlyButton(int x, int y, int width, int height, Component message, OnPress onPress, float scale) {
         this(x, y, width, height, message, onPress, scale, 0xFFFFFF);
+    }
+
+    public TextOnlyButton(int x, int y, int width, int height, Component message, OnPress onPress, float scale, int color) {
+        this(x, y, width, height, message, onPress, scale, color, 0);
     }
 
     @Override
@@ -37,7 +43,7 @@ public class TextOnlyButton extends Button {
             guiGraphics.pose().pushPose();
             guiGraphics.pose().translate(xPos, yPos, 0);
             guiGraphics.pose().scale(scale, scale, 1.0F);
-            guiGraphics.drawString(font, message, -2, 0, color, false);
+            guiGraphics.drawString(font, message, 0, yOffset, color, false);
             guiGraphics.pose().popPose();
         }
     }
