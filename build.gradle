@@ -97,6 +97,12 @@ repositories {
     maven {
         url = "https://repo.spongepowered.org/repository/maven-releases"
     }
+    maven {
+        url "https://cursemaven.com"
+    }
+    maven {
+        url = "https://api.modrinth.com/maven"
+    }
 }
 
 dependencies {
@@ -110,6 +116,10 @@ dependencies {
 
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${minecraft_version}:${geckolib_version}")
     implementation("com.eliotlash.mclib:mclib:20")
+
+    implementation fg.deobf("curse.maven:inventory-free-406383:4658538")
+
+    implementation "maven.modrinth:firstaid:1.20.1-1.1"
 }
 
 tasks.named('processResources', ProcessResources).configure {
