@@ -1,5 +1,6 @@
 package org.studio4sv.tponr.mechanics.attributes;
 
+import kirderf1.inventoryfree.PlayerData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -57,8 +58,7 @@ public class AttributesHandler {
             double strengthBonus = (strengthValue - 10) * 0.5; // Each point above 10 gives 0.5 extra damage
             applyAttributeModifier(player, Attributes.ATTACK_DAMAGE, STRENGTH_MODIFIER_UUID,
                                  "Strength Attribute Bonus", strengthBonus, AttributeModifier.Operation.ADDITION);
-
-            // TODO: connect to inventory slots lock system
+            PlayerData.setUnlockedSlots(player, strengthValue - 10);
             
             // Agility modifier
             int agilityValue = attributes.get("Agility");
