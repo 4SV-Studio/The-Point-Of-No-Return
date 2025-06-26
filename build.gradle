@@ -97,6 +97,9 @@ repositories {
     maven {
         url = "https://repo.spongepowered.org/repository/maven-releases"
     }
+    maven {
+        url "https://cursemaven.com"
+    }
 }
 
 dependencies {
