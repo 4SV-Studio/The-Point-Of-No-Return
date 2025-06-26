@@ -84,6 +84,7 @@ public class StaminaHandler {
                 if (!(damageModel == null)) {
                     damageModel.LEFT_ARM.damage(2, event.getPlayer(), true);
                     damageModel.RIGHT_ARM.damage(2, event.getPlayer(), true);
+                    damageModel.scheduleResync();
                 } else {
                     event.setCanceled(true);
                 }
