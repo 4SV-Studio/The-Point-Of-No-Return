@@ -28,5 +28,12 @@
   "stat.tponr.agility": "Agility",
   "stat.tponr.intelligence": "Intelligence",
   "stat.tponr.luck": "Luck",
-  "stat.tponr.mana": "Mana"
+  "stat.tponr.mana": "Mana",
+
+  "tooltip.tponr.health": "Player's vitality. Increasing the level increases health and reduces the risk of injury.",
+  "tooltip.tponr.stamina": "Player's endurance. Increasing the level stamina.",
+  "tooltip.tponr.strength": "Player's physical strength. Increasing the level increases the carried weight and  damage.",
+  "tooltip.tponr.agility": "Player's motoric skills. Increasing the level improves movement speed.",
+  "tooltip.tponr.intelligence": "Player's intelligence. Increasing the level increases the power of your mind.",
+  "tooltip.tponr.luck": "Players's luck. Increasing the level increases the chances of finding more valuable resources."
 }
