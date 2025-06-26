@@ -100,9 +100,6 @@ repositories {
     maven {
         url "https://cursemaven.com"
     }
-    maven {
-        url = "https://api.modrinth.com/maven"
-    }
 }
 
 dependencies {
@@ -119,7 +116,7 @@ dependencies {
 
     implementation fg.deobf("curse.maven:inventory-free-406383:4658538")
 
-    implementation "maven.modrinth:firstaid:1.20.1-1.1"
+    implementation fg.deobf("curse.maven:first-aid-276837:5531834")
 }
 
 tasks.named('processResources', ProcessResources).configure {
