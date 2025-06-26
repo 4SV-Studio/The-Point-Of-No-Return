@@ -1,5 +1,7 @@
 package org.studio4sv.tponr.mechanics.stamina;
 
+import ichttt.mods.firstaid.api.damagesystem.AbstractPlayerDamageModel;
+import ichttt.mods.firstaid.common.util.CommonUtils;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
@@ -78,8 +80,13 @@ public class StaminaHandler {
 
         serverPlayer.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
             if (stamina.getStamina() < MINING_COST) {
-                // TODO: damage arms with first aid
-                event.setCanceled(true);
+                AbstractPlayerDamageModel damageModel = CommonUtils.getDamageModel(event.getPlayer());
+                if (!(damageModel == null)) {
+                    damageModel.LEFT_ARM.damage(2, event.getPlayer(), true);
+                    damageModel.RIGHT_ARM.damage(2, event.getPlayer(), true);
+                } else {
+                    event.setCanceled(true);
+                }
             } else {
                 stamina.subStamina(MINING_COST);
                 regenTickCounter = 0;
