@@ -82,8 +82,8 @@ public class StaminaHandler {
             if (stamina.getStamina() < MINING_COST) {
                 AbstractPlayerDamageModel damageModel = CommonUtils.getDamageModel(event.getPlayer());
                 if (!(damageModel == null)) {
-                    damageModel.LEFT_ARM.damage(2, event.getPlayer(), true);
-                    damageModel.RIGHT_ARM.damage(2, event.getPlayer(), true);
+                    damageModel.LEFT_ARM.damage(1, event.getPlayer(), true);
+                    damageModel.RIGHT_ARM.damage(1, event.getPlayer(), true);
                     damageModel.scheduleResync();
                 } else {
                     event.setCanceled(true);
