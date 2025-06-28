@@ -244,7 +244,7 @@ public class UpgradeScreen extends Screen {
                 button -> {
                     if (currentExp < getNeededXP()) return;
 
-                    ModMessages.sendToServer(new UpgradeStatsC2SPacket(addedPoints, currentExp - currentExpEdited));
+                    ModMessages.sendToServer(new UpgradeStatsC2SPacket(addedPoints, currentExp - currentExpEdited)); // TODO: DONT TRUST THE CLIENT
 
                     for (Map.Entry<String, Integer> entry : currentStats.entrySet()) {
                         String key = entry.getKey();
