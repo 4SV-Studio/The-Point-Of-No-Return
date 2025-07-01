@@ -179,4 +179,9 @@ public class BunkerDoorBlock extends BaseEntityBlock {
 
         return isDoorOpen ? EMPTY_SHAPE : SOLID_SHAPE;
     }
+
+    @Override
+    public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+        return Shapes.empty();
+    }
 }
