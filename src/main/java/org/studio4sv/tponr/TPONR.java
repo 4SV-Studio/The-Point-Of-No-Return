@@ -1,10 +1,10 @@
 package org.studio4sv.tponr;
 
 import com.mojang.logging.LogUtils;
-import net.minecraftforge.event.RegisterCommandsEvent;
+import org.studio4sv.tponr.armor.HazmatSuitItem;
+import org.studio4sv.tponr.client.armor.hazmat_suit.HazmatSuitRenderer;
 import org.studio4sv.tponr.client.entity.BunkerDoorBlockItem.BunkerDoorBlockRenderer;
 import org.studio4sv.tponr.client.entity.ClockItem.ClockRenderer;
-import org.studio4sv.tponr.commands.HUDControllerCommands;
 import org.studio4sv.tponr.networking.ModMessages;
 import org.studio4sv.tponr.registers.ModBlockEntities;
 import org.studio4sv.tponr.registers.ModBlocks;

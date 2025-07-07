@@ -1,6 +1,8 @@
 package org.studio4sv.tponr.registers;
 
+import net.minecraft.world.item.ArmorItem;
 import org.studio4sv.tponr.TPONR;
+import org.studio4sv.tponr.armor.HazmatSuitItem;
 import org.studio4sv.tponr.items.BunkerDoorBlockItem;
 import org.studio4sv.tponr.items.ClockItem;
 import net.minecraft.world.item.Item;
@@ -8,6 +10,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.studio4sv.tponr.util.ModArmorMaterials;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> CLOCK_ITEM = ITEMS.register("clock",
             () -> new ClockItem(ModBlocks.CLOCK.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> HAZMAT_SUIT_ITEM = ITEMS.register("hazmat_suit",
+            () -> new HazmatSuitItem(ModArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.HELMET, new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
