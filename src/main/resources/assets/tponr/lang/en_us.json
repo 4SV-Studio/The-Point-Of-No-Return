@@ -4,23 +4,11 @@
   "block.tponr.bunker_door_block": "Bunker Door",
   "block.tponr.clock": "Clock",
 
-  "item.tponr.orange_suit_pack": "Hazmat Suit",
-  "item.tponr.orange_suit_helmet": "Hazmat Suit Helmet",
-  "item.tponr.orange_suit_chestplate": "Hazmat Suit Chestplate",
-  "item.tponr.orange_suit_leggings": "Hazmat Suit Leggings",
-  "item.tponr.orange_suit_boots": "Hazmat Suit Boots",
-
-  "item.tponr.green_suit_pack": "Hazmat Suit",
-  "item.tponr.green_suit_helmet": "Hazmat Suit Helmet",
-  "item.tponr.green_suit_chestplate": "Hazmat Suit Chestplate",
-  "item.tponr.green_suit_leggings": "Hazmat Suit Leggings",
-  "item.tponr.green_suit_boots": "Hazmat Suit Boots",
-
-  "item.tponr.blue_suit_pack": "Hazmat Suit",
-  "item.tponr.blue_suit_helmet": "Hazmat Suit Helmet",
-  "item.tponr.blue_suit_chestplate": "Hazmat Suit Chestplate",
-  "item.tponr.blue_suit_leggings": "Hazmat Suit Leggings",
-  "item.tponr.blue_suit_boots": "Hazmat Suit Boots",
+  "item.tponr.hazmat_suit_pack": "Hazmat Suit",
+  "item.tponr.hazmat_suit_helmet": "Hazmat Suit Helmet",
+  "item.tponr.hazmat_suit_chestplate": "Hazmat Suit Chestplate",
+  "item.tponr.hazmat_suit_leggings": "Hazmat Suit Leggings",
+  "item.tponr.hazmat_suit_boots": "Hazmat Suit Boots",
 
   "command.tponr.forbidden": "Must be OP to execute for other players!",
 
