@@ -27,8 +27,14 @@ public class ModItems {
     public static final RegistryObject<Item> CLOCK_ITEM = ITEMS.register("clock",
             () -> new ClockItem(ModBlocks.CLOCK.get(), new Item.Properties()));
 
-    public static final RegistryObject<Item> HAZMAT_SUIT_ITEM = ITEMS.register("hazmat_suit",
+    public static final RegistryObject<Item> HAZMAT_SUIT_HELMET_ITEM = ITEMS.register("hazmat_suit_helmet",
             () -> new HazmatSuitItem(ModArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.HELMET, new Item.Properties()));
+    public static final RegistryObject<Item> HAZMAT_SUIT_CHESTPLATE_ITEM = ITEMS.register("hazmat_suit_chestplate",
+            () -> new HazmatSuitItem(ModArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+    public static final RegistryObject<Item> HAZMAT_SUIT_LEGGINGS_ITEM = ITEMS.register("hazmat_suit_leggings",
+            () -> new HazmatSuitItem(ModArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+    public static final RegistryObject<Item> HAZMAT_SUIT_BOOTS_ITEM = ITEMS.register("hazmat_suit_boots",
+            () -> new HazmatSuitItem(ModArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

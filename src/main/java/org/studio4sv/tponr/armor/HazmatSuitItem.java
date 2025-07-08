@@ -8,7 +8,6 @@ import net.minecraft.world.item.*;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import org.studio4sv.tponr.client.armor.hazmat_suit.HazmatSuitRenderer;
-import org.studio4sv.tponr.client.item.HazmatSuitItemRenderer;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -38,11 +37,6 @@ public class HazmatSuitItem extends DyeableArmorItem implements GeoItem, Dyeable
                 this.renderer.prepForRender(livingEntity, itemStack, equipmentSlot, original);
                 return this.renderer;
             }
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return new HazmatSuitItemRenderer();
-            }
         });
     }
 
@@ -52,9 +46,5 @@ public class HazmatSuitItem extends DyeableArmorItem implements GeoItem, Dyeable
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return geoCache;
-    }
-
-    public int getColor(ItemStack stack) {
-        return 0xFF0000;
     }
 }
