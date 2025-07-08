@@ -21,19 +21,19 @@ public class ModItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, TPONR.MOD_ID);
 
 
-    public static final RegistryObject<Item> BUNKER_DOOR_ITEM = ITEMS.register("bunker_door",
+    public static final RegistryObject<Item> BUNKER_DOOR = ITEMS.register("bunker_door",
             () -> new BunkerDoorBlockItem(ModBlocks.BUNKER_DOOR.get(), new Item.Properties()));
 
-    public static final RegistryObject<Item> CLOCK_ITEM = ITEMS.register("clock",
+    public static final RegistryObject<Item> CLOCK = ITEMS.register("clock",
             () -> new ClockItem(ModBlocks.CLOCK.get(), new Item.Properties()));
 
-    public static final RegistryObject<Item> HAZMAT_SUIT_HELMET_ITEM = ITEMS.register("hazmat_suit_helmet",
+    public static final RegistryObject<Item> HAZMAT_SUIT_HELMET = ITEMS.register("hazmat_suit_helmet",
             () -> new HazmatSuitItem(ModArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.HELMET, new Item.Properties()));
-    public static final RegistryObject<Item> HAZMAT_SUIT_CHESTPLATE_ITEM = ITEMS.register("hazmat_suit_chestplate",
+    public static final RegistryObject<Item> HAZMAT_SUIT_CHESTPLATE = ITEMS.register("hazmat_suit_chestplate",
             () -> new HazmatSuitItem(ModArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-    public static final RegistryObject<Item> HAZMAT_SUIT_LEGGINGS_ITEM = ITEMS.register("hazmat_suit_leggings",
+    public static final RegistryObject<Item> HAZMAT_SUIT_LEGGINGS = ITEMS.register("hazmat_suit_leggings",
             () -> new HazmatSuitItem(ModArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-    public static final RegistryObject<Item> HAZMAT_SUIT_BOOTS_ITEM = ITEMS.register("hazmat_suit_boots",
+    public static final RegistryObject<Item> HAZMAT_SUIT_BOOTS = ITEMS.register("hazmat_suit_boots",
             () -> new HazmatSuitItem(ModArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     public static void register(IEventBus eventBus) {

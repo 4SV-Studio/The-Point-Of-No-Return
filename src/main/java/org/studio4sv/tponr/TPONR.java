@@ -1,6 +1,8 @@
 package org.studio4sv.tponr;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.DyeableLeatherItem;
 import org.studio4sv.tponr.client.entity.BunkerDoorBlockItem.BunkerDoorBlockRenderer;
 import org.studio4sv.tponr.client.entity.ClockItem.ClockRenderer;
 import org.studio4sv.tponr.networking.ModMessages;
@@ -52,6 +54,16 @@ public class TPONR
         public static void onClientSetup(FMLClientSetupEvent event) {
             BlockEntityRenderers.register(ModBlockEntities.BUNKER_DOOR_ENTITY.get(), BunkerDoorBlockRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.CLOCK_ENTITY.get(), ClockRenderer::new);
+
+            Minecraft.getInstance().getItemColors().register(
+                    (stack, tintIndex) -> {
+                        return tintIndex == 0 ? ((DyeableLeatherItem) stack.getItem()).getColor(stack) : -1;
+                    },
+                    ModItems.HAZMAT_SUIT_HELMET.get(),
+                    ModItems.HAZMAT_SUIT_CHESTPLATE.get(),
+                    ModItems.HAZMAT_SUIT_LEGGINGS.get(),
+                    ModItems.HAZMAT_SUIT_BOOTS.get()
+            );
         }
     }
 }
