@@ -1,5 +1,6 @@
 package org.studio4sv.tponr.blocks.custom.BunkerDoor;
 
+import net.minecraft.util.RandomSource;
 import org.studio4sv.tponr.blocks.entity.BunkerDoorBlockEntity;
 import org.studio4sv.tponr.registers.ModBlocks;
 import net.minecraft.core.BlockPos;
@@ -178,10 +179,5 @@ public class BunkerDoorBlock extends BaseEntityBlock {
         boolean isDoorOpen = isDoorOpen(level, pos);
 
         return isDoorOpen ? EMPTY_SHAPE : SOLID_SHAPE;
-    }
-
-    @Override
-    public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-        return Shapes.empty();
     }
 }

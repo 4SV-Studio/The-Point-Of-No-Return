@@ -21,13 +21,13 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, TPONR.MOD_ID);
 
     public static final RegistryObject<Block> BUNKER_DOOR = BLOCKS.register("bunker_door_block",
-            () -> new BunkerDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+            () -> new BunkerDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).isSuffocating((state, level, pos) -> false).noOcclusion().destroyTime(-1)));
 
     public static final RegistryObject<Block> BUNKER_DOOR_SUB = BLOCKS.register("bunker_door_sub_block",
-            () -> new BunkerDoorSubBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+            () -> new BunkerDoorSubBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).isSuffocating((state, level, pos) -> false).noOcclusion().destroyTime(-1)));
 
     public static final RegistryObject<Block> CLOCK = BLOCKS.register("clock",
-            () -> new Clock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+            () -> new Clock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
