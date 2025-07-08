@@ -10,13 +10,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.studio4sv.tponr.items.HazmatSuitPackItem;
 import org.studio4sv.tponr.util.ModArmorMaterials;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ModItems {
-    public static final List<RegistryObject<Item>> registeredSuitPacks = new ArrayList<>();
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, TPONR.MOD_ID);
 
@@ -35,6 +32,9 @@ public class ModItems {
             () -> new HazmatSuitItem(ModArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.LEGGINGS, new Item.Properties()));
     public static final RegistryObject<Item> HAZMAT_SUIT_BOOTS = ITEMS.register("hazmat_suit_boots",
             () -> new HazmatSuitItem(ModArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.BOOTS, new Item.Properties()));
+
+    public static final RegistryObject<Item> HAZMAT_SUIT_PACK = ITEMS.register("hazmat_suit_pack",
+            () -> new HazmatSuitPackItem(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

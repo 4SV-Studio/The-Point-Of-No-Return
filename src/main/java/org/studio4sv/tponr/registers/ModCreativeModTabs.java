@@ -17,10 +17,11 @@ public class ModCreativeModTabs {
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.BUNKER_DOOR.get()))
                     .title(Component.translatable("creativetab." + TPONR.MOD_ID + "_tab"))
                     .displayItems((pParameters, pOutput) -> {
+
                         pOutput.accept(ModItems.BUNKER_DOOR.get());
                         pOutput.accept(ModItems.CLOCK.get());
+                        pOutput.accept(ModItems.HAZMAT_SUIT_PACK.get());
 
-                        ModItems.registeredSuitPacks.forEach(item -> pOutput.accept(item.get()));
                     })
                     .build());
 

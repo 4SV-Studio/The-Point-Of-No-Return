@@ -2,7 +2,13 @@ package org.studio4sv.tponr;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import org.studio4sv.tponr.armor.HazmatSuitItem;
 import org.studio4sv.tponr.client.entity.BunkerDoorBlockItem.BunkerDoorBlockRenderer;
 import org.studio4sv.tponr.client.entity.ClockItem.ClockRenderer;
 import org.studio4sv.tponr.networking.ModMessages;
@@ -62,7 +68,8 @@ public class TPONR
                     ModItems.HAZMAT_SUIT_HELMET.get(),
                     ModItems.HAZMAT_SUIT_CHESTPLATE.get(),
                     ModItems.HAZMAT_SUIT_LEGGINGS.get(),
-                    ModItems.HAZMAT_SUIT_BOOTS.get()
+                    ModItems.HAZMAT_SUIT_BOOTS.get(),
+                    ModItems.HAZMAT_SUIT_PACK.get()
             );
         }
     }

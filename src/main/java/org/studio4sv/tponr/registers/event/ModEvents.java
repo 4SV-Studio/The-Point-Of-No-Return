@@ -1,17 +1,23 @@
 package org.studio4sv.tponr.registers.event;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.studio4sv.tponr.TPONR;
+import org.studio4sv.tponr.armor.HazmatSuitItem;
 import org.studio4sv.tponr.commands.HUDControllerCommands;
 import org.studio4sv.tponr.mechanics.attributes.PlayerAttributesProvider;
 import org.studio4sv.tponr.networking.ModMessages;
@@ -19,6 +25,7 @@ import org.studio4sv.tponr.networking.packet.S2C.AttributesDataSyncS2CPacket;
 import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStamina;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStaminaProvider;
+import org.studio4sv.tponr.registers.ModItems;
 
 @Mod.EventBusSubscriber(modid = TPONR.MOD_ID)
 public class ModEvents {
@@ -75,4 +82,42 @@ public class ModEvents {
         HUDControllerCommands.register(event.getDispatcher());
     }
 
+    @SubscribeEvent
+    public static void onArmorRemoved(LivingEquipmentChangeEvent event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+        if (event.getSlot().getType() != EquipmentSlot.Type.ARMOR) return;
+
+        ItemStack oldItem = event.getFrom();
+        ItemStack newItem = event.getTo();
+
+        if (!(oldItem.getItem() instanceof HazmatSuitItem)) return;
+        if (newItem.getItem() instanceof HazmatSuitItem) return;
+
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            if (slot.getType() == EquipmentSlot.Type.ARMOR) {
+                ItemStack armor = player.getItemBySlot(slot);
+                if (armor.getItem() instanceof HazmatSuitItem) {
+                    player.setItemSlot(slot, ItemStack.EMPTY);
+                }
+            }
+        }
+
+        int color = ((DyeableLeatherItem) oldItem.getItem()).getColor(oldItem);
+        int charge = oldItem.getOrCreateTag().contains("charge") ? oldItem.getOrCreateTag().getInt("charge") : 0;
+        ItemStack suitPack = createHazmatSuitPack(color, charge);
+
+        player.containerMenu.setCarried(ItemStack.EMPTY);
+        player.containerMenu.setCarried(suitPack);
+    }
+
+    private static ItemStack createHazmatSuitPack(int color, int charge) {
+        ItemStack suitPack = new ItemStack(ModItems.HAZMAT_SUIT_PACK.get());
+
+        ((DyeableLeatherItem) suitPack.getItem()).setColor(suitPack, color);
+
+        CompoundTag tag = suitPack.getOrCreateTag();
+        tag.putInt("charge", charge);
+
+        return suitPack;
+    }
 }
