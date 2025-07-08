@@ -20,8 +20,10 @@ public class ModCreativeModTabs {
 
                         pOutput.accept(ModItems.BUNKER_DOOR.get());
                         pOutput.accept(ModItems.CLOCK.get());
-                        pOutput.accept(ModItems.HAZMAT_SUIT_PACK.get());
 
+                        ItemStack suit_pack = new ItemStack(ModItems.HAZMAT_SUIT_PACK.get());
+                        suit_pack.getOrCreateTag().putFloat("charge", 100f);
+                        pOutput.accept(suit_pack);
                     })
                     .build());
 

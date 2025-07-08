@@ -1,6 +1,7 @@
 package org.studio4sv.tponr.items;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -8,9 +9,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.studio4sv.tponr.registers.ModItems;
+
+import java.util.List;
 
 public class HazmatSuitPackItem extends Item implements DyeableLeatherItem {
     public HazmatSuitPackItem(Properties pProperties) {
@@ -45,7 +50,7 @@ public class HazmatSuitPackItem extends Item implements DyeableLeatherItem {
 
             CompoundTag tag = stack.getOrCreateTag();
             int color = getColor(stack);
-            int charge = tag.contains("charge") ? tag.getInt("charge") : 0;
+            float charge = tag.contains("charge") ? tag.getFloat("charge") : 0;
 
             pPlayer.setItemSlot(EquipmentSlot.HEAD, createPiece(ModItems.HAZMAT_SUIT_HELMET.get(), color, charge));
             pPlayer.setItemSlot(EquipmentSlot.CHEST, createPiece(ModItems.HAZMAT_SUIT_CHESTPLATE.get(), color, charge));
@@ -58,11 +63,23 @@ public class HazmatSuitPackItem extends Item implements DyeableLeatherItem {
         return InteractionResultHolder.sidedSuccess(stack, pLevel.isClientSide());
     }
 
-    private ItemStack createPiece(Item item, int color, int charge) {
+    private ItemStack createPiece(Item item, int color, float charge) {
         ItemStack stack = new ItemStack(item);
-        stack.getOrCreateTag().putInt("charge", charge);
+        stack.getOrCreateTag().putFloat("charge", charge);
         DyeableLeatherItem dyeable = (DyeableLeatherItem) item;
         dyeable.setColor(stack, color);
         return stack;
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+
+        pTooltipComponents.add(Component.translatable("item.tponr.hazmat_suit_pack.desc"));
+        pTooltipComponents.add(
+                Component.translatable("item.tponr.hazmat_suit.desc")
+                        .append(": ")
+                        .append(Component.literal(Math.round(pStack.getOrCreateTag().getFloat("charge") * 100) / 100f + "%"))
+        );
     }
 }

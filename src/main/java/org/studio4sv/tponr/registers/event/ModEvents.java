@@ -8,9 +8,11 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -26,6 +28,8 @@ import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStamina;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStaminaProvider;
 import org.studio4sv.tponr.registers.ModItems;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Mod.EventBusSubscriber(modid = TPONR.MOD_ID)
 public class ModEvents {
@@ -103,21 +107,62 @@ public class ModEvents {
         }
 
         int color = ((DyeableLeatherItem) oldItem.getItem()).getColor(oldItem);
-        int charge = oldItem.getOrCreateTag().contains("charge") ? oldItem.getOrCreateTag().getInt("charge") : 0;
+        float charge = oldItem.getOrCreateTag().contains("charge") ? oldItem.getOrCreateTag().getFloat("charge") : 0;
         ItemStack suitPack = createHazmatSuitPack(color, charge);
 
         player.containerMenu.setCarried(ItemStack.EMPTY);
         player.containerMenu.setCarried(suitPack);
     }
 
-    private static ItemStack createHazmatSuitPack(int color, int charge) {
+    private static ItemStack createHazmatSuitPack(int color, float charge) {
         ItemStack suitPack = new ItemStack(ModItems.HAZMAT_SUIT_PACK.get());
 
         ((DyeableLeatherItem) suitPack.getItem()).setColor(suitPack, color);
 
         CompoundTag tag = suitPack.getOrCreateTag();
-        tag.putInt("charge", charge);
+        tag.putFloat("charge", charge);
 
         return suitPack;
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END && !event.player.level().isClientSide) {
+            ServerPlayer player = (ServerPlayer) event.player;
+            if (player.getAbilities().instabuild) return;
+
+            int radiationLevel = getRadiationStage(player);
+            AtomicInteger equippedSuitParts = new AtomicInteger();
+
+            if (radiationLevel > 0) {
+                player.getArmorSlots().forEach(slot -> {
+                    if (slot.getItem() instanceof HazmatSuitItem) {
+                        equippedSuitParts.getAndIncrement();
+                    }
+                });
+
+                if (equippedSuitParts.get() != 4) {
+                    player.hurt(player.damageSources().magic(), 0.5F + (0.5F * radiationLevel));
+                } else {
+                    player.getArmorSlots().forEach(slot -> {
+                        if (slot.getItem() instanceof HazmatSuitItem suitItem) {
+                            suitItem.changeEnergy(slot, -0.01F * radiationLevel);
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    private static int getRadiationStage(Player player) {
+        Biome biome = player.level().getBiome(player.blockPosition()).value();
+
+        float temp = biome.getBaseTemperature();
+
+        if (temp <= 0.15f) return 1;
+        else if (temp <= 0.8f) return 2;
+        else if (temp <= 1.2f) return 3;
+        else if (temp <= 1.5f) return 4;
+        else return 5;
     }
 }
