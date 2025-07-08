@@ -35,7 +35,9 @@ public class StaminaHandler {
 
             if (serverPlayer.isSprinting()) {
                 if (stamina.getStamina() > SPRINT_COST) {
-                    stamina.subStamina(SPRINT_COST);
+                    if (!serverPlayer.getAbilities().instabuild) {
+                        stamina.subStamina(SPRINT_COST);
+                    }
                     regenTickCounter = 0;
                     syncNeeded = true;
                 }
@@ -64,7 +66,9 @@ public class StaminaHandler {
         serverPlayer.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
             if (!serverPlayer.isInWater() && !serverPlayer.isInLava()) {
                 if (stamina.getStamina() >= JUMP_COST) {
-                    stamina.subStamina(JUMP_COST);
+                    if (!serverPlayer.getAbilities().instabuild) {
+                        stamina.subStamina(JUMP_COST);
+                    }
                     regenTickCounter = 0;
                     syncStamina(serverPlayer, stamina.getStamina(), stamina.getMaxStamina());
                 }
@@ -81,7 +85,9 @@ public class StaminaHandler {
                 // TODO: damage arms with first aid
                 event.setCanceled(true);
             } else {
-                stamina.subStamina(MINING_COST);
+                if (!serverPlayer.getAbilities().instabuild) {
+                    stamina.subStamina(MINING_COST);
+                }
                 regenTickCounter = 0;
                 syncStamina(serverPlayer, stamina.getStamina(), stamina.getMaxStamina());
             }
