@@ -17,5 +17,6 @@
   "stat.tponr.intelligence": "Intelligence",
   "stat.tponr.agility": "Agility",
   "item.tponr.hazmat_suit.desc": "Suit charge",
-  "item.tponr.hazmat_suit_pack.desc": "Press RMB to equip hazmat suit"
+  "item.tponr.hazmat_suit_pack.desc": "Press RMB to equip hazmat suit",
+  "gui.tponr.lvl": "Lvl."
 }

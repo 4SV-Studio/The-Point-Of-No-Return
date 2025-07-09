@@ -1,12 +1,15 @@
 package org.studio4sv.tponr.client.hud;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import org.studio4sv.tponr.TPONR;
+import org.studio4sv.tponr.util.RadiationUtils;
 
 public class SuitOverlayHud {
     private static final ResourceLocation OVERLAY_TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/suit_overlay.png");
@@ -73,7 +76,7 @@ public class SuitOverlayHud {
         int batteryWidth = 24;
         int batteryHeight = 22;
 
-        int batteryY = (int) (screenHeight - batteryHeight - 2);
+        int batteryY = (screenHeight - batteryHeight - 2);
 
         guiGraphics.blit( // Empty battery
                 BATTERY_TEXTURE,
@@ -101,6 +104,19 @@ public class SuitOverlayHud {
                 chargeText,
                 widgetX + 15,
                 batteryY,
+                0x70B8FC,
+                false
+        );
+
+        int levelY = batteryY - 25;
+
+        String radiationLvlText = Component.translatable("gui.tponr.lvl").getString() + " " + RadiationUtils.levelForPlayer(Minecraft.getInstance().player);
+        drawOutline(gui, guiGraphics, widgetX + 15, levelY, radiationLvlText, 0x000000);
+        guiGraphics.drawString(
+                gui.getFont(),
+                radiationLvlText,
+                widgetX + 15,
+                levelY,
                 0x70B8FC,
                 false
         );
