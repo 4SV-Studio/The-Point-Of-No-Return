@@ -28,6 +28,7 @@ import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStamina;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStaminaProvider;
 import org.studio4sv.tponr.registers.ModItems;
+import org.studio4sv.tponr.util.RadiationUtils;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -131,7 +132,7 @@ public class ModEvents {
             ServerPlayer player = (ServerPlayer) event.player;
             if (player.getAbilities().instabuild) return;
 
-            int radiationLevel = getRadiationStage(player);
+            int radiationLevel = RadiationUtils.levelForPlayer(player);
             AtomicInteger equippedSuitParts = new AtomicInteger();
 
             if (radiationLevel > 0) {
@@ -153,17 +154,5 @@ public class ModEvents {
                 }
             }
         }
-    }
-
-    private static int getRadiationStage(Player player) {
-        Biome biome = player.level().getBiome(player.blockPosition()).value();
-
-        float temp = biome.getBaseTemperature();
-
-        if (temp <= 0.15f) return 1;
-        else if (temp <= 0.8f) return 2;
-        else if (temp <= 1.2f) return 3;
-        else if (temp <= 1.5f) return 4;
-        else return 5;
     }
 }
