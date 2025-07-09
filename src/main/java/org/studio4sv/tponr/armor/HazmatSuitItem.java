@@ -4,7 +4,6 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
@@ -17,19 +16,17 @@ import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 public class HazmatSuitItem extends DyeableArmorItem implements GeoItem, DyeableLeatherItem {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-    private float charge = 0;
 
     public HazmatSuitItem(ArmorMaterial pMaterial, Type pType, Properties pProperties) {
         super(pMaterial, pType, pProperties);
     }
 
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+    public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
         super.initializeClient(consumer);
         consumer.accept(new IClientItemExtensions() {
             private HazmatSuitRenderer renderer;
@@ -59,7 +56,10 @@ public class HazmatSuitItem extends DyeableArmorItem implements GeoItem, Dyeable
         float current = tag.getFloat("charge");
         float newEnergy = Math.min(Math.max(0, current + amount), 100F);
         tag.putFloat("charge", newEnergy);
-        charge = newEnergy;
+    }
+
+    public float getEnergy(ItemStack stack) {
+        return stack.getOrCreateTag().getFloat("charge");
     }
 
     @Override

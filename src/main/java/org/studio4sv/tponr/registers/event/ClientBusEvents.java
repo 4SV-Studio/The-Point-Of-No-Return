@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.client.hud.HungerHud;
 import org.studio4sv.tponr.client.hud.StaminaHud;
+import org.studio4sv.tponr.client.hud.SuitOverlayHud;
 import org.studio4sv.tponr.client.hud.XpHud;
 
 public class ClientBusEvents {
@@ -17,6 +18,7 @@ public class ClientBusEvents {
             event.registerAboveAll( TPONR.MOD_ID + "_hunger", HungerHud.HUD_HUNGER);
             event.registerAboveAll(TPONR.MOD_ID + "_stamina", StaminaHud.HUD_STAMINA);
             event.registerAboveAll(TPONR.MOD_ID + "_xp", XpHud.HUD_XP);
+            event.registerAboveAll(TPONR.MOD_ID + "_suit_overlay", SuitOverlayHud.HUD_OVERLAY);
         }
     }
 }

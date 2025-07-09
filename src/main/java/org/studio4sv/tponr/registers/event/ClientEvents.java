@@ -1,12 +1,16 @@
 package org.studio4sv.tponr.registers.event;
 
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.studio4sv.tponr.armor.HazmatSuitItem;
+import org.studio4sv.tponr.client.hud.SuitOverlayHud;
 import org.studio4sv.tponr.client.hud.XpHud;
 import org.studio4sv.tponr.util.xpConverter;
 
@@ -29,5 +33,10 @@ public class ClientEvents {
         float progress = player.experienceProgress;
         int totalXP = xpConverter.calculate(level, progress);
         XpHud.setPoints(totalXP);
+
+        SuitOverlayHud.setEnabled(player.hasItemInSlot(EquipmentSlot.HEAD) && (player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof HazmatSuitItem));
+        if (player.hasItemInSlot(EquipmentSlot.CHEST)) {
+            SuitOverlayHud.setCharge(player.getItemBySlot(EquipmentSlot.CHEST).getOrCreateTag().getFloat("charge"));
+        }
     }
 }

@@ -146,6 +146,7 @@ public class ModEvents {
                 } else {
                     player.getArmorSlots().forEach(slot -> {
                         if (slot.getItem() instanceof HazmatSuitItem suitItem) {
+                            if (suitItem.getEnergy(slot) <= 0) player.hurt(player.damageSources().magic(), 0.5F + (0.5F * radiationLevel));
                             suitItem.changeEnergy(slot, -0.01F * radiationLevel);
                         }
                     });
