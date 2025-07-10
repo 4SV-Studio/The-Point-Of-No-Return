@@ -18,5 +18,12 @@
   "stat.tponr.agility": "Agility",
   "item.tponr.hazmat_suit.desc": "Suit charge",
   "item.tponr.hazmat_suit_pack.desc": "Press RMB to equip hazmat suit",
-  "gui.tponr.lvl": "Lvl."
+
+  "gui.tponr.lvl": "Lvl.",
+
+  "gui.hudcompass.direction.N": "N",
+  "gui.hudcompass.direction.S": "S",
+  "gui.hudcompass.direction.W": "W",
+  "gui.hudcompass.direction.E": "E",
+  "gui.hudcompass.home": "Bunker"
 }
