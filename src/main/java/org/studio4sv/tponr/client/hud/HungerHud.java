@@ -30,7 +30,7 @@ public class HungerHud {
 
         int padding = 10;
 
-        int scaledSize = 35;
+        int scaledSize = 40;
 
         int textureSize = 26;
         int x = screenWidth - scaledSize - padding;
