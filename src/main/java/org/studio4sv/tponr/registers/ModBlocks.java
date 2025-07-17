@@ -29,6 +29,11 @@ public class ModBlocks {
     public static final RegistryObject<Block> CLOCK = BLOCKS.register("clock",
             () -> new Clock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
+    public static final RegistryObject<Block> BLACK_BLOCK = BLOCKS.register("black_block",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.BEDROCK)
+            )
+    );
+
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
