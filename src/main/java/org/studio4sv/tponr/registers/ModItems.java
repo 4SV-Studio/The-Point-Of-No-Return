@@ -19,6 +19,9 @@ public class ModItems {
     public static final RegistryObject<Item> CLOCK_ITEM = ITEMS.register("clock",
             () -> new ClockItem(ModBlocks.CLOCK.get(), new Item.Properties()));
 
+    public static final RegistryObject<Item> BLACK_BLOCK_ITEM = ITEMS.register("black_block",
+            () -> new ClockItem(ModBlocks.BLACK_BLOCK.get(), new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
