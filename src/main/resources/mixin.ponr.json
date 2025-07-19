@@ -5,6 +5,7 @@
   "minVersion": "0.8.5",
   "refmap": "refmap.ponr.json",
   "mixins": [
+    "FirstAidInGameGuiMixin",
     "FoodDataMixin",
     "HealthRenderUtilsMixin",
     "PlayerModelRendererMixin"
@@ -14,6 +15,7 @@
   },
   "client": [
     "AnvilScreenMixin",
-    "EnchantmentScreenMixin"
+    "EnchantmentScreenMixin",
+    "GuiHealthScreenMixin"
   ]
 }
