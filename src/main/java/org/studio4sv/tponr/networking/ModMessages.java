@@ -8,6 +8,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.networking.packet.S2C.AttributesDataSyncS2CPacket;
+import org.studio4sv.tponr.networking.packet.S2C.BunkerDoorOpenSyncS2CPacket;
 import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
 import org.studio4sv.tponr.networking.packet.S2C.ToggleWidgetS2CPacket;
 
@@ -45,6 +46,12 @@ public class ModMessages {
                 .decoder(AttributesDataSyncS2CPacket::new)
                 .encoder(AttributesDataSyncS2CPacket::toBytes)
                 .consumerMainThread(AttributesDataSyncS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(BunkerDoorOpenSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(BunkerDoorOpenSyncS2CPacket::new)
+                .encoder(BunkerDoorOpenSyncS2CPacket::toBytes)
+                .consumerMainThread(BunkerDoorOpenSyncS2CPacket::handle)
                 .add();
     }
 

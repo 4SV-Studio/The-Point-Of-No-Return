@@ -1,6 +1,7 @@
 package org.studio4sv.tponr.blocks.custom.BunkerDoor;
 
-import org.studio4sv.tponr.blocks.entity.BunkerDoorBlockEntity;
+import org.studio4sv.tponr.blocks.entity.BunkerDoor.BunkerDoorBlockEntity;
+import org.studio4sv.tponr.blocks.entity.BunkerDoor.BunkerDoorSubBlockEntity;
 import org.studio4sv.tponr.registers.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -111,6 +112,10 @@ public class BunkerDoorBlock extends BaseEntityBlock {
         BlockState subBlockState = ModBlocks.BUNKER_DOOR_SUB.get().defaultBlockState();
         for (BlockPos subPos : subBlockPositions) {
             level.setBlock(subPos, subBlockState, 3);
+            BlockEntity be = level.getBlockEntity(subPos);
+            if (be instanceof BunkerDoorSubBlockEntity subEntity) {
+                subEntity.setMainBlockPos(pos);
+            }
         }
     }
 

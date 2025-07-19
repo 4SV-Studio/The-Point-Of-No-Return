@@ -1,6 +1,8 @@
 package org.studio4sv.tponr.blocks.custom.BunkerDoor;
 
-import org.studio4sv.tponr.blocks.entity.BunkerDoorBlockEntity;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import org.studio4sv.tponr.blocks.entity.BunkerDoor.BunkerDoorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -20,10 +22,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.studio4sv.tponr.blocks.entity.BunkerDoor.BunkerDoorSubBlockEntity;
 
 import javax.annotation.Nullable;
 
-public class BunkerDoorSubBlock extends Block {
+public class BunkerDoorSubBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape SOLID_SHAPE = Shapes.block();
     private static final VoxelShape EMPTY_SHAPE = Shapes.empty();
@@ -34,6 +37,11 @@ public class BunkerDoorSubBlock extends Block {
     }
 
     @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new BunkerDoorSubBlockEntity(blockPos, blockState);
+    }
+
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(FACING);
@@ -41,7 +49,7 @@ public class BunkerDoorSubBlock extends Block {
 
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        BlockPos mainBlockPos = findMainBlock(level, pos);
+        BlockPos mainBlockPos = getMainBlock(level, pos);
         if (mainBlockPos != null) {
             BlockEntity blockEntity = level.getBlockEntity(mainBlockPos);
             if (blockEntity instanceof BunkerDoorBlockEntity) {
@@ -52,7 +60,7 @@ public class BunkerDoorSubBlock extends Block {
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState p_60550_) {
+    public RenderShape getRenderShape(BlockState blockState) {
         return RenderShape.INVISIBLE;
     }
 
@@ -65,7 +73,7 @@ public class BunkerDoorSubBlock extends Block {
     @Override
     public void onRemove(BlockState blockState, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!blockState.is(newState.getBlock()) && !level.isClientSide() && !isMoving) {
-            BlockPos mainBlockPos = findMainBlock(level, pos);
+            BlockPos mainBlockPos = getMainBlock(level, pos);
             if (mainBlockPos != null) {
                 BlockState mainBlockState = level.getBlockState(mainBlockPos);
                 if (mainBlockState.getBlock() instanceof BunkerDoorBlock) {
@@ -77,36 +85,12 @@ public class BunkerDoorSubBlock extends Block {
     }
 
     @Nullable
-    private BlockPos findMainBlock(Level level, BlockPos pos) {
-        int searchRadius = 3;
-
-        for (int x = -searchRadius; x <= searchRadius; x++) {
-            for (int y = -searchRadius; y <= searchRadius; y++) {
-                for (int z = -searchRadius; z <= searchRadius; z++) {
-                    BlockPos checkPos = pos.offset(x, y, z);
-                    BlockState state = level.getBlockState(checkPos);
-
-                    if (state.getBlock() instanceof BunkerDoorBlock) {
-                        return checkPos;
-                    }
-                }
-            }
+    private BlockPos getMainBlock(Level level, BlockPos pos) {
+        BlockEntity be = level.getBlockEntity(pos);
+        if (be instanceof BunkerDoorSubBlockEntity subEntity) {
+            return subEntity.getMainBlockPos();
         }
-
         return null;
-    }
-
-    private boolean isDoorOpen(BlockGetter level, BlockPos pos) {
-        if (level instanceof Level) {
-            BlockPos mainBlockPos = findMainBlock((Level) level, pos);
-            if (mainBlockPos != null) {
-                BlockEntity blockEntity = level.getBlockEntity(mainBlockPos);
-                if (blockEntity instanceof BunkerDoorBlockEntity) {
-                    return ((BunkerDoorBlockEntity) blockEntity).isOpen();
-                }
-            }
-        }
-        return false;
     }
     
     @Override
@@ -116,8 +100,15 @@ public class BunkerDoorSubBlock extends Block {
     
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        boolean isDoorOpen = isDoorOpen(level, pos);
-
-        return isDoorOpen ? EMPTY_SHAPE : SOLID_SHAPE;
+        if (level instanceof Level) {
+            BlockPos mainBlockPos = getMainBlock((Level) level, pos);
+            if (mainBlockPos != null) {
+                BlockEntity blockEntity = level.getBlockEntity(mainBlockPos);
+                if (blockEntity instanceof BunkerDoorBlockEntity) {
+                    return ((BunkerDoorBlockEntity) blockEntity).isOpen() ? EMPTY_SHAPE : SOLID_SHAPE;
+                }
+            }
+        }
+        return SOLID_SHAPE;
     }
 }

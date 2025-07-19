@@ -1,7 +1,7 @@
 package org.studio4sv.tponr.client.entity.BunkerDoorBlockItem;
 
 import org.studio4sv.tponr.TPONR;
-import org.studio4sv.tponr.blocks.entity.BunkerDoorBlockEntity;
+import org.studio4sv.tponr.blocks.entity.BunkerDoor.BunkerDoorBlockEntity;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
