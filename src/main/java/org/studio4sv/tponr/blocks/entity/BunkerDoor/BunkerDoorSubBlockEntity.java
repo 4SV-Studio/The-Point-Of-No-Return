@@ -39,4 +39,23 @@ public class BunkerDoorSubBlockEntity extends BlockEntity {
             this.mainBlockPos = new BlockPos(tag.getInt("MainX"), tag.getInt("MainY"), tag.getInt("MainZ"));
         }
     }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag tag = super.getUpdateTag();
+        if (mainBlockPos != null) {
+            tag.putInt("MainX", mainBlockPos.getX());
+            tag.putInt("MainY", mainBlockPos.getY());
+            tag.putInt("MainZ", mainBlockPos.getZ());
+        }
+        return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        super.handleUpdateTag(tag);
+        if (tag.contains("MainX")) {
+            mainBlockPos = new BlockPos(tag.getInt("MainX"), tag.getInt("MainY"), tag.getInt("MainZ"));
+        }
+    }
 }
