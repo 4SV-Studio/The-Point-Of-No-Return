@@ -4,13 +4,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+import org.studio4sv.tponr.blocks.entity.SuitDyer.SuitDyerBlockEntity;
 import org.studio4sv.tponr.blocks.entity.SuitDyer.SuitDyerSubBlockEntity;
+import org.studio4sv.tponr.items.HazmatSuitPackItem;
 
 public class SuitDyerSubBlock extends BaseEntityBlock {
     public SuitDyerSubBlock(Properties pProperties) {
@@ -44,6 +47,24 @@ public class SuitDyerSubBlock extends BaseEntityBlock {
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        if (!pLevel.isClientSide) {
+            if (pPlayer.getItemInHand(pHand).getItem() instanceof HazmatSuitPackItem) {
+                BlockEntity subBlockEntity = pLevel.getBlockEntity(pPos);
+                if (subBlockEntity instanceof SuitDyerSubBlockEntity) {
+                    if (pLevel.getBlockEntity(((SuitDyerSubBlockEntity) subBlockEntity).getMainBlockPos()) instanceof SuitDyerBlockEntity mainBlockEntity) {
+                        mainBlockEntity.setStoredItem(pPlayer.getItemInHand(pHand).copyAndClear());
+                    }
+                }
+            } else if (pPlayer.getItemInHand(pHand).isEmpty()) {
+                BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+                if (blockEntity instanceof SuitDyerSubBlockEntity) {
+                    if (pLevel.getBlockEntity(((SuitDyerSubBlockEntity) blockEntity).getMainBlockPos()) instanceof SuitDyerBlockEntity mainBlockEntity) {
+                        pPlayer.setItemInHand(pHand, mainBlockEntity.getStoredItem());
+                        mainBlockEntity.setStoredItem(ItemStack.EMPTY);
+                    }
+                }
+            }
+        }
+        return InteractionResult.SUCCESS;
     }
 }
