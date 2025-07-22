@@ -11,11 +11,9 @@ import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import org.studio4sv.tponr.armor.HazmatSuitItem;
 import org.studio4sv.tponr.client.entity.BunkerDoorBlockItem.BunkerDoorBlockRenderer;
 import org.studio4sv.tponr.client.entity.ClockItem.ClockRenderer;
+import org.studio4sv.tponr.client.entity.SuitDyerBlockItem.SuitDyerBlockRenderer;
 import org.studio4sv.tponr.networking.ModMessages;
-import org.studio4sv.tponr.registers.ModBlockEntities;
-import org.studio4sv.tponr.registers.ModBlocks;
-import org.studio4sv.tponr.registers.ModCreativeModTabs;
-import org.studio4sv.tponr.registers.ModItems;
+import org.studio4sv.tponr.registers.*;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -38,10 +36,9 @@ public class TPONR
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
-
         ModBlockEntities.register(modEventBus);
-
         ModCreativeModTabs.register(modEventBus);
+        ModMenus.register();
 
         GeckoLib.initialize();
 
@@ -60,6 +57,7 @@ public class TPONR
         public static void onClientSetup(FMLClientSetupEvent event) {
             BlockEntityRenderers.register(ModBlockEntities.BUNKER_DOOR_ENTITY.get(), BunkerDoorBlockRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.CLOCK_ENTITY.get(), ClockRenderer::new);
+            BlockEntityRenderers.register(ModBlockEntities.SUIT_DYER_ENTITY.get(), SuitDyerBlockRenderer::new);
 
             Minecraft.getInstance().getItemColors().register(
                     (stack, tintIndex) -> {

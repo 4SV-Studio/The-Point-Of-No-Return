@@ -9,6 +9,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.studio4sv.tponr.blocks.entity.SuitDyer.SuitDyerBlockEntity;
+import org.studio4sv.tponr.blocks.entity.SuitDyer.SuitDyerSubBlockEntity;
 
 public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
@@ -28,6 +30,16 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("clock_entity", () ->
                     BlockEntityType.Builder.of(ClockEntity::new,
                             ModBlocks.CLOCK.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<SuitDyerBlockEntity>> SUIT_DYER_ENTITY =
+            BLOCK_ENTITIES.register("suit_dyer_block_entity", () ->
+                    BlockEntityType.Builder.of(SuitDyerBlockEntity::new,
+                            ModBlocks.SUIT_DYER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<SuitDyerSubBlockEntity>> SUIT_DYER_SUB_ENTITY =
+            BLOCK_ENTITIES.register("suit_dyer_sub_block_entity", () ->
+                    BlockEntityType.Builder.of(SuitDyerSubBlockEntity::new,
+                            ModBlocks.SUIT_DYER_SUB.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

@@ -13,6 +13,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.studio4sv.tponr.blocks.custom.SuitDyer.SuitDyerBlock;
+import org.studio4sv.tponr.blocks.custom.SuitDyer.SuitDyerSubBlock;
 
 import java.util.function.Supplier;
 
@@ -28,6 +30,12 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> CLOCK = BLOCKS.register("clock",
             () -> new Clock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+
+    public static final RegistryObject<Block> SUIT_DYER = BLOCKS.register("suit_dyer_block",
+            () -> new SuitDyerBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+
+    public static final RegistryObject<Block> SUIT_DYER_SUB = BLOCKS.register("suit_dyer_sub_block",
+            () -> new SuitDyerSubBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
