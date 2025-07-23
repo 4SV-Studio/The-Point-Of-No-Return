@@ -19,6 +19,10 @@ public class SuitDyerMenu extends AbstractContainerMenu {
         this.level = player.level();
     }
 
+    public BlockPos getBlockPos() {
+        return pos;
+    }
+
     @Override
     public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
         return null;

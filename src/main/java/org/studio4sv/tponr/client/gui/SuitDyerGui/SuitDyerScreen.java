@@ -1,19 +1,117 @@
 package org.studio4sv.tponr.client.gui.SuitDyerGui;
 
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.studio4sv.tponr.TPONR;
+import org.studio4sv.tponr.networking.ModMessages;
+import org.studio4sv.tponr.networking.packet.C2S.DyerChangeColorS2CPacket;
+import org.studio4sv.tponr.util.ColorUtils;
 
 public class SuitDyerScreen extends AbstractContainerScreen<SuitDyerMenu> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/suit_dyer.png");
+
+    private EditBox redField;
+    private EditBox greenField;
+    private EditBox blueField;
+
+    private Button redSubButton;
+    private Button greenSubButton;
+    private Button blueSubButton;
+
+    private Button redPlusButton;
+    private Button greenPlusButton;
+    private Button bluePlusButton;
+
+    private Button applyButton;
 
     public SuitDyerScreen(SuitDyerMenu menu, Inventory inv, Component title) {
         super(menu, inv, title);
         this.imageWidth = 286;
         this.imageHeight = 168;
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+
+        redField = createColorField(leftPos + 55, topPos + 30);
+        greenField = createColorField(leftPos + 55, topPos + 51);
+        blueField = createColorField(leftPos + 55, topPos + 72);
+
+        addRenderableWidget(redField);
+        addRenderableWidget(greenField);
+        addRenderableWidget(blueField);
+
+        redField.setTextColor(0xFF0000);
+        greenField.setTextColor(0x00FF00);
+        blueField.setTextColor(0x0000FF);
+
+        // Sub buttons
+        redSubButton = Button.builder(Component.literal(""), btn -> {
+            redField.setValue(String.valueOf(parseColor(String.valueOf(parseColor(redField.getValue()) - 1))));
+        }).bounds(leftPos + 34, topPos + 30, 16, 16).build();
+
+        greenSubButton = Button.builder(Component.literal(""), btn -> {
+            greenField.setValue(String.valueOf(parseColor(String.valueOf(parseColor(greenField.getValue()) - 1))));
+        }).bounds(leftPos + 34, topPos + 51, 16, 16).build();
+
+        blueSubButton = Button.builder(Component.literal(""), btn -> {
+            blueField.setValue(String.valueOf(parseColor(String.valueOf(parseColor(blueField.getValue()) - 1))));
+        }).bounds(leftPos + 34, topPos + 72, 16, 16).build();
+
+        // Plus buttons
+        redPlusButton = Button.builder(Component.literal(""), btn -> {
+            redField.setValue(String.valueOf(parseColor(String.valueOf(parseColor(redField.getValue()) + 1))));
+        }).bounds(leftPos + 102, topPos + 30, 16, 16).build();
+
+        greenPlusButton = Button.builder(Component.literal(""), btn -> {
+            greenField.setValue(String.valueOf(parseColor(String.valueOf(parseColor(greenField.getValue()) + 1))));
+        }).bounds(leftPos + 102, topPos + 51, 16, 16).build();
+
+        bluePlusButton = Button.builder(Component.literal(""), btn -> {
+            blueField.setValue(String.valueOf(parseColor(String.valueOf(parseColor(blueField.getValue()) + 1))));
+        }).bounds(leftPos + 102, topPos + 72, 16, 16).build();
+
+        // Apply button
+        applyButton = Button.builder(Component.translatable("gui.tponr.apply"), btn -> {
+            int r = parseColor(redField.getValue());
+            int g = parseColor(greenField.getValue());
+            int b = parseColor(blueField.getValue());
+
+            ModMessages.sendToServer(new DyerChangeColorS2CPacket(ColorUtils.rgbToHex(r, g, b), menu.getBlockPos()));
+        }).bounds(leftPos + 33, topPos + 120, 86, 9).build();
+
+        addRenderableWidget(redSubButton);
+        addRenderableWidget(greenSubButton);
+        addRenderableWidget(blueSubButton);
+        addRenderableWidget(redPlusButton);
+        addRenderableWidget(greenPlusButton);
+        addRenderableWidget(bluePlusButton);
+        addRenderableWidget(applyButton);
+    }
+
+    private EditBox createColorField(int x, int y) {
+        EditBox box = new EditBox(font, x, y, 42, 16, Component.literal("0"));
+        box.setMaxLength(3);
+        box.setFilter(s -> s.matches("\\d{0,3}"));
+        box.setValue("0");
+        box.setBordered(false);
+
+        return box;
+    }
+
+    private int parseColor(String text) {
+        try {
+            int val = Integer.parseInt(text);
+            return Math.max(0, Math.min(255, val));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
     @Override

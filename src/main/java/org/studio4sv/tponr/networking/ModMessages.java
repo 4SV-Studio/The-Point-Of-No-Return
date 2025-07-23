@@ -7,6 +7,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.studio4sv.tponr.TPONR;
+import org.studio4sv.tponr.networking.packet.C2S.DyerChangeColorS2CPacket;
 import org.studio4sv.tponr.networking.packet.S2C.AttributesDataSyncS2CPacket;
 import org.studio4sv.tponr.networking.packet.S2C.BunkerDoorOpenSyncS2CPacket;
 import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
@@ -52,6 +53,14 @@ public class ModMessages {
                 .decoder(BunkerDoorOpenSyncS2CPacket::new)
                 .encoder(BunkerDoorOpenSyncS2CPacket::toBytes)
                 .consumerMainThread(BunkerDoorOpenSyncS2CPacket::handle)
+                .add();
+
+
+
+        net.messageBuilder(DyerChangeColorS2CPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(DyerChangeColorS2CPacket::new)
+                .encoder(DyerChangeColorS2CPacket::toBytes)
+                .consumerMainThread(DyerChangeColorS2CPacket::handle)
                 .add();
     }
 
