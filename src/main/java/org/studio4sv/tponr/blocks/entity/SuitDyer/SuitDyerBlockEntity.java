@@ -1,12 +1,23 @@
 package org.studio4sv.tponr.blocks.entity.SuitDyer;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.joml.Vector3f;
 import org.studio4sv.tponr.items.HazmatSuitPackItem;
+import org.studio4sv.tponr.networking.ModMessages;
+import org.studio4sv.tponr.networking.packet.S2C.SuitDyerDataSyncS2CPacket;
 import org.studio4sv.tponr.registers.ModBlockEntities;
+import org.studio4sv.tponr.util.ColorUtils;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
@@ -25,6 +36,11 @@ public class SuitDyerBlockEntity extends BlockEntity implements GeoBlockEntity {
     public void setStoredItem(ItemStack stack) {
         this.storedItem = stack;
         setChanged();
+        if (!level.isClientSide) {
+            for (ServerPlayer player : ((ServerLevel) level).players()) {
+                ModMessages.sendToPlayer(new SuitDyerDataSyncS2CPacket(this.getBlockPos(), this.storedItem), player);
+            }
+        }
     }
 
     public ItemStack getStoredItem() {
@@ -96,6 +112,32 @@ public class SuitDyerBlockEntity extends BlockEntity implements GeoBlockEntity {
         if (storedItem.getItem() instanceof HazmatSuitPackItem dyeable) {
             dyeable.setColor(storedItem, color);
             setChanged();
+            if (!level.isClientSide) {
+                for (ServerPlayer player : ((ServerLevel) level).players()) {
+                    ModMessages.sendToPlayer(new SuitDyerDataSyncS2CPacket(this.getBlockPos(), this.storedItem), player);
+                }
+            }
+            level.playSound(
+                    null,
+                    worldPosition,
+                    SoundEvents.FIRE_EXTINGUISH,
+                    SoundSource.BLOCKS,
+                    0.5f,
+                    1.5f
+            );
+
+            int[] rgb = ColorUtils.hexToRgb(color);
+            Direction facing = level.getBlockState(worldPosition).getValue(BlockStateProperties.HORIZONTAL_FACING);
+            BlockPos rightPos = worldPosition.relative(facing.getCounterClockWise());
+            ((ServerLevel) level).sendParticles(
+                    new DustParticleOptions(new Vector3f(rgb[0], rgb[1], rgb[2]), 1.0f),
+                    rightPos.getX() + 0.5,
+                    rightPos.getY() + 1.0,
+                    rightPos.getZ() + 0.5,
+                    20,
+                    0.3, 0.3, 0.3,
+                    0.0
+            );
             return true;
         }
         return false;

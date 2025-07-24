@@ -8,10 +8,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.networking.packet.C2S.DyerChangeColorS2CPacket;
-import org.studio4sv.tponr.networking.packet.S2C.AttributesDataSyncS2CPacket;
-import org.studio4sv.tponr.networking.packet.S2C.BunkerDoorOpenSyncS2CPacket;
-import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
-import org.studio4sv.tponr.networking.packet.S2C.ToggleWidgetS2CPacket;
+import org.studio4sv.tponr.networking.packet.S2C.*;
 
 public class ModMessages {
     private static SimpleChannel INSTANCE;
@@ -31,6 +28,7 @@ public class ModMessages {
 
         INSTANCE = net;
 
+        // Server 2 Client
         net.messageBuilder(StaminaDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(StaminaDataSyncS2CPacket::new)
                 .encoder(StaminaDataSyncS2CPacket::toBytes)
@@ -55,8 +53,13 @@ public class ModMessages {
                 .consumerMainThread(BunkerDoorOpenSyncS2CPacket::handle)
                 .add();
 
+        net.messageBuilder(SuitDyerDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SuitDyerDataSyncS2CPacket::new)
+                .encoder(SuitDyerDataSyncS2CPacket::toBytes)
+                .consumerMainThread(SuitDyerDataSyncS2CPacket::handle)
+                .add();
 
-
+        // Client 2 Server
         net.messageBuilder(DyerChangeColorS2CPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(DyerChangeColorS2CPacket::new)
                 .encoder(DyerChangeColorS2CPacket::toBytes)
