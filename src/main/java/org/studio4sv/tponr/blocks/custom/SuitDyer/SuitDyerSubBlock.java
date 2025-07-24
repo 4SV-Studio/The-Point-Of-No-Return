@@ -52,7 +52,9 @@ public class SuitDyerSubBlock extends BaseEntityBlock {
                 BlockEntity subBlockEntity = pLevel.getBlockEntity(pPos);
                 if (subBlockEntity instanceof SuitDyerSubBlockEntity) {
                     if (pLevel.getBlockEntity(((SuitDyerSubBlockEntity) subBlockEntity).getMainBlockPos()) instanceof SuitDyerBlockEntity mainBlockEntity) {
-                        mainBlockEntity.setStoredItem(pPlayer.getItemInHand(pHand).copyAndClear());
+                        if (mainBlockEntity.getStoredItem().isEmpty()) {
+                            mainBlockEntity.setStoredItem(pPlayer.getItemInHand(pHand).copyAndClear());
+                        }
                     }
                 }
             } else if (pPlayer.getItemInHand(pHand).isEmpty()) {
