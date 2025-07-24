@@ -3,16 +3,12 @@ package org.studio4sv.tponr.registers;
 import net.minecraft.world.item.ArmorItem;
 import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.armor.HazmatSuitItem;
-import org.studio4sv.tponr.blocks.custom.SuitDyer.SuitDyerBlock;
-import org.studio4sv.tponr.items.BunkerDoorBlockItem;
-import org.studio4sv.tponr.items.ClockItem;
+import org.studio4sv.tponr.items.*;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import org.studio4sv.tponr.items.HazmatSuitPackItem;
-import org.studio4sv.tponr.items.SuitDyerBlockItem;
 import org.studio4sv.tponr.util.ModArmorMaterials;
 
 public class ModItems {
@@ -40,6 +36,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> SUIT_DYER = ITEMS.register("suit_dyer",
             () -> new SuitDyerBlockItem(ModBlocks.SUIT_DYER.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> FAKE_SUIT = ITEMS.register("fake_suit",
+            () -> new FakeSuitItem(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

@@ -1,4 +1,4 @@
-package org.studio4sv.tponr.client.armor.hazmat_suit;
+package org.studio4sv.tponr.client.armor.HazmatSuit;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;

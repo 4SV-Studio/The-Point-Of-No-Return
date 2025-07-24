@@ -3,6 +3,7 @@ package org.studio4sv.tponr;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeableLeatherItem;
@@ -30,6 +31,10 @@ public class TPONR
 {
     public static final String MOD_ID = "tponr";
     private static final Logger LOGGER = LogUtils.getLogger();
+
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    }
 
     public TPONR(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();

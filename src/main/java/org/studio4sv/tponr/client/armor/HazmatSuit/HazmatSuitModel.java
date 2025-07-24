@@ -1,4 +1,4 @@
-package org.studio4sv.tponr.client.armor.hazmat_suit;
+package org.studio4sv.tponr.client.armor.HazmatSuit;
 
 import net.minecraft.resources.ResourceLocation;
 import org.studio4sv.tponr.TPONR;

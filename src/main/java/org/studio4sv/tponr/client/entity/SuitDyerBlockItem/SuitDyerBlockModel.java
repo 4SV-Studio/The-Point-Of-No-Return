@@ -18,6 +18,6 @@ public class SuitDyerBlockModel extends GeoModel<SuitDyerBlockEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(SuitDyerBlockEntity bunkerDoorBlockItem) {
-        return ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "animations/empty.animation.json");
+        return ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "animations/suit_dyer.animation.json");
     }
 }

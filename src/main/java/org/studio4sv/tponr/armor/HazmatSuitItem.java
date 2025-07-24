@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.studio4sv.tponr.client.armor.hazmat_suit.HazmatSuitRenderer;
+import org.studio4sv.tponr.client.armor.HazmatSuit.HazmatSuitRenderer;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;

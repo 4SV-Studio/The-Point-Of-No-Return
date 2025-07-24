@@ -5,10 +5,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.studio4sv.tponr.armor.HazmatSuitItem;
 import org.studio4sv.tponr.items.HazmatSuitPackItem;
 import org.studio4sv.tponr.registers.ModBlockEntities;
-import org.studio4sv.tponr.registers.ModItems;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
@@ -33,49 +31,17 @@ public class SuitDyerBlockEntity extends BlockEntity implements GeoBlockEntity {
         return storedItem;
     }
 
-    public ItemStack[] getStoredArmor() {
-
-        if (!(storedItem.getItem() instanceof HazmatSuitPackItem)) {
-            return new ItemStack[] {
-                    ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY
-            };
-        }
-
-        CompoundTag tag = storedItem.getOrCreateTag();
-        int charge = tag.getInt("charge");
-        int color;
-
-        if (storedItem.getItem() instanceof HazmatSuitPackItem dyeable) {
-            color = dyeable.getColor(storedItem);
-        } else {
-            color = 0xFFFFFF;
-        }
-
-
-        ItemStack helmet = new ItemStack(ModItems.HAZMAT_SUIT_HELMET.get());
-        ItemStack chest = new ItemStack(ModItems.HAZMAT_SUIT_CHESTPLATE.get());
-        ItemStack legs = new ItemStack(ModItems.HAZMAT_SUIT_LEGGINGS.get());
-        ItemStack boots = new ItemStack(ModItems.HAZMAT_SUIT_BOOTS.get());
-
-        for (ItemStack piece : new ItemStack[]{helmet, chest, legs, boots}) {
-            CompoundTag pieceTag = piece.getOrCreateTag();
-            if (piece.getItem() instanceof HazmatSuitItem dyeable) {
-                dyeable.setColor(piece, color);
-            }
-            pieceTag.putInt("charge", charge);
-        }
-
-        return new ItemStack[] {helmet, chest, legs, boots};
-    }
-
-
-
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
     }
 
     private PlayState predicate(AnimationState<SuitDyerBlockEntity> state) {
+        if (storedItem != null && storedItem.getItem() instanceof HazmatSuitPackItem) {
+            state.getController().setAnimation(RawAnimation.begin().then("on", Animation.LoopType.HOLD_ON_LAST_FRAME));
+        } else {
+            state.getController().setAnimation(RawAnimation.begin().then("off", Animation.LoopType.HOLD_ON_LAST_FRAME));
+        }
         return PlayState.CONTINUE;
     }
 
