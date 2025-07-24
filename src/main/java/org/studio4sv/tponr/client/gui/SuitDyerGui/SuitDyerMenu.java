@@ -6,7 +6,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.studio4sv.tponr.blocks.custom.SuitDyer.SuitDyerBlock;
+import org.studio4sv.tponr.blocks.entity.SuitDyer.SuitDyerBlockEntity;
 import org.studio4sv.tponr.registers.ModMenus;
 
 public class SuitDyerMenu extends AbstractContainerMenu {
@@ -21,6 +23,14 @@ public class SuitDyerMenu extends AbstractContainerMenu {
 
     public BlockPos getBlockPos() {
         return pos;
+    }
+
+    public int getColor() {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof SuitDyerBlockEntity suitDyerBlockEntity) {
+            return suitDyerBlockEntity.getColor();
+        }
+        return 0x000000;
     }
 
     @Override

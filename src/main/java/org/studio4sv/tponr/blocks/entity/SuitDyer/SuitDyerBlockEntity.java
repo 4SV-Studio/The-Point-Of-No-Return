@@ -47,6 +47,13 @@ public class SuitDyerBlockEntity extends BlockEntity implements GeoBlockEntity {
         return storedItem;
     }
 
+    public int getColor() {
+        if (storedItem.getItem() instanceof HazmatSuitPackItem dyeable) {
+            return dyeable.getColor(storedItem);
+        }
+        return 0x000000;
+    }
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));

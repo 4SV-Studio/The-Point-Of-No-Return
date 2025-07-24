@@ -1,16 +1,24 @@
 package org.studio4sv.tponr.client.gui.SuitDyerGui;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.studio4sv.tponr.TPONR;
+import org.studio4sv.tponr.items.FakeSuitItem;
 import org.studio4sv.tponr.networking.ModMessages;
 import org.studio4sv.tponr.networking.packet.C2S.DyerChangeColorS2CPacket;
+import org.studio4sv.tponr.registers.ModItems;
 import org.studio4sv.tponr.util.CenteredEditBox;
 import org.studio4sv.tponr.util.ColorUtils;
 import org.studio4sv.tponr.util.TextOnlyButton;
@@ -43,6 +51,11 @@ public class SuitDyerScreen extends AbstractContainerScreen<SuitDyerMenu> {
         redField.setTextColor(0xFF0000);
         greenField.setTextColor(0x00FF00);
         blueField.setTextColor(0x0000FF);
+
+        int[] color = ColorUtils.hexToRgb(menu.getColor());
+        redField.setValue(String.valueOf(color[0]));
+        greenField.setValue(String.valueOf(color[1]));
+        blueField.setValue(String.valueOf(color[2]));
 
         // Sub buttons
         Button redSubButton = TextOnlyButton.textOnlyBuilder(Component.literal(""), btn -> redField.setValue(String.valueOf(Math.max(0, Math.min(parseColor(redField.getValue()) - 1, 255))))).bounds(leftPos + 34, topPos + 30, 16, 16).build();
@@ -78,7 +91,6 @@ public class SuitDyerScreen extends AbstractContainerScreen<SuitDyerMenu> {
         EditBox box = new CenteredEditBox(font, x, y, 42, 16, Component.literal("0"));
         box.setMaxLength(3);
         box.setFilter(s -> s.matches("\\d{0,3}"));
-        box.setValue("0");
         box.setBordered(false);
 
         return box;
@@ -103,6 +115,38 @@ public class SuitDyerScreen extends AbstractContainerScreen<SuitDyerMenu> {
         renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
         renderTooltip(guiGraphics, mouseX, mouseY);
+
+        ItemStack previewStack = new ItemStack(ModItems.FAKE_SUIT.get());
+        if (previewStack.getItem() instanceof FakeSuitItem dyeable) {
+            int r = parseColor(redField.getValue());
+            int g = parseColor(greenField.getValue());
+            int b = parseColor(blueField.getValue());
+
+            dyeable.setColor(previewStack, ColorUtils.rgbToHex(r, g, b));
+        }
+
+        PoseStack pose = guiGraphics.pose();
+        pose.pushPose();
+
+        pose.translate(leftPos + 217, topPos + 126, 100);
+        pose.scale(45f, 45f, 45f);
+
+        float time = (System.currentTimeMillis() % 18000L) / 50F;
+        pose.mulPose(Axis.YP.rotationDegrees(time));
+        pose.mulPose(Axis.XP.rotationDegrees(180F));
+
+        Minecraft.getInstance().getItemRenderer().renderStatic(
+                previewStack,
+                ItemDisplayContext.GUI,
+                0xF000F0,
+                OverlayTexture.NO_OVERLAY,
+                pose,
+                guiGraphics.bufferSource(),
+                null,
+                0
+        );
+
+        pose.popPose();
     }
 
     @Override

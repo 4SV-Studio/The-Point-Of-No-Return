@@ -16,10 +16,11 @@ public class ModMenus {
     public static final RegistryObject<MenuType<SuitDyerMenu>> SUIT_DYE_MENU =
             MENUS.register("suit_dye_menu", () ->
                     IForgeMenuType.create((windowId, inv, data) -> new SuitDyerMenu(
-                            windowId,
-                            data.readBlockPos(),
-                            inv,
-                            inv.player)
+                                    windowId,
+                                    data.readBlockPos(),
+                                    inv,
+                                    inv.player
+                            )
                     )
             );
 
