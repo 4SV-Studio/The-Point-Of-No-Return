@@ -72,7 +72,7 @@ public class BunkerDoorSubBlock extends BaseEntityBlock {
 
     @Override
     public void onRemove(BlockState blockState, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!blockState.is(newState.getBlock()) && !level.isClientSide() && !isMoving) {
+        if (!blockState.is(newState.getBlock()) && !level.isClientSide()) {
             BlockPos mainBlockPos = getMainBlock(level, pos);
             if (mainBlockPos != null) {
                 BlockState mainBlockState = level.getBlockState(mainBlockPos);

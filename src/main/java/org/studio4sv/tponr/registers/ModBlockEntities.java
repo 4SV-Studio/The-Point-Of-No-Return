@@ -9,6 +9,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.studio4sv.tponr.blocks.entity.SuitCharger.SuitChargerBlockEntity;
+import org.studio4sv.tponr.blocks.entity.SuitCharger.SuitChargerSubBlockEntity;
 import org.studio4sv.tponr.blocks.entity.SuitDyer.SuitDyerBlockEntity;
 import org.studio4sv.tponr.blocks.entity.SuitDyer.SuitDyerSubBlockEntity;
 
@@ -40,6 +42,16 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("suit_dyer_sub_block_entity", () ->
                     BlockEntityType.Builder.of(SuitDyerSubBlockEntity::new,
                             ModBlocks.SUIT_DYER_SUB.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<SuitChargerBlockEntity>> SUIT_CHARGER_ENTITY =
+            BLOCK_ENTITIES.register("suit_charger_block_entity", () ->
+                    BlockEntityType.Builder.of(SuitChargerBlockEntity::new,
+                            ModBlocks.SUIT_CHARGER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<SuitChargerSubBlockEntity>> SUIT_CHARGER_SUB_ENTITY =
+            BLOCK_ENTITIES.register("suit_charger_sub_block_entity", () ->
+                    BlockEntityType.Builder.of(SuitChargerSubBlockEntity::new,
+                            ModBlocks.SUIT_CHARGER.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

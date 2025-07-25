@@ -13,8 +13,8 @@ public class ModCreativeModTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TPONR.MOD_ID);
 
-    public static final RegistryObject<CreativeModeTab> PONR_TAB = CREATIVE_MODE_TABS.register(TPONR.MOD_ID + "_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.BUNKER_DOOR.get()))
+    public static final RegistryObject<CreativeModeTab> TPONR_TAB = CREATIVE_MODE_TABS.register(TPONR.MOD_ID + "_tab",
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.FAKE_SUIT.get()))
                     .title(Component.translatable("creativetab." + TPONR.MOD_ID + "_tab"))
                     .displayItems((pParameters, pOutput) -> {
 
@@ -24,8 +24,7 @@ public class ModCreativeModTabs {
                         suit_pack.getOrCreateTag().putFloat("charge", 100f);
                         pOutput.accept(suit_pack);
                         pOutput.accept(ModItems.SUIT_DYER.get());
-
-
+                        pOutput.accept(ModItems.CHARGER.get());
                     })
                     .build());
 

@@ -2,16 +2,11 @@ package org.studio4sv.tponr;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeableLeatherItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
-import org.studio4sv.tponr.armor.HazmatSuitItem;
 import org.studio4sv.tponr.client.entity.BunkerDoorBlockItem.BunkerDoorBlockRenderer;
-import org.studio4sv.tponr.client.entity.ClockItem.ClockRenderer;
+import org.studio4sv.tponr.client.entity.ClockBlockItem.ClockBlockRenderer;
+import org.studio4sv.tponr.client.entity.SuitChargerBlockItem.SuitChargerRenderer;
 import org.studio4sv.tponr.client.entity.SuitDyerBlockItem.SuitDyerBlockRenderer;
 import org.studio4sv.tponr.networking.ModMessages;
 import org.studio4sv.tponr.registers.*;
@@ -61,13 +56,12 @@ public class TPONR
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             BlockEntityRenderers.register(ModBlockEntities.BUNKER_DOOR_ENTITY.get(), BunkerDoorBlockRenderer::new);
-            BlockEntityRenderers.register(ModBlockEntities.CLOCK_ENTITY.get(), ClockRenderer::new);
+            BlockEntityRenderers.register(ModBlockEntities.CLOCK_ENTITY.get(), ClockBlockRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.SUIT_DYER_ENTITY.get(), SuitDyerBlockRenderer::new);
+            BlockEntityRenderers.register(ModBlockEntities.SUIT_CHARGER_ENTITY.get(), SuitChargerRenderer::new);
 
             Minecraft.getInstance().getItemColors().register(
-                    (stack, tintIndex) -> {
-                        return tintIndex == 0 ? ((DyeableLeatherItem) stack.getItem()).getColor(stack) : -1;
-                    },
+                    (stack, tintIndex) -> tintIndex == 0 ? ((DyeableLeatherItem) stack.getItem()).getColor(stack) : -1,
                     ModItems.HAZMAT_SUIT_HELMET.get(),
                     ModItems.HAZMAT_SUIT_CHESTPLATE.get(),
                     ModItems.HAZMAT_SUIT_LEGGINGS.get(),

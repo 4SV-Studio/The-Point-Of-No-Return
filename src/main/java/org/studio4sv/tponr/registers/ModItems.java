@@ -40,6 +40,9 @@ public class ModItems {
     public static final RegistryObject<Item> FAKE_SUIT = ITEMS.register("fake_suit",
             () -> new FakeSuitItem(new Item.Properties()));
 
+    public static final RegistryObject<Item> CHARGER = ITEMS.register("charger",
+            () -> new SuitChargerItem(ModBlocks.SUIT_CHARGER.get(), new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

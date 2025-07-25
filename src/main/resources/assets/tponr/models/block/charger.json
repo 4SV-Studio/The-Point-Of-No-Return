@@ -129,6 +129,6 @@
     }
   },
   "textures": {
-    "particle": "item/charger"
+    "particle": "tponr:block/charger"
   }
 }

@@ -27,7 +27,7 @@ public class SuitDyerSubBlock extends BaseEntityBlock {
 
     @Override
     public void onRemove(BlockState blockState, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!blockState.is(newState.getBlock()) && !level.isClientSide() && !isMoving) {
+        if (!blockState.is(newState.getBlock()) && !level.isClientSide()) {
             BlockPos mainBlockPos;
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof SuitDyerSubBlockEntity subEntity) {

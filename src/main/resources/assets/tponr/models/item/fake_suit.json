@@ -94,6 +94,6 @@
     }
   },
   "textures": {
-    "particle": "item/hazmat_suit"
+    "particle": "tponr:models/armor/hazmat_suit"
   }
 }
