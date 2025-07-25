@@ -34,7 +34,7 @@ public class SuitChargerRenderer extends GeoBlockRenderer<SuitChargerBlockEntity
             }
 
             poseStack.pushPose();
-            poseStack.translate(0.5F, 0.15F, 0.5F);
+            poseStack.translate(0.5F, 0.5F, 0.5F);
             poseStack.scale(1.0F, 1.0F, 1.0F);
 
             Minecraft.getInstance().getItemRenderer().renderStatic(

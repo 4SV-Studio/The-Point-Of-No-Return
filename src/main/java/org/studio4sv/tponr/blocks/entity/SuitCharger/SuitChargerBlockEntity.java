@@ -2,10 +2,15 @@ package org.studio4sv.tponr.blocks.entity.SuitCharger;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.studio4sv.tponr.items.HazmatSuitPackItem;
+import org.studio4sv.tponr.networking.ModMessages;
+import org.studio4sv.tponr.networking.packet.S2C.BunkerDoorOpenSyncS2CPacket;
+import org.studio4sv.tponr.networking.packet.S2C.SuitChargerDataSyncS2CPacket;
 import org.studio4sv.tponr.registers.ModBlockEntities;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -27,6 +32,11 @@ public class SuitChargerBlockEntity extends BlockEntity implements GeoBlockEntit
     public void setStoredItem(ItemStack storedItem) {
         this.storedItem = storedItem;
         setChanged();
+        if (!level.isClientSide) {
+            for (ServerPlayer player : ((ServerLevel) level).players()) {
+                ModMessages.sendToPlayer(new SuitChargerDataSyncS2CPacket(this.getBlockPos(), this.storedItem), player);
+            }
+        }
     }
 
     public ItemStack getStoredItem() {

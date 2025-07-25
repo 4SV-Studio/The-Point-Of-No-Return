@@ -59,6 +59,12 @@ public class ModMessages {
                 .consumerMainThread(SuitDyerDataSyncS2CPacket::handle)
                 .add();
 
+        net.messageBuilder(SuitChargerDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SuitChargerDataSyncS2CPacket::new)
+                .encoder(SuitChargerDataSyncS2CPacket::toBytes)
+                .consumerMainThread(SuitChargerDataSyncS2CPacket::handle)
+                .add();
+
         // Client 2 Server
         net.messageBuilder(DyerChangeColorS2CPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(DyerChangeColorS2CPacket::new)
