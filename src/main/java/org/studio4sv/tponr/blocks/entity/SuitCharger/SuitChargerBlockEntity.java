@@ -9,7 +9,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.studio4sv.tponr.items.HazmatSuitPackItem;
 import org.studio4sv.tponr.networking.ModMessages;
-import org.studio4sv.tponr.networking.packet.S2C.BunkerDoorOpenSyncS2CPacket;
 import org.studio4sv.tponr.networking.packet.S2C.SuitChargerDataSyncS2CPacket;
 import org.studio4sv.tponr.registers.ModBlockEntities;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
@@ -47,7 +46,14 @@ public class SuitChargerBlockEntity extends BlockEntity implements GeoBlockEntit
         if (storedItem.getItem() instanceof HazmatSuitPackItem) {
             return storedItem.getOrCreateTag().getInt("charge");
         }
-        return 0x000000;
+        return 0;
+    }
+
+    public float getChargeFloat() {
+        if (storedItem.getItem() instanceof HazmatSuitPackItem) {
+            return storedItem.getOrCreateTag().getFloat("charge");
+        }
+        return 0.0f;
     }
 
     @Override
