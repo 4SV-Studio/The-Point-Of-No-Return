@@ -32,7 +32,7 @@ public class ModItems {
             () -> new HazmatSuitItem(ModArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     public static final RegistryObject<Item> HAZMAT_SUIT_PACK = ITEMS.register("hazmat_suit_pack",
-            () -> new HazmatSuitPackItem(new Item.Properties()));
+            () -> new HazmatSuitPackItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> SUIT_DYER = ITEMS.register("suit_dyer",
             () -> new SuitDyerBlockItem(ModBlocks.SUIT_DYER.get(), new Item.Properties()));
