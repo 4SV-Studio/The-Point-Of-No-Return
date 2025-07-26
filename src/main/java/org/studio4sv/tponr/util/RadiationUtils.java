@@ -1,6 +1,8 @@
 package org.studio4sv.tponr.util;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 
 public class RadiationUtils {
@@ -9,6 +11,17 @@ public class RadiationUtils {
 
         float temp = Math.abs(biome.getBaseTemperature());
 
+        return radTable(temp);
+    }
+
+    public static int levelFromPos(BlockPos pos, Level level) {
+        Biome biome = level.getBiome(pos).value();
+        float temp = Math.abs(biome.getBaseTemperature());
+
+        return radTable(temp);
+    }
+
+    public static int radTable(Float temp) {
         if (temp <= 0.15F) return 1;
         else if (temp <= 0.3F) return 2;
         else if (temp <= 0.9F) return 3;

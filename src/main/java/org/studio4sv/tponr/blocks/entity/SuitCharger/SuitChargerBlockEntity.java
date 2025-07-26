@@ -56,6 +56,19 @@ public class SuitChargerBlockEntity extends BlockEntity implements GeoBlockEntit
         return 0.0f;
     }
 
+    public void addCharge(float charge) {
+        if (storedItem.getItem() instanceof HazmatSuitPackItem) {
+            float chargeToAdd = Math.max(0.0f, Math.min(getChargeFloat() + charge, 100.0f));
+            storedItem.getOrCreateTag().putFloat("charge", chargeToAdd);
+            setChanged();
+            if (!level.isClientSide) {
+                for (ServerPlayer player : ((ServerLevel) level).players()) {
+                    ModMessages.sendToPlayer(new SuitChargerDataSyncS2CPacket(this.getBlockPos(), this.storedItem), player);
+                }
+            }
+        }
+    }
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "controller", 0, this::predicate));

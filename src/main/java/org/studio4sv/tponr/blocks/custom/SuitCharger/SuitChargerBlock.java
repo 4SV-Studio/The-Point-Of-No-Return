@@ -2,6 +2,8 @@ package org.studio4sv.tponr.blocks.custom.SuitCharger;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,6 +25,7 @@ import org.studio4sv.tponr.blocks.entity.SuitCharger.SuitChargerBlockEntity;
 import org.studio4sv.tponr.blocks.entity.SuitCharger.SuitChargerSubBlockEntity;
 import org.studio4sv.tponr.items.HazmatSuitPackItem;
 import org.studio4sv.tponr.registers.ModBlocks;
+import org.studio4sv.tponr.util.RadiationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,17 @@ public class SuitChargerBlock extends BaseEntityBlock {
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new SuitChargerBlockEntity(pPos, pState) ;
+    }
+
+    @Override
+    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+        if (blockEntity instanceof SuitChargerBlockEntity chargerBlockEntity) {
+            if (!chargerBlockEntity.getStoredItem().isEmpty()) {
+                chargerBlockEntity.addCharge(0.111F / RadiationUtils.levelFromPos(pPos, pLevel));
+                pLevel.scheduleTick(pPos, this, 1);
+            }
+        }
     }
 
     @Override
@@ -66,6 +80,7 @@ public class SuitChargerBlock extends BaseEntityBlock {
                     if (blockEntity instanceof SuitChargerBlockEntity mainBlockEntity) {
                         if (mainBlockEntity.getStoredItem().isEmpty()) {
                             mainBlockEntity.setStoredItem(pPlayer.getItemInHand(pHand).copyAndClear());
+                            pLevel.scheduleTick(pPos, this, 1);
                         }
                     }
             } else if (pPlayer.getItemInHand(pHand).isEmpty()) {
@@ -129,8 +144,8 @@ public class SuitChargerBlock extends BaseEntityBlock {
         BlockState subBlockState = ModBlocks.SUIT_CHARGER_SUB.get().defaultBlockState();
         for (BlockPos subPos : subBlockPositions) {
             level.setBlock(subPos, subBlockState, 3);
-            if (level.getBlockEntity(subPos) instanceof SuitChargerSubBlockEntity) {
-                ((SuitChargerSubBlockEntity) level.getBlockEntity(subPos)).setMainBlockPos(pos);
+            if (level.getBlockEntity(subPos) instanceof SuitChargerSubBlockEntity subBlockEntity) {
+                subBlockEntity.setMainBlockPos(pos);
             }
         }
     }

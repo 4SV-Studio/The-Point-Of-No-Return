@@ -30,11 +30,12 @@ public class SuitChargerSubBlock extends BaseEntityBlock {
     public @NotNull InteractionResult use(BlockState pBlockState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide) {
             if (pPlayer.getItemInHand(pHand).getItem() instanceof HazmatSuitPackItem) {
-                BlockEntity subBlockEntity = pLevel.getBlockEntity(pPos);
-                if (subBlockEntity instanceof SuitChargerSubBlockEntity) {
-                    if (pLevel.getBlockEntity(((SuitChargerSubBlockEntity) subBlockEntity).getMainBlockPos()) instanceof SuitChargerBlockEntity mainBlockEntity) {
+                BlockEntity subBlockEntity1 = pLevel.getBlockEntity(pPos);
+                if (subBlockEntity1 instanceof SuitChargerSubBlockEntity subBlockEntity) {
+                    if (pLevel.getBlockEntity(subBlockEntity.getMainBlockPos()) instanceof SuitChargerBlockEntity mainBlockEntity) {
                         if (mainBlockEntity.getStoredItem().isEmpty()) {
                             mainBlockEntity.setStoredItem(pPlayer.getItemInHand(pHand).copyAndClear());
+                            pLevel.scheduleTick(subBlockEntity.getMainBlockPos(), pLevel.getBlockState(subBlockEntity.getMainBlockPos()).getBlock(), 1);
                         }
                     }
                 }
