@@ -1,0 +1,10 @@
+{
+  "replace": "false",
+  "values": [
+    "tponr:clock",
+    "tponr:suit_charger_block",
+    "tponr:suit_charger_sub_block",
+    "tponr:suit_dyer_block",
+    "tponr:suit_dyer_sub_block"
+  ]
+}
