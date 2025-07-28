@@ -14,6 +14,7 @@ import org.studio4sv.tponr.util.RadiationUtils;
 public class SuitOverlayHud {
     private static final ResourceLocation OVERLAY_TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/suit_overlay.png");
     private static final ResourceLocation BATTERY_TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/battery.png");
+    private static final ResourceLocation DANGER_TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/danger.png");
     private static boolean enabled = true;
     private static float charge;
 
@@ -76,7 +77,19 @@ public class SuitOverlayHud {
         int batteryWidth = 24;
         int batteryHeight = 22;
 
+        int dangerWidth = 23;
+        int dangerHeight = 20;
+
         int batteryY = (screenHeight - batteryHeight - 2);
+        int dangerY = (screenHeight - batteryHeight - 8 - dangerHeight);
+
+        guiGraphics.blit( // Danger sign
+                DANGER_TEXTURE,
+                widgetX - dangerWidth / 4, dangerY,
+                0, 0,
+                dangerWidth, dangerHeight,
+                dangerWidth, dangerHeight
+        );
 
         guiGraphics.blit( // Empty battery
                 BATTERY_TEXTURE,
@@ -111,11 +124,11 @@ public class SuitOverlayHud {
         int levelY = batteryY - 25;
 
         String radiationLvlText = Component.translatable("gui.tponr.lvl").getString() + " " + RadiationUtils.levelForPlayer(Minecraft.getInstance().player);
-        drawOutline(gui, guiGraphics, widgetX + 15, levelY, radiationLvlText, 0x000000);
+        drawOutline(gui, guiGraphics, widgetX + 20, levelY, radiationLvlText, 0x000000);
         guiGraphics.drawString(
                 gui.getFont(),
                 radiationLvlText,
-                widgetX + 15,
+                widgetX + 20,
                 levelY,
                 0x70B8FC,
                 false
