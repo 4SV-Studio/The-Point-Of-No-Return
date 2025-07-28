@@ -33,6 +33,14 @@ public class SuitDyerMenu extends AbstractContainerMenu {
         return 0x000000;
     }
 
+    public Level getLevel() {
+        return level;
+    }
+
+    public BlockPos getPos() {
+        return pos;
+    }
+
     @Override
     public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
         return null;

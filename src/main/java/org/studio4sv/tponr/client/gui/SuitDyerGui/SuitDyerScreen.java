@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.studio4sv.tponr.TPONR;
+import org.studio4sv.tponr.blocks.entity.SuitDyer.SuitDyerBlockEntity;
 import org.studio4sv.tponr.items.FakeSuitItem;
 import org.studio4sv.tponr.networking.ModMessages;
 import org.studio4sv.tponr.networking.packet.C2S.DyerChangeColorS2CPacket;
@@ -125,28 +126,35 @@ public class SuitDyerScreen extends AbstractContainerScreen<SuitDyerMenu> {
             dyeable.setColor(previewStack, ColorUtils.rgbToHex(r, g, b));
         }
 
-        PoseStack pose = guiGraphics.pose();
-        pose.pushPose();
+        ItemStack storedItem = ItemStack.EMPTY;
+        if (menu.getLevel().getBlockEntity(menu.getBlockPos()) instanceof SuitDyerBlockEntity blockEntity) {
+            storedItem = blockEntity.getStoredItem();
+        }
 
-        pose.translate(leftPos + 217, topPos + 126, 100);
-        pose.scale(45f, 45f, 45f);
+        if (!storedItem.isEmpty()) {
+            PoseStack pose = guiGraphics.pose();
+            pose.pushPose();
 
-        float time = (System.currentTimeMillis() % 18000L) / 50F;
-        pose.mulPose(Axis.YP.rotationDegrees(time));
-        pose.mulPose(Axis.XP.rotationDegrees(180F));
+            pose.translate(leftPos + 217, topPos + 126, 100);
+            pose.scale(45f, 45f, 45f);
 
-        Minecraft.getInstance().getItemRenderer().renderStatic(
-                previewStack,
-                ItemDisplayContext.GUI,
-                0xF000F0,
-                OverlayTexture.NO_OVERLAY,
-                pose,
-                guiGraphics.bufferSource(),
-                null,
-                0
-        );
+            float time = (System.currentTimeMillis() % 18000L) / 50F;
+            pose.mulPose(Axis.YP.rotationDegrees(time));
+            pose.mulPose(Axis.XP.rotationDegrees(180F));
 
-        pose.popPose();
+            Minecraft.getInstance().getItemRenderer().renderStatic(
+                    previewStack,
+                    ItemDisplayContext.GUI,
+                    0xF000F0,
+                    OverlayTexture.NO_OVERLAY,
+                    pose,
+                    guiGraphics.bufferSource(),
+                    null,
+                    0
+            );
+
+            pose.popPose();
+        }
     }
 
     @Override
