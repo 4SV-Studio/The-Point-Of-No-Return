@@ -2,6 +2,7 @@ package org.studio4sv.tponr.registers.event;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -9,6 +10,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -20,6 +23,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.armor.HazmatSuitItem;
+import org.studio4sv.tponr.blocks.custom.SafeAir;
 import org.studio4sv.tponr.commands.HUDControllerCommands;
 import org.studio4sv.tponr.mechanics.attributes.PlayerAttributesProvider;
 import org.studio4sv.tponr.networking.ModMessages;
@@ -135,7 +139,11 @@ public class ModEvents {
             int radiationLevel = RadiationUtils.levelForPlayer(player);
             AtomicInteger equippedSuitParts = new AtomicInteger();
 
-            if (radiationLevel > 0) {
+            ServerLevel level = player.serverLevel();
+            Block blockBottom = level.getBlockState(player.blockPosition()).getBlock();
+            Block blockTop = level.getBlockState(player.blockPosition().above()).getBlock();
+
+            if (radiationLevel > 0 && !(blockBottom instanceof SafeAir) && !(blockTop instanceof SafeAir)) {
                 player.getArmorSlots().forEach(slot -> {
                     if (slot.getItem() instanceof HazmatSuitItem) {
                         equippedSuitParts.getAndIncrement();

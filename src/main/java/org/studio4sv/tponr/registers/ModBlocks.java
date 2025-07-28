@@ -13,6 +13,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.studio4sv.tponr.blocks.custom.SafeAir;
 import org.studio4sv.tponr.blocks.custom.SuitCharger.SuitChargerBlock;
 import org.studio4sv.tponr.blocks.custom.SuitCharger.SuitChargerSubBlock;
 import org.studio4sv.tponr.blocks.custom.SuitDyer.SuitDyerBlock;
@@ -44,6 +45,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> SUIT_CHARGER_SUB = BLOCKS.register("suit_charger_sub_block",
             () -> new SuitChargerSubBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+
+    public static final RegistryObject<Block> SAFE_AIR = BLOCKS.register("safe_air",
+            () -> new SafeAir(BlockBehaviour.Properties.copy(Blocks.AIR)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
