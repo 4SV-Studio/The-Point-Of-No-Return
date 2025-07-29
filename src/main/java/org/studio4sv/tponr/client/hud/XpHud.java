@@ -10,7 +10,7 @@ import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.armor.HazmatSuitItem;
 
 public class XpHud {
-    private static final ResourceLocation XP_TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/xp.png");
+    private static final ResourceLocation XP_TEXTURE = TPONR.id("textures/gui/xp.png");
     private static String xpText = "0";
     private static boolean enabled = true;
 

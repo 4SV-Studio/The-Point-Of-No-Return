@@ -25,6 +25,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(suit_pack);
                         pOutput.accept(ModItems.SUIT_DYER.get());
                         pOutput.accept(ModItems.CHARGER.get());
+                        pOutput.accept(ModItems.FILTER.get());
                     })
                     .build());
 

@@ -15,8 +15,7 @@ public class StaminaHud {
         enabled = !enabled;
     }
 
-    private final static ResourceLocation STAMINA_TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID,
-            "textures/gui/stamina.png");
+    private final static ResourceLocation STAMINA_TEXTURE = TPONR.id("textures/gui/stamina.png");
 
     public static void setStaminaAmount(int stamina) {
         staminaAmount = Math.max(0, Math.min(stamina, ClientStaminaData.getMax()));

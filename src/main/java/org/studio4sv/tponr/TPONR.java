@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeableLeatherItem;
 import org.studio4sv.tponr.client.entity.BunkerDoorBlockItem.BunkerDoorBlockRenderer;
 import org.studio4sv.tponr.client.entity.ClockBlockItem.ClockBlockRenderer;
+import org.studio4sv.tponr.client.entity.FilterBlockItem.FilterBlockRenderer;
 import org.studio4sv.tponr.client.entity.SuitChargerBlockItem.SuitChargerRenderer;
 import org.studio4sv.tponr.client.entity.SuitDyerBlockItem.SuitDyerBlockRenderer;
 import org.studio4sv.tponr.networking.ModMessages;
@@ -59,6 +60,7 @@ public class TPONR
             BlockEntityRenderers.register(ModBlockEntities.CLOCK_ENTITY.get(), ClockBlockRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.SUIT_DYER_ENTITY.get(), SuitDyerBlockRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.SUIT_CHARGER_ENTITY.get(), SuitChargerRenderer::new);
+            BlockEntityRenderers.register(ModBlockEntities.FILTER_ENTITY.get(), FilterBlockRenderer::new);
 
             Minecraft.getInstance().getItemColors().register(
                     (stack, tintIndex) -> tintIndex == 0 ? ((DyeableLeatherItem) stack.getItem()).getColor(stack) : -1,

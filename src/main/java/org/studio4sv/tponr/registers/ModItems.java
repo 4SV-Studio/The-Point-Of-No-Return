@@ -43,6 +43,9 @@ public class ModItems {
     public static final RegistryObject<Item> CHARGER = ITEMS.register("charger",
             () -> new SuitChargerItem(ModBlocks.SUIT_CHARGER.get(), new Item.Properties()));
 
+    public static final RegistryObject<Item> FILTER = ITEMS.register("filter",
+            () -> new FilterBlockItem(ModBlocks.FILTER.get(), new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

@@ -8,7 +8,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import org.studio4sv.tponr.TPONR;
 
 public class HungerHud {
-    private static final ResourceLocation HUNGER_TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/hunger.png");
+    private static final ResourceLocation HUNGER_TEXTURE = TPONR.id("textures/gui/hunger.png");
 
     private static int currentHungerStage;
     private static boolean enabled = true;

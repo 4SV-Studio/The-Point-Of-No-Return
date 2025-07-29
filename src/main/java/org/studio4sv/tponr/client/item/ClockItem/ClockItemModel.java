@@ -8,16 +8,16 @@ import software.bernie.geckolib.model.GeoModel;
 public class ClockItemModel extends GeoModel<ClockItem> {
     @Override
     public ResourceLocation getModelResource(ClockItem Item) {
-        return ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "geo/clock.geo.json");
+        return TPONR.id("geo/clock.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(ClockItem Item) {
-        return ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/block/clock.png");
+        return TPONR.id("textures/block/clock.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(ClockItem Item) {
-        return ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "animations/clock.animation.json");
+        return TPONR.id("animations/clock.animation.json");
     }
 }

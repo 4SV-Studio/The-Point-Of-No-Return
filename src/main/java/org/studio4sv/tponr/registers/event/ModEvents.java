@@ -43,10 +43,10 @@ public class ModEvents {
     public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event) {
         if(event.getObject() instanceof Player) {
             if(!event.getObject().getCapability(PlayerStaminaProvider.PLAYER_STAMINA).isPresent()) {
-                event.addCapability(ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "stamina"), new PlayerStaminaProvider());
+                event.addCapability(TPONR.id("stamina"), new PlayerStaminaProvider());
             }
             if(!event.getObject().getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).isPresent()) {
-                event.addCapability(ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "attributes"), new PlayerAttributesProvider());
+                event.addCapability(TPONR.id("attributes"), new PlayerAttributesProvider());
             }
         }
     }

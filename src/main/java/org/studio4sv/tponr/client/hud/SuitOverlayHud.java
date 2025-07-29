@@ -12,9 +12,9 @@ import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.util.RadiationUtils;
 
 public class SuitOverlayHud {
-    private static final ResourceLocation OVERLAY_TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/suit_overlay.png");
-    private static final ResourceLocation BATTERY_TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/battery.png");
-    private static final ResourceLocation DANGER_TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/danger.png");
+    private static final ResourceLocation OVERLAY_TEXTURE = TPONR.id("textures/gui/suit_overlay.png");
+    private static final ResourceLocation BATTERY_TEXTURE = TPONR.id("textures/gui/battery.png");
+    private static final ResourceLocation DANGER_TEXTURE = TPONR.id("textures/gui/danger.png");
     private static boolean enabled = true;
     private static float charge;
 

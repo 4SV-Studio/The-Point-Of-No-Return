@@ -9,16 +9,16 @@ public class HazmatSuitModel extends GeoModel<HazmatSuitItem> {
 
     @Override
     public ResourceLocation getModelResource(HazmatSuitItem animatable) {
-        return ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "geo/hazmat_suit.geo.json");
+        return TPONR.id("geo/hazmat_suit.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(HazmatSuitItem animatable) {
-        return ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/models/armor/hazmat_suit.png");
+        return TPONR.id("textures/models/armor/hazmat_suit.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(HazmatSuitItem animatable) {
-        return ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "animations/empty.animation.json");
+        return TPONR.id("animations/empty.animation.json");
     }
 }

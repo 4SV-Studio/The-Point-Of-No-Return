@@ -25,7 +25,7 @@ import org.studio4sv.tponr.util.ColorUtils;
 import org.studio4sv.tponr.util.TextOnlyButton;
 
 public class SuitDyerScreen extends AbstractContainerScreen<SuitDyerMenu> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/suit_dyer.png");
+    private static final ResourceLocation TEXTURE = TPONR.id("textures/gui/suit_dyer.png");
 
     private EditBox redField;
     private EditBox greenField;

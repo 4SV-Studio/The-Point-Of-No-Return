@@ -9,6 +9,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.studio4sv.tponr.blocks.entity.FilterBlockEntity;
 import org.studio4sv.tponr.blocks.entity.SuitCharger.SuitChargerBlockEntity;
 import org.studio4sv.tponr.blocks.entity.SuitCharger.SuitChargerSubBlockEntity;
 import org.studio4sv.tponr.blocks.entity.SuitDyer.SuitDyerBlockEntity;
@@ -52,6 +53,11 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("suit_charger_sub_block_entity", () ->
                     BlockEntityType.Builder.of(SuitChargerSubBlockEntity::new,
                             ModBlocks.SUIT_CHARGER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<FilterBlockEntity>> FILTER_ENTITY =
+            BLOCK_ENTITIES.register("filter_block_entity", () ->
+                    BlockEntityType.Builder.of(FilterBlockEntity::new,
+                            ModBlocks.FILTER.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

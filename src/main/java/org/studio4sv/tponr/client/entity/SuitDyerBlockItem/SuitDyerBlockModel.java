@@ -8,16 +8,16 @@ import software.bernie.geckolib.model.GeoModel;
 public class SuitDyerBlockModel extends GeoModel<SuitDyerBlockEntity> {
     @Override
     public ResourceLocation getModelResource(SuitDyerBlockEntity bunkerDoorBlockItem) {
-        return ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "geo/suit_dyer.geo.json");
+        return TPONR.id("geo/suit_dyer.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(SuitDyerBlockEntity bunkerDoorBlockItem) {
-        return ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/block/suit_dyer.png");
+        return TPONR.id("textures/block/suit_dyer.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(SuitDyerBlockEntity bunkerDoorBlockItem) {
-        return ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "animations/suit_dyer.animation.json");
+        return TPONR.id("animations/suit_dyer.animation.json");
     }
 }

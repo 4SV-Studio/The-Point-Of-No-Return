@@ -13,6 +13,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.studio4sv.tponr.blocks.custom.FilterBlock;
 import org.studio4sv.tponr.blocks.custom.SafeAir;
 import org.studio4sv.tponr.blocks.custom.SuitCharger.SuitChargerBlock;
 import org.studio4sv.tponr.blocks.custom.SuitCharger.SuitChargerSubBlock;
@@ -48,6 +49,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> SAFE_AIR = BLOCKS.register("safe_air",
             () -> new SafeAir(BlockBehaviour.Properties.copy(Blocks.AIR)));
+
+    public static final RegistryObject<Block> FILTER = BLOCKS.register("filter_block",
+            () -> new FilterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
