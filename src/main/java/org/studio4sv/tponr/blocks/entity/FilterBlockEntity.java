@@ -20,8 +20,6 @@ public class FilterBlockEntity extends BlockEntity implements GeoBlockEntity {
     private final Queue<BlockPos> visited = new ArrayDeque<>();
     private final Queue<BlockPos> queue = new ArrayDeque<>();
     private final Queue<BlockPos> affectedBlocks = new ArrayDeque<>();
-    private final Queue<BlockPos> particleQueue = new ArrayDeque<>();
-    private int scannedBlocks = 0;
 
     private boolean wasSealed = false;
     private boolean sealed = false;
@@ -59,14 +57,6 @@ public class FilterBlockEntity extends BlockEntity implements GeoBlockEntity {
         this.wasSealed = wasSealed;
     }
 
-    public int getScannedBlocks() {
-        return scannedBlocks;
-    }
-
-    public void addScannedBlock() {
-        this.scannedBlocks++;
-    }
-
     public Queue<BlockPos> getQueue() {
         return queue;
     }
@@ -91,22 +81,7 @@ public class FilterBlockEntity extends BlockEntity implements GeoBlockEntity {
         affectedBlocks.add(pos);
     }
 
-    public Queue<BlockPos> getParticleQueue() {
-        return particleQueue;
-    }
-
-    public void resetParticleQueue() {
-        particleQueue.clear();
-    }
-
-    public void fillParticleQueueInward() {
-        List<BlockPos> reversed = new ArrayList<>(visited);
-        Collections.reverse(reversed);
-        particleQueue.addAll(reversed);
-    }
-
     public void reset() {
-        scannedBlocks = 0;
         queue.clear();
         visited.clear();
         finished = false;
