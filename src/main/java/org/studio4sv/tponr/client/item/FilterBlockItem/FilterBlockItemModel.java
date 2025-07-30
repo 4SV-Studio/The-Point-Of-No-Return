@@ -2,7 +2,6 @@ package org.studio4sv.tponr.client.item.FilterBlockItem;
 
 import net.minecraft.resources.ResourceLocation;
 import org.studio4sv.tponr.TPONR;
-import org.studio4sv.tponr.blocks.entity.FilterBlockEntity;
 import org.studio4sv.tponr.items.FilterBlockItem;
 import software.bernie.geckolib.model.GeoModel;
 

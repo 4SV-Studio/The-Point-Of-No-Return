@@ -1,5 +1,6 @@
 package org.studio4sv.tponr.registers.event;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -33,6 +34,7 @@ import org.studio4sv.tponr.mechanics.stamina.PlayerStamina;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStaminaProvider;
 import org.studio4sv.tponr.registers.ModItems;
 import org.studio4sv.tponr.util.RadiationUtils;
+import org.studio4sv.tponr.util.SafeAreaTracker;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -139,11 +141,10 @@ public class ModEvents {
             int radiationLevel = RadiationUtils.levelForPlayer(player);
             AtomicInteger equippedSuitParts = new AtomicInteger();
 
-            ServerLevel level = player.serverLevel();
-            Block blockBottom = level.getBlockState(player.blockPosition()).getBlock();
-            Block blockTop = level.getBlockState(player.blockPosition().above()).getBlock();
+            BlockPos blockBottom = player.blockPosition();
+            BlockPos blockTop = player.blockPosition().above();
 
-            if (radiationLevel > 0 && !(blockBottom instanceof SafeAir) && !(blockTop instanceof SafeAir)) {
+            if (radiationLevel > 0 && !(SafeAreaTracker.isSafe(blockBottom)) && !(SafeAreaTracker.isSafe(blockTop))) {
                 player.getArmorSlots().forEach(slot -> {
                     if (slot.getItem() instanceof HazmatSuitItem) {
                         equippedSuitParts.getAndIncrement();
