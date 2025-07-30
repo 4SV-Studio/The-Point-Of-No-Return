@@ -11,8 +11,7 @@ import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInst
 import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
+import java.util.*;
 
 public class FilterBlockEntity extends BlockEntity implements GeoBlockEntity {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -20,6 +19,8 @@ public class FilterBlockEntity extends BlockEntity implements GeoBlockEntity {
     private boolean enabled = false;
     private final Queue<BlockPos> visited = new ArrayDeque<>();
     private final Queue<BlockPos> queue = new ArrayDeque<>();
+    private final Queue<BlockPos> affectedBlocks = new ArrayDeque<>();
+    private final Queue<BlockPos> particleQueue = new ArrayDeque<>();
     private int scannedBlocks = 0;
 
     private boolean wasSealed = false;
@@ -80,6 +81,28 @@ public class FilterBlockEntity extends BlockEntity implements GeoBlockEntity {
 
     public void addToVisited(BlockPos pos) {
         visited.add(pos);
+    }
+
+    public Queue<BlockPos> getAffectedBlocks() {
+        return affectedBlocks;
+    }
+
+    public void addToAffectedBlocks(BlockPos pos) {
+        affectedBlocks.add(pos);
+    }
+
+    public Queue<BlockPos> getParticleQueue() {
+        return particleQueue;
+    }
+
+    public void resetParticleQueue() {
+        particleQueue.clear();
+    }
+
+    public void fillParticleQueueInward() {
+        List<BlockPos> reversed = new ArrayList<>(visited);
+        Collections.reverse(reversed);
+        particleQueue.addAll(reversed);
     }
 
     public void reset() {

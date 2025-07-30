@@ -141,10 +141,7 @@ public class ModEvents {
             int radiationLevel = RadiationUtils.levelForPlayer(player);
             AtomicInteger equippedSuitParts = new AtomicInteger();
 
-            BlockPos blockBottom = player.blockPosition();
-            BlockPos blockTop = player.blockPosition().above();
-
-            if (radiationLevel > 0 && !(SafeAreaTracker.isSafe(blockBottom)) && !(SafeAreaTracker.isSafe(blockTop))) {
+            if (radiationLevel > 0) {
                 player.getArmorSlots().forEach(slot -> {
                     if (slot.getItem() instanceof HazmatSuitItem) {
                         equippedSuitParts.getAndIncrement();

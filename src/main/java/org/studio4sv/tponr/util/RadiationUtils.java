@@ -11,12 +11,23 @@ public class RadiationUtils {
 
         float temp = Math.abs(biome.getBaseTemperature());
 
+        BlockPos blockBottom = player.blockPosition().below();
+        BlockPos blockTop = player.blockPosition().above();
+
+        if ((SafeAreaTracker.isSafe(blockBottom)) && (SafeAreaTracker.isSafe(blockTop))) {
+            return 0;
+        }
+
         return radTable(temp);
     }
 
     public static int levelFromPos(BlockPos pos, Level level) {
         Biome biome = level.getBiome(pos).value();
         float temp = Math.abs(biome.getBaseTemperature());
+
+        if ((SafeAreaTracker.isSafe(pos))) {
+            return 0;
+        }
 
         return radTable(temp);
     }

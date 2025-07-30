@@ -19,10 +19,6 @@ import org.jetbrains.annotations.Nullable;
 import org.studio4sv.tponr.blocks.entity.FilterBlockEntity;
 import org.studio4sv.tponr.util.SafeAreaTracker;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 public class FilterBlock extends BaseEntityBlock {
     private static final int MAX_BLOCKS = 5000; // TODO: implement config here
     private static final int BLOCKS_PER_TICK = 100;
@@ -48,7 +44,6 @@ public class FilterBlock extends BaseEntityBlock {
                 be.reset();
                 be.addToQueue(pPos);
                 be.addToVisited(pPos);
-                be.addScannedBlock();
             } else {
                 be.setFinished(true);
                 be.setSealed(false);
@@ -81,7 +76,7 @@ public class FilterBlock extends BaseEntityBlock {
 
         if (!be.isEnabled()) {
             if (be.wasSealed()) {
-                emitParticlesInward(pLevel, be, pPos, ParticleTypes.SMOKE);
+                emitParticles(pLevel, be, ParticleTypes.SMOKE);
                 for (BlockPos pos : be.getVisited()) {
                     SafeAreaTracker.removeSafeArea(pos);
                 }
@@ -91,15 +86,16 @@ public class FilterBlock extends BaseEntityBlock {
         }
 
         for (int i = 0; i < BLOCKS_PER_TICK && !be.getQueue().isEmpty() && !be.isFinished(); i++) {
-            if (be.getScannedBlocks() >= MAX_BLOCKS) {
+
+            if (be.getVisited().size() >= MAX_BLOCKS) {
                 be.setSealed(false);
                 be.setFinished(true);
+                be.getAffectedBlocks().clear();
                 return;
             }
 
             BlockPos current = be.getQueue().poll();
             if (current == null) return;
-            be.addScannedBlock();
 
             for (Direction dir : Direction.values()) {
                 BlockPos neighbor = current.relative(dir);
@@ -114,20 +110,24 @@ public class FilterBlock extends BaseEntityBlock {
         if (be.getQueue().isEmpty()) {
             be.setSealed(true);
             be.setFinished(true);
+            be.getAffectedBlocks().clear();
+            for (BlockPos pos : be.getVisited()) {
+                be.addToAffectedBlocks(pos);
+            }
         }
 
         if (be.isFinished() && be.isSealed() && !be.wasSealed()) {
             for (BlockPos pos : be.getVisited()) {
                 SafeAreaTracker.addSafeArea(pos);
             }
-            emitParticlesOutward(pLevel, be, ParticleTypes.CLOUD);
+            emitParticles(pLevel, be, ParticleTypes.CLOUD);
         }
 
-        if (be.isFinished() && !be.isSealed() && be.wasSealed()) {
-            for (BlockPos pos : be.getVisited()) {
-                SafeAreaTracker.removeSafeArea(pos);
-            }
-            emitParticlesInward(pLevel, be, pPos, ParticleTypes.SMOKE);
+        if (be.isFinished() && be.getAffectedBlocks().size() != be.getVisited().size()) {
+            be.setEnabled(false);
+            be.setFinished(true);
+            be.reset();
+            emitParticles(pLevel, be, ParticleTypes.SMOKE);
         }
 
         be.setWasSealed(be.isSealed());
@@ -137,19 +137,10 @@ public class FilterBlock extends BaseEntityBlock {
         }
     }
 
-    private void emitParticlesOutward(ServerLevel level, FilterBlockEntity be, ParticleOptions particle) {
-        for (BlockPos pos : be.getVisited()) {
+    private void emitParticles(ServerLevel level, FilterBlockEntity be, ParticleOptions particle) {
+        for (BlockPos pos : be.getAffectedBlocks()) {
             level.sendParticles(particle, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
                     1, 0.3, 0.3, 0.3, 0.01);
-        }
-    }
-
-    private void emitParticlesInward(ServerLevel level, FilterBlockEntity be, BlockPos center, ParticleOptions particle) {
-        List<BlockPos> visited = new ArrayList<>(be.getVisited());
-        Collections.reverse(visited);
-        for (BlockPos pos : visited) {
-            level.sendParticles(particle, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-                    1, (center.getX() - pos.getX()) * 0.1, (center.getY() - pos.getY()) * 0.1, (center.getZ() - pos.getZ()) * 0.1, 0.01);
         }
     }
 }
