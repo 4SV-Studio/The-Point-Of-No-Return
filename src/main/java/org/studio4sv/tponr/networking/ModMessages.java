@@ -1,13 +1,13 @@
 package org.studio4sv.tponr.networking;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.studio4sv.tponr.TPONR;
-import org.studio4sv.tponr.networking.packet.*;
+import org.studio4sv.tponr.networking.packet.S2C.*;
+import org.studio4sv.tponr.networking.packet.C2S.*;
 
 public class ModMessages {
     private static SimpleChannel INSTANCE;
