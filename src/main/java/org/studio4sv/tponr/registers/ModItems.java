@@ -15,7 +15,6 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, TPONR.MOD_ID);
 
-
     public static final RegistryObject<Item> BUNKER_DOOR = ITEMS.register("bunker_door",
             () -> new BunkerDoorBlockItem(ModBlocks.BUNKER_DOOR.get(), new Item.Properties()));
 
@@ -45,6 +44,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> FILTER = ITEMS.register("filter",
             () -> new FilterBlockItem(ModBlocks.FILTER.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> BLACK_BLOCK_ITEM = ITEMS.register("black_block",
+            () -> new ClockItem(ModBlocks.BLACK_BLOCK.get(), new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

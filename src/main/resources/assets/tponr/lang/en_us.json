@@ -4,6 +4,7 @@
   "block.tponr.bunker_door_block": "Bunker Door",
   "block.tponr.clock": "Clock",
 
+  "block.tponr.black_block": "Black Block",
   "block.tponr.safe_air": "Safe Air",
 
   "item.tponr.hazmat_suit_helmet": "Hazmat Suit Helmet",
@@ -14,10 +15,37 @@
 
   "command.tponr.forbidden": "Must be OP to execute for other players!",
 
+  "key.categories.tponr": "The Point Of No Return Keybinds",
+  "key.tponr.open_upgrade_screen": "Open Upgrade Screen",
+
   "tooltip.tponr.required_stats": "Requirements to use:",
 
-  "stat.tponr.intelligence": "Intelligence",
+  "gui.tponr.upgrade_screen": "Upgrade screen",
+
+  "gui.tponr.level": "Level",
+  "gui.tponr.stats": "Stats",
+  "gui.tponr.attributes": "Attributes",
+
+  "gui.tponr.health_capacity": "Health",
+  "gui.tponr.stamina_capacity": "Stamina",
+  "gui.tponr.mana_capacity": "Mana",
+  "gui.tponr.level_up": "level up",
+
+  "stat.tponr.health": "Health",
+  "stat.tponr.stamina": "Stamina",
+  "stat.tponr.strength": "Strength",
   "stat.tponr.agility": "Agility",
+  "stat.tponr.intelligence": "Intelligence",
+  "stat.tponr.luck": "Luck",
+  "stat.tponr.mana": "Mana",
+
+  "tooltip.tponr.health": "Player's vitality.\nIncreasing the level increases\nhealth and reduces the risk of injury.",
+  "tooltip.tponr.stamina": "Player's endurance.\nIncreasing the level stamina.",
+  "tooltip.tponr.strength": "Player's physical strength.\nIncreasing the level increases\nthe carried weight and  damage.",
+  "tooltip.tponr.agility": "Player's motoric skills.\nIncreasing the level\nimproves movement speed.",
+  "tooltip.tponr.intelligence": "Player's intelligence.\nIncreasing the level increases\nthe power of your mind.",
+  "tooltip.tponr.luck": "Players's luck.\nIncreasing the level increases\nthe chances of finding more valuable resources.",
+
   "item.tponr.hazmat_suit.desc": "Suit charge",
   "item.tponr.hazmat_suit_pack.desc": "Press RMB to equip hazmat suit",
 

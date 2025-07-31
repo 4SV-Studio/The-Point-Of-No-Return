@@ -7,20 +7,20 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.studio4sv.tponr.client.UpgradeScreenKeyHandler;
+import org.studio4sv.tponr.client.gui.UpgradeScreen;
 import org.studio4sv.tponr.armor.HazmatSuitItem;
 import org.studio4sv.tponr.client.hud.SuitOverlayHud;
 import org.studio4sv.tponr.client.hud.XpHud;
 import org.studio4sv.tponr.util.HazmatArmorTracker;
 import org.studio4sv.tponr.util.xpConverter;
-
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.StreamSupport;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
 public class ClientEvents {
@@ -93,5 +93,12 @@ public class ClientEvents {
         model.rightLeg.visible = true;
         model.leftPants.visible = true;
         model.rightPants.visible = true;
+    }
+
+    @SubscribeEvent
+    public static void onKeyInput(InputEvent.Key event) {
+        if (UpgradeScreenKeyHandler.OPEN_UPGRADE_SCREEN.consumeClick()) {
+            Minecraft.getInstance().setScreen(new UpgradeScreen());
+        }
     }
 }

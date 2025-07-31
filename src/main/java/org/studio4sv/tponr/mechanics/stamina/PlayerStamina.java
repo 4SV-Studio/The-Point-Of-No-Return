@@ -6,15 +6,15 @@ public class PlayerStamina {
     private int stamina;
     private int maxStamina;
     private boolean staminaEnabled;
-    private static final int limit = 500;
+    private static final int limit = 1000;
 
     public static int getLimit() {
         return limit;
     }
 
     public PlayerStamina() {
-        this.stamina = 150;
-        this.maxStamina = 150;
+        this.stamina = 300;
+        this.maxStamina = 300;
         this.staminaEnabled = true;
     }
 

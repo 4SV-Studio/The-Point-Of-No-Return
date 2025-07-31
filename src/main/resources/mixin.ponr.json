@@ -14,6 +14,7 @@
   },
   "client": [
     "AnvilScreenMixin",
-    "EnchantmentScreenMixin"
+    "EnchantmentScreenMixin",
+    "LockOverlayMixin"
   ]
 }

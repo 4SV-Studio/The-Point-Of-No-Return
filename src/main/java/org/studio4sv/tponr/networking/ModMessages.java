@@ -7,8 +7,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.studio4sv.tponr.TPONR;
-import org.studio4sv.tponr.networking.packet.C2S.DyerChangeColorS2CPacket;
-import org.studio4sv.tponr.networking.packet.S2C.*;
+import org.studio4sv.tponr.networking.packet.*;
 
 public class ModMessages {
     private static SimpleChannel INSTANCE;
@@ -76,6 +75,12 @@ public class ModMessages {
                 .decoder(DyerChangeColorS2CPacket::new)
                 .encoder(DyerChangeColorS2CPacket::toBytes)
                 .consumerMainThread(DyerChangeColorS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(UpgradeStatsC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(UpgradeStatsC2SPacket::new)
+                .encoder(UpgradeStatsC2SPacket::toBytes)
+                .consumerMainThread(UpgradeStatsC2SPacket::handle)
                 .add();
     }
 

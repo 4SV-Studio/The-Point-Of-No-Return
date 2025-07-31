@@ -27,10 +27,10 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, TPONR.MOD_ID);
 
     public static final RegistryObject<Block> BUNKER_DOOR = BLOCKS.register("bunker_door_block",
-            () -> new BunkerDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+            () -> new BunkerDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).isSuffocating((state, level, pos) -> false).noOcclusion().destroyTime(-1)));
 
     public static final RegistryObject<Block> BUNKER_DOOR_SUB = BLOCKS.register("bunker_door_sub_block",
-            () -> new BunkerDoorSubBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+            () -> new BunkerDoorSubBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).isSuffocating((state, level, pos) -> false).noOcclusion().destroyTime(-1)));
 
     public static final RegistryObject<Block> CLOCK = BLOCKS.register("clock",
             () -> new ClockBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
@@ -47,11 +47,13 @@ public class ModBlocks {
     public static final RegistryObject<Block> SUIT_CHARGER_SUB = BLOCKS.register("suit_charger_sub_block",
             () -> new SuitChargerSubBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
-    public static final RegistryObject<Block> SAFE_AIR = BLOCKS.register("safe_air",
-            () -> new SafeAir(BlockBehaviour.Properties.copy(Blocks.AIR)));
-
     public static final RegistryObject<Block> FILTER = BLOCKS.register("filter_block",
             () -> new FilterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+
+    public static final RegistryObject<Block> BLACK_BLOCK = BLOCKS.register("black_block",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.BEDROCK)
+            )
+    );
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
