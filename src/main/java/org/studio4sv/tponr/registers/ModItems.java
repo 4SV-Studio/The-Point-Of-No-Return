@@ -45,7 +45,7 @@ public class ModItems {
     public static final RegistryObject<Item> FILTER = ITEMS.register("filter",
             () -> new FilterBlockItem(ModBlocks.FILTER.get(), new Item.Properties()));
 
-    public static final RegistryObject<Item> BLACK_BLOCK_ITEM = ITEMS.register("black_block",
+    public static final RegistryObject<Item> BLACK_BLOCK = ITEMS.register("black_block",
             () -> new ClockItem(ModBlocks.BLACK_BLOCK.get(), new Item.Properties()));
 
     public static void register(IEventBus eventBus) {

@@ -1,18 +1,12 @@
 package org.studio4sv.tponr.registers.event;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -24,7 +18,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.armor.HazmatSuitItem;
-import org.studio4sv.tponr.blocks.custom.SafeAir;
 import org.studio4sv.tponr.commands.HUDControllerCommands;
 import org.studio4sv.tponr.mechanics.attributes.PlayerAttributesProvider;
 import org.studio4sv.tponr.networking.ModMessages;
@@ -34,7 +27,6 @@ import org.studio4sv.tponr.mechanics.stamina.PlayerStamina;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStaminaProvider;
 import org.studio4sv.tponr.registers.ModItems;
 import org.studio4sv.tponr.util.RadiationUtils;
-import org.studio4sv.tponr.util.SafeAreaTracker;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

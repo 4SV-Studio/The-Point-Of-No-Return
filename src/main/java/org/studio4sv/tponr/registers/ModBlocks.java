@@ -14,7 +14,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.studio4sv.tponr.blocks.custom.FilterBlock;
-import org.studio4sv.tponr.blocks.custom.SafeAir;
 import org.studio4sv.tponr.blocks.custom.SuitCharger.SuitChargerBlock;
 import org.studio4sv.tponr.blocks.custom.SuitCharger.SuitChargerSubBlock;
 import org.studio4sv.tponr.blocks.custom.SuitDyer.SuitDyerBlock;
