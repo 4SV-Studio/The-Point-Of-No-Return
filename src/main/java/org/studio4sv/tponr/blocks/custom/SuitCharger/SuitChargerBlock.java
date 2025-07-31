@@ -49,7 +49,7 @@ public class SuitChargerBlock extends BaseEntityBlock {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
         if (blockEntity instanceof SuitChargerBlockEntity chargerBlockEntity) {
             if (!chargerBlockEntity.getStoredItem().isEmpty()) {
-                chargerBlockEntity.addCharge(0.111F / RadiationUtils.levelFromPos(pPos, pLevel));
+                chargerBlockEntity.addCharge(0.111F / Math.max(1, RadiationUtils.levelFromPos(pPos, pLevel)));
                 pLevel.scheduleTick(pPos, this, 1);
             }
         }
