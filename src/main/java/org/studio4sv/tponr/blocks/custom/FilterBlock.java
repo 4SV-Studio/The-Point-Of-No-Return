@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -17,11 +18,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import org.studio4sv.tponr.blocks.entity.FilterBlockEntity;
+import org.studio4sv.tponr.networking.ModMessages;
+import org.studio4sv.tponr.networking.packet.S2C.SyncFilterStatusS2CPacket;
 import org.studio4sv.tponr.util.SafeAreaTracker;
+
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
 
 public class FilterBlock extends BaseEntityBlock {
     private static final int MAX_BLOCKS = 5000; // TODO: implement config here
     private static final int BLOCKS_PER_TICK = 100;
+    private static final int RESCAN_INTERVAL = 10;
 
     public FilterBlock(Properties pProperties) {
         super(pProperties);
@@ -85,6 +94,13 @@ public class FilterBlock extends BaseEntityBlock {
             return;
         }
 
+        if (be.isSealed() && be.isFinished() && pLevel.getGameTime() % RESCAN_INTERVAL == 0) {
+            if (hasAreaChanged(pLevel, pPos, be)) {
+                disableFilter(pLevel, be);
+                return;
+            }
+        }
+
         for (int i = 0; i < BLOCKS_PER_TICK && !be.getQueue().isEmpty() && !be.isFinished(); i++) {
 
             if (be.getVisited().size() >= MAX_BLOCKS) {
@@ -135,6 +151,52 @@ public class FilterBlock extends BaseEntityBlock {
         if (be.isEnabled()) {
             pLevel.scheduleTick(pPos, pState.getBlock(), 1);
         }
+    }
+
+    private boolean hasAreaChanged(ServerLevel level, BlockPos filterPos, FilterBlockEntity be) {
+        Set<BlockPos> newVisited = new HashSet<>();
+        Queue<BlockPos> queue = new LinkedList<>();
+
+        queue.add(filterPos);
+        newVisited.add(filterPos);
+
+        while (!queue.isEmpty() && newVisited.size() < MAX_BLOCKS) {
+            BlockPos current = queue.poll();
+
+            for (Direction dir : Direction.values()) {
+                BlockPos neighbor = current.relative(dir);
+                if (newVisited.contains(neighbor)) continue;
+
+                BlockState state = level.getBlockState(neighbor);
+                newVisited.add(neighbor);
+
+                if (!state.is(Blocks.IRON_BLOCK)) { // TODO: implement tag here
+                    queue.add(neighbor);
+                }
+            }
+        }
+
+        Set<BlockPos> originalVisited = new HashSet<>(be.getVisited());
+        if (newVisited.size() != originalVisited.size()) {
+            return true;
+        }
+
+        return !newVisited.equals(originalVisited);
+    }
+
+    private void disableFilter(ServerLevel level, FilterBlockEntity be) {
+        for (BlockPos pos : be.getVisited()) {
+            SafeAreaTracker.removeSafeArea(pos);
+        }
+
+        be.setEnabled(false);
+        be.setFinished(true);
+        be.setSealed(false);
+        be.setWasSealed(true);
+
+        emitParticles(level, be, ParticleTypes.SMOKE);
+
+        be.reset();
     }
 
     private void emitParticles(ServerLevel level, FilterBlockEntity be, ParticleOptions particle) {
