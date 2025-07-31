@@ -106,6 +106,7 @@ public class FilterBlock extends BaseEntityBlock {
             if (be.getVisited().size() >= MAX_BLOCKS) {
                 be.setSealed(false);
                 be.setFinished(true);
+                be.setEnabled(false);
                 be.getAffectedBlocks().clear();
                 return;
             }
