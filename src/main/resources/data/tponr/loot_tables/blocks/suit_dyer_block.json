@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tponr:suit_dyer"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "tponr:blocks/suit_dyer_block"
+}

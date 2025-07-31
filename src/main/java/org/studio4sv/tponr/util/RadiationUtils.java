@@ -1,0 +1,43 @@
+package org.studio4sv.tponr.util;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+
+public class RadiationUtils {
+    public static int levelForPlayer(Player player) {
+        Biome biome = player.level().getBiome(player.blockPosition()).value();
+
+        float temp = Math.abs(biome.getBaseTemperature());
+
+        BlockPos blockBottom = player.blockPosition().below();
+        BlockPos blockTop = player.blockPosition().above();
+
+        if ((SafeAreaTracker.isSafe(blockBottom)) && (SafeAreaTracker.isSafe(blockTop))) {
+            return 0;
+        }
+
+        return radTable(temp);
+    }
+
+    public static int levelFromPos(BlockPos pos, Level level) {
+        Biome biome = level.getBiome(pos).value();
+        float temp = Math.abs(biome.getBaseTemperature());
+
+        if ((SafeAreaTracker.isSafe(pos))) {
+            return 0;
+        }
+
+        return radTable(temp);
+    }
+
+    public static int radTable(Float temp) {
+        if (temp <= 0.15F) return 1;
+        else if (temp <= 0.3F) return 2;
+        else if (temp <= 0.9F) return 3;
+        else if (temp <= 1.5F) return 4;
+        else if (temp <= 2.0F) return 5;
+        else return 6;
+    }
+}

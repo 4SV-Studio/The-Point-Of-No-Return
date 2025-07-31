@@ -6,7 +6,13 @@
 
   "block.tponr.black_block": "Black Block",
 
-  "command.tponr.forbidden": "Must be OP to execute this command!",
+  "item.tponr.hazmat_suit_helmet": "Hazmat Suit Helmet",
+  "item.tponr.hazmat_suit_chestplate": "Hazmat Suit Chestplate",
+  "item.tponr.hazmat_suit_leggings": "Hazmat Suit Leggings",
+  "item.tponr.hazmat_suit_boots": "Hazmat Suit Boots",
+  "item.tponr.hazmat_suit_pack": "Hazmat Suit",
+
+  "command.tponr.forbidden": "Must be OP to execute for other players!",
 
   "key.categories.tponr": "The Point Of No Return Keybinds",
   "key.tponr.open_upgrade_screen": "Open Upgrade Screen",
@@ -37,5 +43,17 @@
   "tooltip.tponr.strength": "Player's physical strength.\nIncreasing the level increases\nthe carried weight and  damage.",
   "tooltip.tponr.agility": "Player's motoric skills.\nIncreasing the level\nimproves movement speed.",
   "tooltip.tponr.intelligence": "Player's intelligence.\nIncreasing the level increases\nthe power of your mind.",
-  "tooltip.tponr.luck": "Players's luck.\nIncreasing the level increases\nthe chances of finding more valuable resources."
+  "tooltip.tponr.luck": "Players's luck.\nIncreasing the level increases\nthe chances of finding more valuable resources.",
+
+  "item.tponr.hazmat_suit.desc": "Suit charge",
+  "item.tponr.hazmat_suit_pack.desc": "Press RMB to equip hazmat suit",
+
+  "gui.tponr.lvl": "Lvl.",
+  "gui.tponr.apply": "Apply",
+
+  "gui.hudcompass.direction.N": "N",
+  "gui.hudcompass.direction.S": "S",
+  "gui.hudcompass.direction.W": "W",
+  "gui.hudcompass.direction.E": "E",
+  "gui.hudcompass.home": "Bunker"
 }

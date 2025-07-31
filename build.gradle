@@ -128,6 +128,8 @@ dependencies {
     implementation("com.eliotlash.mclib:mclib:20")
 
     implementation fg.deobf("curse.maven:inventory-free-406383:4658538")
+
+    implementation fg.deobf("curse.maven:hud-compass-420249:5856969")
 }
 
 tasks.named('processResources', ProcessResources).configure {

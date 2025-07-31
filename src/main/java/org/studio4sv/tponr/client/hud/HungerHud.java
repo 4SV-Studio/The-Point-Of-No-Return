@@ -8,7 +8,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import org.studio4sv.tponr.TPONR;
 
 public class HungerHud {
-    private static final ResourceLocation HUNGER_TEXTURE = ResourceLocation.fromNamespaceAndPath(TPONR.MOD_ID, "textures/gui/hunger.png");
+    private static final ResourceLocation HUNGER_TEXTURE = TPONR.id("textures/gui/hunger.png");
 
     private static int currentHungerStage;
     private static boolean enabled = true;
@@ -28,13 +28,13 @@ public class HungerHud {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, HUNGER_TEXTURE);
 
-        int padding = 10;
+        int padding = 5;
 
-        int scaledSize = 35;
+        int scaledSize = 40;
 
         int textureSize = 26;
         int x = screenWidth - scaledSize - padding;
-        int y = scaledSize + (padding * 2);
+        int y = scaledSize + (padding * 4);
 
         PoseStack poseStack = guiGraphics.pose();
 

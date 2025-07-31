@@ -5,7 +5,9 @@
   "minVersion": "0.8.5",
   "refmap": "refmap.ponr.json",
   "mixins": [
-    "FoodDataMixin"
+    "FoodDataMixin",
+    "HudOverlayMixin",
+    "SpawnPointPointsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

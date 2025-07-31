@@ -37,6 +37,7 @@ public class TextOnlyButton extends Button {
             Component message = this.getMessage();
             int textWidth = (int)(font.width(message) * scale);
             int textHeight = (int)(font.lineHeight * scale);
+
             int xPos = this.getX() + (this.getWidth() - textWidth) / 2;
             int yPos = this.getY() + (this.getHeight() - textHeight) / 2;
 
@@ -45,6 +46,51 @@ public class TextOnlyButton extends Button {
             guiGraphics.pose().scale(scale, scale, 1.0F);
             guiGraphics.drawString(font, message, 0, yOffset, color, false);
             guiGraphics.pose().popPose();
+        }
+    }
+
+    public static TextOnlyButton.Builder textOnlyBuilder(Component message, OnPress onPress) {
+        return new TextOnlyButton.Builder(message, onPress);
+    }
+
+    public static class Builder {
+        private final Component message;
+        private final OnPress onPress;
+        private int x, y, width, height;
+        private float scale = 1.0f;
+        private int color = 0xFFFFFF;
+        private int yOffset = 0;
+
+        public Builder(Component message, OnPress onPress) {
+            this.message = message;
+            this.onPress = onPress;
+        }
+
+        public Builder bounds(int x, int y, int width, int height) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            return this;
+        }
+
+        public Builder scale(float scale) {
+            this.scale = scale;
+            return this;
+        }
+
+        public Builder color(int color) {
+            this.color = color;
+            return this;
+        }
+
+        public Builder yOffset(int yOffset) {
+            this.yOffset = yOffset;
+            return this;
+        }
+
+        public TextOnlyButton build() {
+            return new TextOnlyButton(x, y, width, height, message, onPress, scale, color, yOffset);
         }
     }
 }
