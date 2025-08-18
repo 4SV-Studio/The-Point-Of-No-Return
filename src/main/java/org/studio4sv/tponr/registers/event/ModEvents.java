@@ -1,6 +1,7 @@
 package org.studio4sv.tponr.registers.event;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -22,11 +23,13 @@ import org.studio4sv.tponr.commands.HUDControllerCommands;
 import org.studio4sv.tponr.mechanics.attributes.PlayerAttributesProvider;
 import org.studio4sv.tponr.networking.ModMessages;
 import org.studio4sv.tponr.networking.packet.S2C.AttributesDataSyncS2CPacket;
+import org.studio4sv.tponr.networking.packet.S2C.SafeAreaSyncS2CPacket;
 import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStamina;
 import org.studio4sv.tponr.mechanics.stamina.PlayerStaminaProvider;
 import org.studio4sv.tponr.registers.ModItems;
 import org.studio4sv.tponr.util.RadiationUtils;
+import org.studio4sv.tponr.util.SafeAreaTracker;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -49,12 +52,12 @@ public class ModEvents {
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         if(event.isWasDeath()) {
             event.getOriginal().getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(oldStore -> {
-                event.getOriginal().getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(newStore -> {
+                event.getEntity().getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(newStore -> {
                     newStore.copyFrom(oldStore);
                 });
             });
             event.getOriginal().getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(oldStore -> {
-                event.getOriginal().getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(newStore -> {
+                event.getEntity().getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(newStore -> {
                     newStore.copyFrom(oldStore);
                 });
             });
@@ -68,14 +71,20 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onPlayerJoinWorld(EntityJoinLevelEvent event) {
-        if(!event.getLevel().isClientSide()) {
-            if(event.getEntity() instanceof ServerPlayer player) {
-                player.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
-                    ModMessages.sendToPlayer(new StaminaDataSyncS2CPacket(stamina.getStamina(), stamina.getMaxStamina()), player);
-                });
-                player.getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(attributes -> {
-                    ModMessages.sendToPlayer(new AttributesDataSyncS2CPacket(attributes.getAttributes()), player);
-                });
+        if(!event.getLevel().isClientSide() && event.getEntity() instanceof ServerPlayer player) {
+            player.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
+                ModMessages.sendToPlayer(new StaminaDataSyncS2CPacket(stamina.getStamina(), stamina.getMaxStamina()), player);
+            });
+            player.getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(attributes -> {
+                ModMessages.sendToPlayer(new AttributesDataSyncS2CPacket(attributes.getAttributes()), player);
+            });
+
+            for (ServerLevel level : player.server.getAllLevels()) {
+                SafeAreaTracker tracker = SafeAreaTracker.get(level);
+
+                if (!tracker.getAllSafeBlocks().isEmpty()) {
+                    ModMessages.sendToPlayer(new SafeAreaSyncS2CPacket(level.dimension(), tracker.getAllSafeBlocks()), player);
+                }
             }
         }
     }

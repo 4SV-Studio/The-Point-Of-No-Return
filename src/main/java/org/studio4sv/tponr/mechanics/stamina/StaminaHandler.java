@@ -33,11 +33,9 @@ public class StaminaHandler {
         serverPlayer.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
             boolean syncNeeded = false;
 
-            if (serverPlayer.isSprinting()) {
+            if (serverPlayer.isSprinting() && !serverPlayer.isCreative() && !serverPlayer.isSpectator()) {
                 if (stamina.getStamina() > SPRINT_COST) {
-                    if (!serverPlayer.getAbilities().instabuild) {
-                        stamina.subStamina(SPRINT_COST);
-                    }
+                    stamina.subStamina(SPRINT_COST);
                     regenTickCounter = 0;
                     syncNeeded = true;
                 }
@@ -65,10 +63,8 @@ public class StaminaHandler {
 
         serverPlayer.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
             if (!serverPlayer.isInWater() && !serverPlayer.isInLava()) {
-                if (stamina.getStamina() >= JUMP_COST) {
-                    if (!serverPlayer.getAbilities().instabuild) {
-                        stamina.subStamina(JUMP_COST);
-                    }
+                if (stamina.getStamina() >= JUMP_COST && !serverPlayer.isCreative() && !serverPlayer.isSpectator()) {
+                    stamina.subStamina(JUMP_COST);
                     regenTickCounter = 0;
                     syncStamina(serverPlayer, stamina.getStamina(), stamina.getMaxStamina());
                 }
@@ -81,15 +77,15 @@ public class StaminaHandler {
         if (!(event.getPlayer() instanceof ServerPlayer serverPlayer)) return;
 
         serverPlayer.getCapability(PlayerStaminaProvider.PLAYER_STAMINA).ifPresent(stamina -> {
-            if (stamina.getStamina() < MINING_COST) {
-                // TODO: damage arms with first aid
-                event.setCanceled(true);
-            } else {
-                if (!serverPlayer.getAbilities().instabuild) {
+            if (stamina.getStamina() > MINING_COST) {
+                if (serverPlayer.isCreative() && !serverPlayer.isSpectator()) {
                     stamina.subStamina(MINING_COST);
                 }
                 regenTickCounter = 0;
                 syncStamina(serverPlayer, stamina.getStamina(), stamina.getMaxStamina());
+            } else {
+                // TODO: damage arms with first aid
+                event.setCanceled(true);
             }
         });
     }
