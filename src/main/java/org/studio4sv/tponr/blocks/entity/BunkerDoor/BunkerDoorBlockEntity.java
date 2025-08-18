@@ -1,14 +1,7 @@
 package org.studio4sv.tponr.blocks.entity.BunkerDoor;
 
-import io.netty.buffer.Unpooled;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.phys.Vec3;
 import org.studio4sv.tponr.networking.ModMessages;
 import org.studio4sv.tponr.networking.packet.S2C.BunkerDoorOpenSyncS2CPacket;
 import org.studio4sv.tponr.registers.ModBlockEntities;
@@ -68,7 +61,7 @@ public class BunkerDoorBlockEntity extends BlockEntity implements GeoBlockEntity
         this.changed = true;
         this.setChanged();
 
-        if (!level.isClientSide) {
+        if (level != null && !level.isClientSide) {
             for (ServerPlayer player : ((ServerLevel) level).players()) {
                 ModMessages.sendToPlayer(new BunkerDoorOpenSyncS2CPacket(this.getBlockPos(), this.open), player);
             }

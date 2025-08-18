@@ -1,21 +1,32 @@
 package org.studio4sv.tponr.util;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import org.studio4sv.tponr.client.ClientSafeAreaTracker;
 
 public class RadiationUtils {
     public static int levelForPlayer(Player player) {
         Biome biome = player.level().getBiome(player.blockPosition()).value();
-
         float temp = Math.abs(biome.getBaseTemperature());
 
         BlockPos blockBottom = player.blockPosition().below();
         BlockPos blockTop = player.blockPosition().above();
 
-        if ((SafeAreaTracker.isSafe(blockBottom)) && (SafeAreaTracker.isSafe(blockTop))) {
-            return 0;
+        if (!player.level().isClientSide() && player.level() instanceof ServerLevel serverLevel) {
+            SafeAreaTracker tracker = SafeAreaTracker.get(serverLevel);
+
+            if (tracker.isSafe(blockBottom) && tracker.isSafe(blockTop)) {
+                return 0;
+            }
+        } else if (player.level().isClientSide()) {
+            ResourceKey<Level> dimension = player.level().dimension();
+            if (ClientSafeAreaTracker.isSafe(dimension, blockBottom) && ClientSafeAreaTracker.isSafe(dimension, blockTop)) {
+                return 0;
+            }
         }
 
         return radTable(temp);
@@ -25,8 +36,11 @@ public class RadiationUtils {
         Biome biome = level.getBiome(pos).value();
         float temp = Math.abs(biome.getBaseTemperature());
 
-        if ((SafeAreaTracker.isSafe(pos))) {
-            return 0;
+        if (level instanceof ServerLevel serverLevel) {
+            SafeAreaTracker tracker = SafeAreaTracker.get(serverLevel);
+            if (tracker.isSafe(pos)) {
+                return 0;
+            }
         }
 
         return radTable(temp);

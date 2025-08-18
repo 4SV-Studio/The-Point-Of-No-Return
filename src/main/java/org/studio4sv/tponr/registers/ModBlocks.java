@@ -50,8 +50,7 @@ public class ModBlocks {
             () -> new FilterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
     public static final RegistryObject<Block> BLACK_BLOCK = BLOCKS.register("black_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.BEDROCK)
-            )
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.BEDROCK))
     );
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {

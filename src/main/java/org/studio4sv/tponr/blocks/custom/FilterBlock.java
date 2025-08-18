@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -18,8 +17,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import org.studio4sv.tponr.blocks.entity.FilterBlockEntity;
-import org.studio4sv.tponr.networking.ModMessages;
-import org.studio4sv.tponr.networking.packet.S2C.SyncFilterStatusS2CPacket;
 import org.studio4sv.tponr.util.SafeAreaTracker;
 
 import java.util.HashSet;
@@ -69,9 +66,10 @@ public class FilterBlock extends BaseEntityBlock {
 
         if (!pState.is(pNewState.getBlock()) && !pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof FilterBlockEntity be) {
+            if (blockEntity instanceof FilterBlockEntity be && pLevel instanceof ServerLevel serverLevel) {
+                SafeAreaTracker tracker = SafeAreaTracker.get(serverLevel);
                 for (BlockPos pos : be.getVisited()) {
-                    SafeAreaTracker.removeSafeArea(pos);
+                    tracker.removeSafeArea(pos);
                 }
             }
         }
@@ -83,11 +81,13 @@ public class FilterBlock extends BaseEntityBlock {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
         if (!(blockEntity instanceof FilterBlockEntity be)) return;
 
+        SafeAreaTracker tracker = SafeAreaTracker.get(pLevel);
+
         if (!be.isEnabled()) {
             if (be.wasSealed()) {
                 emitParticles(pLevel, be, ParticleTypes.SMOKE);
                 for (BlockPos pos : be.getVisited()) {
-                    SafeAreaTracker.removeSafeArea(pos);
+                    tracker.removeSafeArea(pos);
                 }
                 be.reset();
             }
@@ -96,7 +96,7 @@ public class FilterBlock extends BaseEntityBlock {
 
         if (be.isSealed() && be.isFinished() && pLevel.getGameTime() % RESCAN_INTERVAL == 0) {
             if (hasAreaChanged(pLevel, pPos, be)) {
-                disableFilter(pLevel, be);
+                disableFilter(pLevel, be, tracker);
                 return;
             }
         }
@@ -124,6 +124,7 @@ public class FilterBlock extends BaseEntityBlock {
                 if (!(state.is(Blocks.IRON_BLOCK))) be.addToQueue(neighbor); // TODO: implement tag here
             }
         }
+
         if (be.getQueue().isEmpty()) {
             be.setSealed(true);
             be.setFinished(true);
@@ -135,7 +136,7 @@ public class FilterBlock extends BaseEntityBlock {
 
         if (be.isFinished() && be.isSealed() && !be.wasSealed()) {
             for (BlockPos pos : be.getVisited()) {
-                SafeAreaTracker.addSafeArea(pos);
+                tracker.addSafeArea(pos);
             }
             emitParticles(pLevel, be, ParticleTypes.CLOUD);
         }
@@ -185,9 +186,9 @@ public class FilterBlock extends BaseEntityBlock {
         return !newVisited.equals(originalVisited);
     }
 
-    private void disableFilter(ServerLevel level, FilterBlockEntity be) {
+    private void disableFilter(ServerLevel level, FilterBlockEntity be, SafeAreaTracker tracker) {
         for (BlockPos pos : be.getVisited()) {
-            SafeAreaTracker.removeSafeArea(pos);
+            tracker.removeSafeArea(pos);
         }
 
         be.setEnabled(false);
