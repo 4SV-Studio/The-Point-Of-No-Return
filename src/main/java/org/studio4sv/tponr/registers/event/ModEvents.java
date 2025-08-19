@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.Mod;
 import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.armor.HazmatSuitItem;
 import org.studio4sv.tponr.commands.HUDControllerCommands;
+import org.studio4sv.tponr.mechanics.attributes.PlayerAttributes;
 import org.studio4sv.tponr.mechanics.attributes.PlayerAttributesProvider;
 import org.studio4sv.tponr.networking.ModMessages;
 import org.studio4sv.tponr.networking.packet.S2C.AttributesDataSyncS2CPacket;
@@ -64,6 +65,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         event.register(PlayerStamina.class);
+        event.register(PlayerAttributes.class);
     }
 
     @SubscribeEvent
