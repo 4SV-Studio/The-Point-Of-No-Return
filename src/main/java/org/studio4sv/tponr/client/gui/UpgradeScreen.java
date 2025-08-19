@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 import org.studio4sv.tponr.TPONR;
-import org.studio4sv.tponr.mechanics.attributes.PlayerAttributesProvider;
+import org.studio4sv.tponr.client.ClientAttributesData;
 import org.studio4sv.tponr.networking.ModMessages;
 import org.studio4sv.tponr.networking.packet.C2S.UpgradeStatsC2SPacket;
 import org.studio4sv.tponr.util.TextOnlyButton;
@@ -80,7 +80,7 @@ public class UpgradeScreen extends Screen {
         screenHeightStart = this.height / 2 - upgradeScreenHeight / 2;
 
         assert this.getMinecraft().player != null;
-        this.getMinecraft().player.getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(attributes -> currentStats = attributes.getAttributes());
+        currentStats = ClientAttributesData.get();
 
         newHp = (int) this.getMinecraft().player.getMaxHealth();
         newStamina = calculateStamina();
@@ -321,7 +321,7 @@ public class UpgradeScreen extends Screen {
         renderScaledText(pGuiGraphics, getTranslation("gui.tponr.stamina_capacity"), screenWidthStart + 38, screenHeightStart + 104, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
         renderScaledText(pGuiGraphics, "§k" + getTranslation("gui.tponr.mana_capacity"), screenWidthStart + 38, screenHeightStart + 118, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
 
-        renderScaledText(pGuiGraphics, String.valueOf((int) player.getHealth()), screenWidthStart + 94 - font.width(String.valueOf((int) player.getHealth())), screenHeightStart + 91, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, String.valueOf((int) player.getMaxHealth()), screenWidthStart + 94 - font.width(String.valueOf((int) player.getMaxHealth())), screenHeightStart + 91, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
         renderScaledText(pGuiGraphics, String.valueOf(calculateStamina()), screenWidthStart + 94 - font.width(String.valueOf(calculateStamina())), screenHeightStart + 105, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
         renderScaledText(pGuiGraphics, "???", screenWidthStart + 94 - font.width("???"), screenHeightStart + 117, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
 
