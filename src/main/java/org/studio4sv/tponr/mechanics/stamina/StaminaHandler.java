@@ -1,5 +1,7 @@
 package org.studio4sv.tponr.mechanics.stamina;
 
+import ichttt.mods.firstaid.api.damagesystem.AbstractPlayerDamageModel;
+import ichttt.mods.firstaid.common.util.CommonUtils;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
@@ -84,8 +86,14 @@ public class StaminaHandler {
                 regenTickCounter = 0;
                 syncStamina(serverPlayer, stamina.getStamina(), stamina.getMaxStamina());
             } else {
-                // TODO: damage arms with first aid
-                event.setCanceled(true);
+                AbstractPlayerDamageModel damageModel = CommonUtils.getDamageModel(event.getPlayer());
+                if (!(damageModel == null)) {
+                    damageModel.LEFT_ARM.damage(1, event.getPlayer(), true);
+                    damageModel.RIGHT_ARM.damage(1, event.getPlayer(), true);
+                    damageModel.scheduleResync();
+                } else {
+                    event.setCanceled(true);
+                }
             }
         });
     }
