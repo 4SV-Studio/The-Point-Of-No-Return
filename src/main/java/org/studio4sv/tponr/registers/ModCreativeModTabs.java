@@ -13,12 +13,19 @@ public class ModCreativeModTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TPONR.MOD_ID);
 
-    public static final RegistryObject<CreativeModeTab> PONR_TAB = CREATIVE_MODE_TABS.register(TPONR.MOD_ID + "_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.BUNKER_DOOR_ITEM.get()))
+    public static final RegistryObject<CreativeModeTab> TPONR_TAB = CREATIVE_MODE_TABS.register(TPONR.MOD_ID + "_tab",
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.FAKE_SUIT.get()))
                     .title(Component.translatable("creativetab." + TPONR.MOD_ID + "_tab"))
                     .displayItems((pParameters, pOutput) -> {
-                        pOutput.accept(ModItems.BUNKER_DOOR_ITEM.get());
-                        pOutput.accept(ModItems.CLOCK_ITEM.get());
+
+                        pOutput.accept(ModItems.BUNKER_DOOR.get());
+                        pOutput.accept(ModItems.CLOCK.get());
+                        ItemStack suit_pack = new ItemStack(ModItems.HAZMAT_SUIT_PACK.get());
+                        suit_pack.getOrCreateTag().putFloat("charge", 100f);
+                        pOutput.accept(suit_pack);
+                        pOutput.accept(ModItems.SUIT_DYER.get());
+                        pOutput.accept(ModItems.CHARGER.get());
+                        pOutput.accept(ModItems.FILTER.get());
                     })
                     .build());
 

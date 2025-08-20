@@ -13,7 +13,7 @@ import org.studio4sv.tponr.TPONR;
 
 @Mixin(LockOverlay.class)
 public class LockOverlayMixin {
-    @Shadow
+    @Shadow(remap = false)
     @Mutable
     @Final
     private static ResourceLocation LOCK;

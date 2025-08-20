@@ -1,5 +1,9 @@
-package org.studio4sv.tponr.blocks.entity;
+package org.studio4sv.tponr.blocks.entity.BunkerDoor;
 
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import org.studio4sv.tponr.networking.ModMessages;
+import org.studio4sv.tponr.networking.packet.S2C.BunkerDoorOpenSyncS2CPacket;
 import org.studio4sv.tponr.registers.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -36,8 +40,36 @@ public class BunkerDoorBlockEntity extends BlockEntity implements GeoBlockEntity
         }
     }
 
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag tag = super.getUpdateTag();
+        tag.putBoolean("open", this.open);
+        return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        super.handleUpdateTag(tag);
+        if (tag.contains("open")) {
+            this.open = tag.getBoolean("open");
+            this.changed = true;
+        }
+    }
+
     public void toggleOpen() {
         this.open = !this.open;
+        this.changed = true;
+        this.setChanged();
+
+        if (level != null && !level.isClientSide) {
+            for (ServerPlayer player : ((ServerLevel) level).players()) {
+                ModMessages.sendToPlayer(new BunkerDoorOpenSyncS2CPacket(this.getBlockPos(), this.open), player);
+            }
+        }
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
         this.changed = true;
         this.setChanged();
     }

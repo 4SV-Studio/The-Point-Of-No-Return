@@ -43,13 +43,18 @@ jobs:
           echo "commit_msg=${COMMIT_MSG}" >> $GITHUB_OUTPUT
           echo "commit_date=${COMMIT_DATE}" >> $GITHUB_OUTPUT
 
-      - name: Rename artifact with commit info
+      - name: Rename artifact
         id: rename_jar
         run: |
-          NEW_NAME="the-point-of-no-return-${{ steps.commit_info.outputs.short_sha }}.jar"
+          MOD_ID="tponr"
+          VERSION=$(./gradlew properties -q | grep "^version:" | awk '{print $2}')
+          BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          SHORT_SHA="${{ steps.commit_info.outputs.short_sha }}"
+          NEW_NAME="${MOD_ID}-${VERSION}-${BRANCH}-${SHORT_SHA}.jar"
           mv "${{ steps.find_jar.outputs.jar_path }}" "./build/libs/${NEW_NAME}"
           echo "new_jar_path=./build/libs/${NEW_NAME}" >> $GITHUB_OUTPUT
           echo "new_jar_name=${NEW_NAME}" >> $GITHUB_OUTPUT
+
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

@@ -9,6 +9,9 @@
     "FoodDataMixin",
     "HealthRenderUtilsMixin",
     "PlayerModelRendererMixin"
+    "FoodDataMixin",
+    "HudOverlayMixin",
+    "SpawnPointPointsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -17,5 +20,7 @@
     "AnvilScreenMixin",
     "EnchantmentScreenMixin",
     "GuiHealthScreenMixin"
+    "EnchantmentScreenMixin",
+    "LockOverlayMixin"
   ]
 }

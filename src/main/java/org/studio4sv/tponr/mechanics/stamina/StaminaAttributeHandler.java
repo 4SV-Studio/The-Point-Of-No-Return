@@ -41,7 +41,7 @@ public class StaminaAttributeHandler {
                 removeSpeedModifier(serverPlayer);
             }
 
-            if (serverPlayer.isSprinting() && !hasLowStamina) {
+            if (serverPlayer.isSprinting() && !hasLowStamina && !serverPlayer.isCreative() && !serverPlayer.isSpectator()) {
                 stamina.subStamina(StaminaHandler.SPRINT_COST);
             }
         });
