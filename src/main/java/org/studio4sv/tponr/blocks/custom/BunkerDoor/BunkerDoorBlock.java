@@ -1,7 +1,11 @@
 package org.studio4sv.tponr.blocks.custom.BunkerDoor;
 
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import org.studio4sv.tponr.blocks.entity.BunkerDoor.BunkerDoorBlockEntity;
 import org.studio4sv.tponr.blocks.entity.BunkerDoor.BunkerDoorSubBlockEntity;
+import org.studio4sv.tponr.networking.ModMessages;
+import org.studio4sv.tponr.networking.packet.S2C.BunkerDoorSubsSyncS2CPacket;
 import org.studio4sv.tponr.registers.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -115,6 +119,12 @@ public class BunkerDoorBlock extends BaseEntityBlock {
             BlockEntity be = level.getBlockEntity(subPos);
             if (be instanceof BunkerDoorSubBlockEntity subEntity) {
                 subEntity.setMainBlockPos(pos);
+            }
+
+        }
+        if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
+            for (ServerPlayer player : serverLevel.players()) {
+                ModMessages.sendToPlayer(new BunkerDoorSubsSyncS2CPacket(subBlockPositions, pos), player);
             }
         }
     }
