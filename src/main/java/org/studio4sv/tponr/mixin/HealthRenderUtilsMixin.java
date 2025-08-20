@@ -13,7 +13,7 @@ import org.studio4sv.tponr.TPONR;
 
 @Mixin(HealthRenderUtils.class)
 public class HealthRenderUtilsMixin {
-    @Shadow
+    @Shadow(remap = false)
     @Mutable
     @Final
     public static ResourceLocation SHOW_WOUNDS_LOCATION;

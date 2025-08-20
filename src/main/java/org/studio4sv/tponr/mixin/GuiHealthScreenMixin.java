@@ -11,7 +11,8 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(GuiHealthScreen.class)
 public class GuiHealthScreenMixin {
-    @Shadow private AbstractButton body;
+    @Shadow(remap = false)
+    private AbstractButton body;
 
     @ModifyConstant(
             method = "init",

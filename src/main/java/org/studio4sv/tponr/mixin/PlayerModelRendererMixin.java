@@ -15,12 +15,12 @@ import org.studio4sv.tponr.TPONR;
 
 @Mixin(PlayerModelRenderer.class)
 public class PlayerModelRendererMixin {
-    @Shadow
+    @Shadow(remap = false)
     @Mutable
     @Final
     private static ResourceLocation HEALTH_RENDER_LOCATION;
 
-    @Shadow
+    @Shadow(remap = false)
     private static int getState(AbstractDamageablePart part, boolean fourColors) {
         return 0; // Dummy
     }
@@ -90,7 +90,7 @@ public class PlayerModelRendererMixin {
         ci.cancel();
     }
 
-    @Invoker("drawPart")
+    @Invoker(remap = false, value = "drawPart")
     private static void callDrawPart(GuiGraphics guiGraphics, boolean fourColors, AbstractDamageablePart part, int texX, int texY, int sizeX, int sizeY) {
         throw new AssertionError();
     }
