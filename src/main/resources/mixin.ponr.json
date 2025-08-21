@@ -8,7 +8,7 @@
     "FirstAidInGameGuiMixin",
     "FoodDataMixin",
     "HealthRenderUtilsMixin",
-    "PlayerModelRendererMixin"
+    "PlayerModelRendererMixin",
     "FoodDataMixin",
     "HudOverlayMixin",
     "SpawnPointPointsMixin"
@@ -19,7 +19,7 @@
   "client": [
     "AnvilScreenMixin",
     "EnchantmentScreenMixin",
-    "GuiHealthScreenMixin"
+    "GuiHealthScreenMixin",
     "EnchantmentScreenMixin",
     "LockOverlayMixin"
   ]
