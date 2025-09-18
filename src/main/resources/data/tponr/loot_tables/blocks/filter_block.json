@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tponr:filter_block"
+          "name": "tponr:filter"
         }
       ],
       "rolls": 1.0

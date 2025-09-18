@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import org.studio4sv.tponr.blocks.entity.FilterBlockEntity;
+import org.studio4sv.tponr.util.RadiationUtils;
 import org.studio4sv.tponr.util.SafeAreaTracker;
 
 import java.util.HashSet;
@@ -97,6 +98,11 @@ public class FilterBlock extends BaseEntityBlock {
         if (be.isSealed() && be.isFinished() && pLevel.getGameTime() % RESCAN_INTERVAL == 0) {
             if (hasAreaChanged(pLevel, pPos, be)) {
                 disableFilter(pLevel, be, tracker);
+
+                be.reset();
+                be.addToQueue(pPos);
+                be.addToVisited(pPos);
+
                 return;
             }
         }
@@ -121,7 +127,7 @@ public class FilterBlock extends BaseEntityBlock {
                 BlockState state = pLevel.getBlockState(neighbor);
 
                 be.addToVisited(neighbor);
-                if (!(state.is(Blocks.IRON_BLOCK))) be.addToQueue(neighbor); // TODO: implement tag here
+                if (!RadiationUtils.isSealValid(state, neighbor, pLevel)) be.addToQueue(neighbor);
             }
         }
 
@@ -172,9 +178,7 @@ public class FilterBlock extends BaseEntityBlock {
                 BlockState state = level.getBlockState(neighbor);
                 newVisited.add(neighbor);
 
-                if (!state.is(Blocks.IRON_BLOCK)) { // TODO: implement tag here
-                    queue.add(neighbor);
-                }
+                if (!RadiationUtils.isSealValid(state, neighbor, level)) queue.add(neighbor);
             }
         }
 
