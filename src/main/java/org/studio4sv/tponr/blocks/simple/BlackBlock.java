@@ -1,4 +1,4 @@
-package org.studio4sv.tponr.blocks.building;
+package org.studio4sv.tponr.blocks.simple;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;

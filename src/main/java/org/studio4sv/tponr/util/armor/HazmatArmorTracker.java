@@ -1,4 +1,4 @@
-package org.studio4sv.tponr.util;
+package org.studio4sv.tponr.util.armor;
 
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
