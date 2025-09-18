@@ -82,6 +82,11 @@ public class FilterBlockEntity extends BlockEntity implements GeoBlockEntity {
         return visited;
     }
 
+    public void setVisited(Set<BlockPos> newVisited) {
+        visited.clear();
+        visited.addAll(newVisited);
+    }
+
     public void addToQueue(BlockPos pos) {
         queue.add(pos);
     }

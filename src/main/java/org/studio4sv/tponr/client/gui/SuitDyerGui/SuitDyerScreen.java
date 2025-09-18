@@ -20,7 +20,7 @@ import org.studio4sv.tponr.items.FakeSuitItem;
 import org.studio4sv.tponr.networking.ModMessages;
 import org.studio4sv.tponr.networking.packet.C2S.DyerChangeColorS2CPacket;
 import org.studio4sv.tponr.registers.ModItems;
-import org.studio4sv.tponr.util.CenteredEditBox;
+import org.studio4sv.tponr.util.ui.CenteredEditBox;
 import org.studio4sv.tponr.util.ColorUtils;
 import org.studio4sv.tponr.util.TextOnlyButton;
 

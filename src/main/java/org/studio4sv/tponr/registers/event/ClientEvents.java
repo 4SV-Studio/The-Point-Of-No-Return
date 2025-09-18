@@ -5,7 +5,6 @@ import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.Slot;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
@@ -19,7 +18,7 @@ import org.studio4sv.tponr.client.gui.UpgradeScreen;
 import org.studio4sv.tponr.armor.HazmatSuitItem;
 import org.studio4sv.tponr.client.hud.SuitOverlayHud;
 import org.studio4sv.tponr.client.hud.XpHud;
-import org.studio4sv.tponr.util.HazmatArmorTracker;
+import org.studio4sv.tponr.util.armor.HazmatArmorTracker;
 import org.studio4sv.tponr.util.xpConverter;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)

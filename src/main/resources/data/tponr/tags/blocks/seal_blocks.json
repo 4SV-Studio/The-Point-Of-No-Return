@@ -1,3 +1,9 @@
-[
-  "minecraft:iron_block"
-]
+{
+  "values": [
+    "tponr:bunker_door_block",
+    "tponr:bunker_door_sub_block",
+    "minecraft:iron_block",
+    { "id": "create:industrial_iron_block", "required": false },
+    { "id": "create:weathered_iron_block", "required": false }
+  ]
+}

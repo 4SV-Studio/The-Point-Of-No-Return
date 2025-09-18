@@ -1,4 +1,4 @@
-package org.studio4sv.tponr.util;
+package org.studio4sv.tponr.util.armor;
 
 import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;

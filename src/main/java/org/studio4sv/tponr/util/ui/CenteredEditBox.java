@@ -1,4 +1,4 @@
-package org.studio4sv.tponr.util;
+package org.studio4sv.tponr.util.ui;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
