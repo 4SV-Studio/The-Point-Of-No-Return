@@ -76,6 +76,12 @@ public class ModMessages {
                 .consumerMainThread(SafeAreaSyncS2CPacket::handle)
                 .add();
 
+        net.messageBuilder(BunkerDoorSubsSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(BunkerDoorSubsSyncS2CPacket::new)
+                .encoder(BunkerDoorSubsSyncS2CPacket::toBytes)
+                .consumerMainThread(BunkerDoorSubsSyncS2CPacket::handle)
+                .add();
+
         // Client 2 Server
         net.messageBuilder(DyerChangeColorS2CPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(DyerChangeColorS2CPacket::new)
