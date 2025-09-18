@@ -6,9 +6,47 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import org.studio4sv.tponr.blocks.custom.BunkerDoor.BunkerDoorBlock;
+import org.studio4sv.tponr.blocks.custom.BunkerDoor.BunkerDoorSubBlock;
+import org.studio4sv.tponr.blocks.entity.BunkerDoor.BunkerDoorBlockEntity;
+import org.studio4sv.tponr.blocks.entity.BunkerDoor.BunkerDoorSubBlockEntity;
 import org.studio4sv.tponr.client.ClientSafeAreaTracker;
+import org.studio4sv.tponr.registers.ModTags;
 
 public class RadiationUtils {
+    public static boolean isSealValid(BlockState state, BlockPos pos, Level level) {
+        if (!state.is(ModTags.Blocks.SEAL_BLOCKS)) {
+            return false;
+        }
+
+        Block block = state.getBlock();
+
+        if (block instanceof BunkerDoorBlock) {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof BunkerDoorBlockEntity door) {
+                return !door.isOpen();
+            }
+            return false;
+        }
+
+        if (block instanceof BunkerDoorSubBlock) {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof BunkerDoorSubBlockEntity sub) {
+                BlockPos mainPos = sub.getMainBlockPos();
+                BlockEntity mainBe = level.getBlockEntity(mainPos);
+                if (mainBe instanceof BunkerDoorBlockEntity main) {
+                    return !main.isOpen();
+                }
+            }
+            return false;
+        }
+
+        return true;
+    }
+
     public static int levelForPlayer(Player player) {
         Biome biome = player.level().getBiome(player.blockPosition()).value();
         float temp = Math.abs(biome.getBaseTemperature());
