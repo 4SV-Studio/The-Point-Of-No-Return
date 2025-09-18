@@ -96,13 +96,8 @@ public class FilterBlock extends BaseEntityBlock {
         }
 
         if (be.isSealed() && be.isFinished() && pLevel.getGameTime() % RESCAN_INTERVAL == 0) {
-            if (hasAreaChanged(pLevel, pPos, be)) {
+            if (hasAreaChangedAndUnsealed(pLevel, pPos, be)) {
                 disableFilter(pLevel, be, tracker);
-
-                be.reset();
-                be.addToQueue(pPos);
-                be.addToVisited(pPos);
-
                 return;
             }
         }
@@ -161,14 +156,16 @@ public class FilterBlock extends BaseEntityBlock {
         }
     }
 
-    private boolean hasAreaChanged(ServerLevel level, BlockPos filterPos, FilterBlockEntity be) {
+    private boolean hasAreaChangedAndUnsealed(ServerLevel level, BlockPos filterPos, FilterBlockEntity be) {
         Set<BlockPos> newVisited = new HashSet<>();
         Queue<BlockPos> queue = new LinkedList<>();
 
         queue.add(filterPos);
         newVisited.add(filterPos);
 
-        while (!queue.isEmpty() && newVisited.size() < MAX_BLOCKS) {
+        boolean sealed = true;
+
+        while (!queue.isEmpty()) {
             BlockPos current = queue.poll();
 
             for (Direction dir : Direction.values()) {
@@ -178,17 +175,45 @@ public class FilterBlock extends BaseEntityBlock {
                 BlockState state = level.getBlockState(neighbor);
                 newVisited.add(neighbor);
 
-                if (!RadiationUtils.isSealValid(state, neighbor, level)) queue.add(neighbor);
+                if (!RadiationUtils.isSealValid(state, neighbor, level)) {
+                    queue.add(neighbor);
+                }
+            }
+
+            if (newVisited.size() >= MAX_BLOCKS) {
+                queue.clear();
+                sealed = false;
             }
         }
 
         Set<BlockPos> originalVisited = new HashSet<>(be.getVisited());
-        if (newVisited.size() != originalVisited.size()) {
-            return true;
+        boolean changed = !newVisited.equals(originalVisited);
+
+        SafeAreaTracker tracker = SafeAreaTracker.get(level);
+
+        if (changed && sealed) {
+            for (BlockPos pos : be.getVisited()) {
+                if (!newVisited.contains(pos)) {
+                    tracker.removeSafeArea(pos);
+                }
+            }
+
+            for (BlockPos pos : newVisited) {
+                if (!be.getVisited().contains(pos)) {
+                    tracker.addSafeArea(pos);
+                }
+            }
+
+            be.setVisited(newVisited);
         }
 
-        return !newVisited.equals(originalVisited);
+        if (changed) {
+            be.setVisited(newVisited);
+        }
+
+        return changed && !sealed;
     }
+
 
     private void disableFilter(ServerLevel level, FilterBlockEntity be, SafeAreaTracker tracker) {
         for (BlockPos pos : be.getVisited()) {
