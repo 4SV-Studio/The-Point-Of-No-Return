@@ -24,18 +24,20 @@ public class ModCreativeModTabs {
                     .title(Component.translatable("creativetab." + TPONR.MOD_ID + "_tab"))
                     .displayItems((pParameters, pOutput) -> {
 
-                        pOutput.accept(ModItems.BUNKER_DOOR.get());
-                        pOutput.accept(ModItems.CLOCK.get());
+                        pOutput.accept(ModBlocks.BUNKER_DOOR.get());
+                        pOutput.accept(ModBlocks.CLOCK.get());
                         ItemStack suit_pack = new ItemStack(ModItems.HAZMAT_SUIT_PACK.get());
                         suit_pack.getOrCreateTag().putFloat("charge", 100f);
                         pOutput.accept(suit_pack);
-                        pOutput.accept(ModItems.SUIT_DYER.get());
-                        pOutput.accept(ModItems.CHARGER.get());
-                        pOutput.accept(ModItems.FILTER.get());
+                        pOutput.accept(ModBlocks.DYER.get());
+                        pOutput.accept(ModBlocks.CHARGER.get());
+                        pOutput.accept(ModBlocks.FILTER.get());
                         pOutput.accept(ModItems.STEEL_MIX.get());
                         pOutput.accept(ModItems.STEEL_INGOT.get());
                         pOutput.accept(ModItems.CHARGER_COMPONENT.get());
                         pOutput.accept(ModItems.FAN.get());
+                        pOutput.accept(ModItems.ANTI_SCINT.get());
+                        pOutput.accept(ModBlocks.STEEL_BLOCK.get());
                     })
                     .build());
 

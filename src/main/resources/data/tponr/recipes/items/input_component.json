@@ -9,7 +9,10 @@
       "item": "minecraft:glass_pane"
     },
     "B": {
-      "item": "#minecraft:buttons"
+      "tag": "minecraft:buttons"
+    },
+    "L": {
+      "item": "minecraft:lever"
     }
   },
   "result": {

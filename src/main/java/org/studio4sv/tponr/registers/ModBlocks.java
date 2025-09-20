@@ -25,35 +25,39 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, TPONR.MOD_ID);
 
-    public static final RegistryObject<Block> BUNKER_DOOR = BLOCKS.register("bunker_door_block",
+    public static final RegistryObject<Block> BUNKER_DOOR = registerBlock("bunker_door",
             () -> new BunkerDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).isSuffocating((state, level, pos) -> false).noOcclusion().destroyTime(-1)));
 
-    public static final RegistryObject<Block> BUNKER_DOOR_SUB = BLOCKS.register("bunker_door_sub_block",
+    public static final RegistryObject<Block> BUNKER_DOOR_SUB = BLOCKS.register("bunker_door_sub",
             () -> new BunkerDoorSubBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).isSuffocating((state, level, pos) -> false).noOcclusion().destroyTime(-1)));
 
-    public static final RegistryObject<Block> CLOCK = BLOCKS.register("clock",
+    public static final RegistryObject<Block> CLOCK = registerBlock("clock",
             () -> new ClockBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
-    public static final RegistryObject<Block> SUIT_DYER = BLOCKS.register("suit_dyer_block",
+    public static final RegistryObject<Block> DYER = registerBlock("suit_dyer",
             () -> new SuitDyerBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
-    public static final RegistryObject<Block> SUIT_DYER_SUB = BLOCKS.register("suit_dyer_sub_block",
+    public static final RegistryObject<Block> DYER_SUB = BLOCKS.register("suit_dyer_sub",
             () -> new SuitDyerSubBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
-    public static final RegistryObject<Block> SUIT_CHARGER = BLOCKS.register("suit_charger_block",
+    public static final RegistryObject<Block> CHARGER = registerBlock("charger",
             () -> new SuitChargerBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
-    public static final RegistryObject<Block> SUIT_CHARGER_SUB = BLOCKS.register("suit_charger_sub_block",
+    public static final RegistryObject<Block> CHARGER_SUB = BLOCKS.register("suit_charger_sub",
             () -> new SuitChargerSubBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
-    public static final RegistryObject<Block> FILTER = BLOCKS.register("filter_block",
+    public static final RegistryObject<Block> FILTER = registerBlock("filter",
             () -> new FilterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
-    public static final RegistryObject<Block> BLACK_BLOCK = BLOCKS.register("black_block",
+    public static final RegistryObject<Block> BLACK_BLOCK = registerBlock("black_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.BEDROCK))
     );
 
     public static final RegistryObject<Block> SEALING_BLOCK = BLOCKS.register("sealing_block",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK))
+    );
+
+    public static final RegistryObject<Block> STEEL_BLOCK = registerBlock("steel_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK))
     );
 
@@ -63,8 +67,8 @@ public class ModBlocks {
         return toReturn;
     }
 
-    private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
-        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
+    private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
+        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
                 new Item.Properties()));
     }
 

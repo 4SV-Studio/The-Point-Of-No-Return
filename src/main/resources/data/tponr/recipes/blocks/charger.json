@@ -14,6 +14,9 @@
     },
     "G": {
       "item": "minecraft:glass"
+    },
+    "S": {
+      "item": "minecraft:smooth_stone_slab"
     }
   },
   "result": {

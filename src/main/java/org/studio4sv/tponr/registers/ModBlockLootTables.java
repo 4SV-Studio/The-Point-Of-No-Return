@@ -18,10 +18,10 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         dropSelf(ModBlocks.BUNKER_DOOR.get());
         dropSelf(ModBlocks.BUNKER_DOOR_SUB.get());
         dropSelf(ModBlocks.CLOCK.get());
-        dropSelf(ModBlocks.SUIT_CHARGER.get());
-        dropSelf(ModBlocks.SUIT_CHARGER_SUB.get());
-        dropSelf(ModBlocks.SUIT_DYER.get());
-        dropSelf(ModBlocks.SUIT_DYER_SUB.get());
+        dropSelf(ModBlocks.CHARGER.get());
+        dropSelf(ModBlocks.CHARGER_SUB.get());
+        dropSelf(ModBlocks.DYER.get());
+        dropSelf(ModBlocks.DYER_SUB.get());
     }
 
 

@@ -16,7 +16,7 @@
       "item": "tponr:anti_scint"
     },
     "F": {
-      "item": "#tponr:fans"
+      "tag": "tponr:fans"
     }
   },
   "result": {
