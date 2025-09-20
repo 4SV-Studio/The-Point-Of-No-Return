@@ -34,6 +34,8 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.FILTER.get());
                         pOutput.accept(ModItems.STEEL_MIX.get());
                         pOutput.accept(ModItems.STEEL_INGOT.get());
+                        pOutput.accept(ModItems.CHARGER_COMPONENT.get());
+                        pOutput.accept(ModItems.FAN.get());
                     })
                     .build());
 

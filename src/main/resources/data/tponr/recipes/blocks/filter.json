@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#F#",
+    "GOG",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "tponr:steel_ingot"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "O": {
+      "item": "tponr:anti_scint"
+    },
+    "F": {
+      "item": "#tponr:fans"
+    }
+  },
+  "result": {
+    "item": "tponr:filter",
+    "count": 1
+  }
+}

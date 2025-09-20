@@ -54,6 +54,18 @@ public class ModItems {
     public static final RegistryObject<Item> STEEL_INGOT = ITEMS.register("steel_ingot",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> CHARGER_COMPONENT = ITEMS.register("charger_component",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> FAN = ITEMS.register("fan",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> INPUT_COMPONENT = ITEMS.register("input_component",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> DYE_CARTRIDGE = ITEMS.register("dye_cartridge",
+            () -> new Item(new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

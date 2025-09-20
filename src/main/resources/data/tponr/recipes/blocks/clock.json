@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#O#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "tponr:steel_ingot"
+    },
+    "O": {
+      "item": "minecraft:clock"
+    }
+  },
+  "result": {
+    "item": "tponr:clock",
+    "count": 1
+  }
+}

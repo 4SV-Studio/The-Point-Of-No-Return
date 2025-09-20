@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#R",
+    "#S"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:chain"
+    },
+    "R": {
+      "item": "minecraft:redstone_torch"
+    },
+    "S": {
+      "item": "tponr:steel_block"
+    }
+  },
+  "result": {
+    "item": "tponr:charger_component",
+    "count": 1
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#C#",
+    "#G#",
+    "#S#"
+  ],
+  "key": {
+    "#": {
+      "item": "tponr:steel_block"
+    },
+    "C": {
+      "item": "tponr:charger_component"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "item": "tponr:charger",
+    "count": 1
+  }
+}
