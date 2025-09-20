@@ -33,9 +33,9 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.CHARGER.get());
                         pOutput.accept(ModItems.FILTER.get());
                         pOutput.accept(ModItems.STEEL_MIX.get());
+                        pOutput.accept(ModItems.STEEL_INGOT.get());
                     })
                     .build());
-
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);
