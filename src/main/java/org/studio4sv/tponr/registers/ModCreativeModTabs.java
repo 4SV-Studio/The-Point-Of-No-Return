@@ -14,7 +14,12 @@ public class ModCreativeModTabs {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TPONR.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> TPONR_TAB = CREATIVE_MODE_TABS.register(TPONR.MOD_ID + "_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.FAKE_SUIT.get()))
+            () -> CreativeModeTab.builder().icon(() -> {
+                        ItemStack icon = new ItemStack(ModItems.HAZMAT_SUIT_PACK.get());
+                        CompoundTag tag = icon.getOrCreateTagElement("display");
+                        tag.putInt("color", 0xFF6400);
+                        return icon;
+                    })
                     .title(Component.translatable("creativetab." + TPONR.MOD_ID + "_tab"))
                     .displayItems((pParameters, pOutput) -> {
 
