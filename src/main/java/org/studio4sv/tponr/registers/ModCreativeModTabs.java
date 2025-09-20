@@ -1,5 +1,6 @@
 package org.studio4sv.tponr.registers;
 
+import net.minecraft.nbt.CompoundTag;
 import org.studio4sv.tponr.TPONR;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
