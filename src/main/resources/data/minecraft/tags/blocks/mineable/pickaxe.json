@@ -6,6 +6,8 @@
     "tponr:suit_charger_sub_block",
     "tponr:suit_dyer_block",
     "tponr:suit_dyer_sub_block",
+    "tponr:bunker_door_block",
+    "tponr:bunker_door_sub_block",
     "tponr:filter_block",
     "tponr:steel_block"
   ]

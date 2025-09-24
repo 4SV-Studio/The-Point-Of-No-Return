@@ -1,7 +1,9 @@
 package org.studio4sv.tponr.mechanics.attributes;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -14,6 +16,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.studio4sv.tponr.TPONR;
+import org.studio4sv.tponr.client.ClientAttributesData;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -144,6 +147,8 @@ public class IntelligenceHandler {
             return;
         }
 
+        if (player instanceof LocalPlayer) return;
+
         player.getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(attributes -> {
             int intelligence = attributes.get("Intelligence");
 
@@ -156,6 +161,7 @@ public class IntelligenceHandler {
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
         Player player = event.getEntity();
+        if (player instanceof ServerPlayer) return;
         ItemStack itemStack = event.getItemStack();
         List<Component> tooltip = event.getToolTip();
 
@@ -165,10 +171,9 @@ public class IntelligenceHandler {
         if (requiredIntelligence > 0 && player != null) {
             final int[] playerIntelligence = {0};
             final int[] playerAgility = {0};
-            player.getCapability(PlayerAttributesProvider.PLAYER_ATTRIBUTES).ifPresent(attributes -> {
-                playerIntelligence[0] = attributes.get("Intelligence");
-                playerAgility[0] = attributes.get("Agility");
-            });
+
+            playerIntelligence[0] = ClientAttributesData.getValue("Intelligence");
+            playerAgility[0] = ClientAttributesData.getValue("Agility");
 
             tooltip.add(Component.translatable("tooltip.tponr.required_stats")
                     .withStyle(ChatFormatting.BLUE));
@@ -187,7 +192,7 @@ public class IntelligenceHandler {
             ChatFormatting agilityColor = playerAgility[0] >= agilityRequirement[0] ?
                     ChatFormatting.GREEN : ChatFormatting.RED;
             Component agilityValueText = Component.literal(String.valueOf(agilityRequirement[0]))
-                    .withStyle(intelligenceColor);
+                    .withStyle(agilityColor);
 
             tooltip.add(Component.empty().append(intelligenceStat).append(intelligenceValueText));
             tooltip.add(Component.empty().append(agilityStat).append(agilityValueText));

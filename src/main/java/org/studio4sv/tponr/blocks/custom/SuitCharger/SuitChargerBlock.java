@@ -197,6 +197,11 @@ public class SuitChargerBlock extends BaseEntityBlock {
                     level.removeBlock(subPos, false);
                 }
             }
+
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof SuitChargerBlockEntity mainBlockEntity) {
+                mainBlockEntity.onDestroy();
+            }
         }
 
         super.onRemove(blockState, level, pos, state, moved);

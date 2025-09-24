@@ -26,10 +26,10 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, TPONR.MOD_ID);
 
     public static final RegistryObject<Block> BUNKER_DOOR = BLOCKS.register("bunker_door_block",
-            () -> new BunkerDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).isSuffocating((state, level, pos) -> false).noOcclusion().destroyTime(-1)));
+            () -> new BunkerDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).isSuffocating((state, level, pos) -> false).noOcclusion()));
 
     public static final RegistryObject<Block> BUNKER_DOOR_SUB = BLOCKS.register("bunker_door_sub_block",
-            () -> new BunkerDoorSubBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).isSuffocating((state, level, pos) -> false).noOcclusion().destroyTime(-1)));
+            () -> new BunkerDoorSubBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).isSuffocating((state, level, pos) -> false).noOcclusion()));
 
     public static final RegistryObject<Block> CLOCK = BLOCKS.register("clock",
             () -> new ClockBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
