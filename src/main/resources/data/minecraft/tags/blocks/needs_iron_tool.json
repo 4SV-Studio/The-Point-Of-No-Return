@@ -2,6 +2,8 @@
   "replace": "false",
   "values": [
     "tponr:suit_dyer_block",
-    "tponr:suit_dyer_sub_block"
+    "tponr:suit_dyer_sub_block",
+    "tponr:bunker_door_block",
+    "tponr:bunker_door_sub_block"
   ]
 }
