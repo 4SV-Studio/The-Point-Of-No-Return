@@ -1,6 +1,6 @@
 {
   "values": [
-    "tponr:fan",
+    "tponr:propeller",
     { "id": "create:propeller", "required": false }
   ]
 }

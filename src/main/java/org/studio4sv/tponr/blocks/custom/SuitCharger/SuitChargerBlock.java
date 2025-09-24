@@ -141,7 +141,7 @@ public class SuitChargerBlock extends BaseEntityBlock {
         subBlockPositions.add(pos.above(2).relative(facing.getOpposite()));
 
 
-        BlockState subBlockState = ModBlocks.CHARGER_SUB.get().defaultBlockState();
+        BlockState subBlockState = ModBlocks.SUIT_CHARGER_SUB.get().defaultBlockState();
         for (BlockPos subPos : subBlockPositions) {
             level.setBlock(subPos, subBlockState, 3);
             if (level.getBlockEntity(subPos) instanceof SuitChargerSubBlockEntity subBlockEntity) {

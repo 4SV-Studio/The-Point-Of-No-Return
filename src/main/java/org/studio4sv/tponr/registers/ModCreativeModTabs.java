@@ -29,13 +29,15 @@ public class ModCreativeModTabs {
                         ItemStack suit_pack = new ItemStack(ModItems.HAZMAT_SUIT_PACK.get());
                         suit_pack.getOrCreateTag().putFloat("charge", 100f);
                         pOutput.accept(suit_pack);
-                        pOutput.accept(ModBlocks.DYER.get());
-                        pOutput.accept(ModBlocks.CHARGER.get());
+                        pOutput.accept(ModBlocks.SUIT_DYER.get());
+                        pOutput.accept(ModBlocks.SUIT_CHARGER.get());
                         pOutput.accept(ModBlocks.FILTER.get());
                         pOutput.accept(ModItems.STEEL_MIX.get());
                         pOutput.accept(ModItems.STEEL_INGOT.get());
                         pOutput.accept(ModItems.CHARGER_COMPONENT.get());
-                        pOutput.accept(ModItems.FAN.get());
+                        pOutput.accept(ModItems.DYE_CARTRIDGE.get());
+                        pOutput.accept(ModItems.INPUT_COMPONENT.get());
+                        pOutput.accept(ModItems.PROPELLER.get());
                         pOutput.accept(ModItems.ANTI_SCINT.get());
                         pOutput.accept(ModBlocks.STEEL_BLOCK.get());
                     })

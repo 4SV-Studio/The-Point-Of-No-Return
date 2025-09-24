@@ -39,7 +39,7 @@ public class ModItems {
     public static final RegistryObject<Item> CHARGER_COMPONENT = ITEMS.register("charger_component",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> FAN = ITEMS.register("fan",
+    public static final RegistryObject<Item> PROPELLER = ITEMS.register("propeller",
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> INPUT_COMPONENT = ITEMS.register("input_component",

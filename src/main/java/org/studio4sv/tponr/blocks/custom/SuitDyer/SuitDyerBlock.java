@@ -102,7 +102,7 @@ public class SuitDyerBlock extends BaseEntityBlock {
         // Block 1 above and 1 to the right
         subBlockPositions.add(pos.above(1).relative(rightDirection));
 
-        BlockState subBlockState = ModBlocks.DYER_SUB.get().defaultBlockState();
+        BlockState subBlockState = ModBlocks.SUIT_DYER_SUB.get().defaultBlockState();
         for (BlockPos subPos : subBlockPositions) {
             level.setBlock(subPos, subBlockState, 3);
             BlockEntity be = level.getBlockEntity(subPos);

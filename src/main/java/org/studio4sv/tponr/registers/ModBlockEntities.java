@@ -37,22 +37,22 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<SuitDyerBlockEntity>> SUIT_DYER_ENTITY =
             BLOCK_ENTITIES.register("suit_dyer_block_entity", () ->
                     BlockEntityType.Builder.of(SuitDyerBlockEntity::new,
-                            ModBlocks.DYER.get()).build(null));
+                            ModBlocks.SUIT_DYER.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<SuitDyerSubBlockEntity>> SUIT_DYER_SUB_ENTITY =
             BLOCK_ENTITIES.register("suit_dyer_sub_block_entity", () ->
                     BlockEntityType.Builder.of(SuitDyerSubBlockEntity::new,
-                            ModBlocks.DYER_SUB.get()).build(null));
+                            ModBlocks.SUIT_DYER_SUB.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<SuitChargerBlockEntity>> SUIT_CHARGER_ENTITY =
             BLOCK_ENTITIES.register("suit_charger_block_entity", () ->
                     BlockEntityType.Builder.of(SuitChargerBlockEntity::new,
-                            ModBlocks.CHARGER.get()).build(null));
+                            ModBlocks.SUIT_CHARGER.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<SuitChargerSubBlockEntity>> SUIT_CHARGER_SUB_ENTITY =
             BLOCK_ENTITIES.register("suit_charger_sub_block_entity", () ->
                     BlockEntityType.Builder.of(SuitChargerSubBlockEntity::new,
-                            ModBlocks.CHARGER.get()).build(null));
+                            ModBlocks.SUIT_CHARGER.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<FilterBlockEntity>> FILTER_ENTITY =
             BLOCK_ENTITIES.register("filter_block_entity", () ->
