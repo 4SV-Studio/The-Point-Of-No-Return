@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "i#i"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:iron_nugget"
+    },
+    "#": {
+      "tag": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "tponr:propeller",
+    "count": 1
+  }
+}
