@@ -49,11 +49,11 @@ public class ModBlocks {
     public static final RegistryObject<Block> FILTER = BLOCKS.register("filter_block",
             () -> new FilterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
-    public static final RegistryObject<Block> BLACK_BLOCK = BLOCKS.register("black_block",
+    public static final RegistryObject<Block> BLACK_BLOCK = registerBlock("black_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.BEDROCK))
     );
 
-    public static final RegistryObject<Block> SEALING_BLOCK = BLOCKS.register("sealing_block",
+    public static final RegistryObject<Block> SEALING_BLOCK = registerBlock("sealing_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK))
     );
 

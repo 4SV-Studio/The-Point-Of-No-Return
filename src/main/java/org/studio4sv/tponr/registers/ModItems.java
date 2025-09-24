@@ -15,6 +15,23 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, TPONR.MOD_ID);
 
+    public static final RegistryObject<Item> BUNKER_DOOR = ITEMS.register("bunker_door",
+            () -> new BunkerDoorBlockItem(ModBlocks.BUNKER_DOOR.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> CLOCK = ITEMS.register("clock",
+            () -> new ClockItem(ModBlocks.CLOCK.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> SUIT_DYER = ITEMS.register("suit_dyer",
+            () -> new SuitDyerBlockItem(ModBlocks.SUIT_DYER.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> CHARGER = ITEMS.register("charger",
+            () -> new SuitChargerItem(ModBlocks.SUIT_CHARGER.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> FILTER = ITEMS.register("filter",
+            () -> new FilterBlockItem(ModBlocks.FILTER.get(), new Item.Properties()));
+
+
+
     public static final RegistryObject<Item> HAZMAT_SUIT_HELMET = ITEMS.register("hazmat_suit_helmet",
             () -> new HazmatSuitItem(ModArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.HELMET, new Item.Properties().durability(-1)));
     public static final RegistryObject<Item> HAZMAT_SUIT_CHESTPLATE = ITEMS.register("hazmat_suit_chestplate",
@@ -48,7 +65,10 @@ public class ModItems {
     public static final RegistryObject<Item> DYE_CARTRIDGE = ITEMS.register("dye_cartridge",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> ANTI_SCINT = ITEMS.register("anti_scint",
+    public static final RegistryObject<Item> SCINTONIT = ITEMS.register("scintonit",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> STEEL_NUGGET = ITEMS.register("steel_nugget",
             () -> new Item(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
