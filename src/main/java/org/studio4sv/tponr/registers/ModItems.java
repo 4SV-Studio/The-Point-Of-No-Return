@@ -1,5 +1,6 @@
 package org.studio4sv.tponr.registers;
 
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.ArmorItem;
 import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.armor.HazmatSuitItem;
@@ -70,6 +71,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> STEEL_NUGGET = ITEMS.register("steel_nugget",
             () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> SOUP = ITEMS.register("tomato_soup",
+            () -> new Item(new Item.Properties().food(Foods.BAKED_POTATO)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
