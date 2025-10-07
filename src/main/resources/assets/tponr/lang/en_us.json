@@ -3,14 +3,26 @@
 
   "block.tponr.bunker_door_block": "Bunker Door",
   "block.tponr.clock": "Clock",
-
   "block.tponr.black_block": "Black Block",
+  "block.tponr.suit_dyer_block": "Suit Dyer",
+  "block.tponr.suit_charger_block": "Suit Charger",
+  "block.tponr.filter_block": "Scintonit Filter",
+  "block.tponr.steel_block": "Steel Block",
 
   "item.tponr.hazmat_suit_helmet": "Hazmat Suit Helmet",
   "item.tponr.hazmat_suit_chestplate": "Hazmat Suit Chestplate",
   "item.tponr.hazmat_suit_leggings": "Hazmat Suit Leggings",
   "item.tponr.hazmat_suit_boots": "Hazmat Suit Boots",
   "item.tponr.hazmat_suit_pack": "Hazmat Suit",
+  "item.tponr.tomato_soup": "Tomato Soup",
+  "item.tponr.steel_mix": "Steel Mix",
+  "item.tponr.steel_ingot": "Steel Ingot",
+  "item.tponr.steel_nugget": "Steel Nugget",
+  "item.tponr.scintonit": "Scintonit Crystal",
+  "item.tponr.charger_component": "Charger Component",
+  "item.tponr.dye_cartridge": "Dye Cartridge",
+  "item.tponr.input_component": "Input Component",
+  "item.tponr.propeller": "Propeller",
 
   "command.tponr.forbidden": "Must be OP to execute for other players!",
 
