@@ -78,7 +78,7 @@ public class PlayerModelRendererMixin {
     private static void injectCustomDraws(PoseStack stack, AbstractPlayerDamageModel damageModel, boolean fourColors, GuiGraphics guiGraphics, boolean flashState, float alpha, float partialTicks, CallbackInfo ci) {
         int yOffset = flashState ? 64 : 0;
 
-        callDrawPart(guiGraphics, fourColors, damageModel.HEAD, 8, yOffset - 5, 16, 16);
+        callDrawPart(guiGraphics, fourColors, damageModel.HEAD, 8, yOffset + 1, 16, 16);
         callDrawPart(guiGraphics, fourColors, damageModel.BODY, 10, yOffset + 11, 12, 22);
         callDrawPart(guiGraphics, fourColors, damageModel.LEFT_ARM, 4, yOffset + 11, 6, 27);
         callDrawPart(guiGraphics, fourColors, damageModel.RIGHT_ARM, 22, yOffset + 11, 6, 27);
