@@ -3,6 +3,7 @@ package org.studio4sv.tponr.blocks.custom.SuitCharger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -24,6 +25,8 @@ import org.jetbrains.annotations.Nullable;
 import org.studio4sv.tponr.blocks.entity.SuitCharger.SuitChargerBlockEntity;
 import org.studio4sv.tponr.blocks.entity.SuitCharger.SuitChargerSubBlockEntity;
 import org.studio4sv.tponr.items.HazmatSuitPackItem;
+import org.studio4sv.tponr.networking.ModMessages;
+import org.studio4sv.tponr.networking.packet.S2C.SuitChargerSubsSyncS2CPacket;
 import org.studio4sv.tponr.registers.ModBlocks;
 import org.studio4sv.tponr.util.RadiationUtils;
 
@@ -98,9 +101,7 @@ public class SuitChargerBlock extends BaseEntityBlock {
     public void onPlace(BlockState blockState, Level level, BlockPos pos, BlockState oldState, boolean moved) {
         super.onPlace(blockState, level, pos, oldState, moved);
 
-        if (level.isClientSide()) {
-            return;
-        }
+        if (level.isClientSide()) return;
 
         Direction facing = blockState.getValue(FACING);
         List<BlockPos> subBlockPositions = new ArrayList<>();
@@ -140,12 +141,18 @@ public class SuitChargerBlock extends BaseEntityBlock {
         // Block 2 above, then 1 forward
         subBlockPositions.add(pos.above(2).relative(facing.getOpposite()));
 
-
         BlockState subBlockState = ModBlocks.SUIT_CHARGER_SUB.get().defaultBlockState();
         for (BlockPos subPos : subBlockPositions) {
             level.setBlock(subPos, subBlockState, 3);
             if (level.getBlockEntity(subPos) instanceof SuitChargerSubBlockEntity subBlockEntity) {
                 subBlockEntity.setMainBlockPos(pos);
+                level.sendBlockUpdated(subPos, subBlockState, subBlockState, 3);
+            }
+        }
+
+        for (Player player : level.players()) {
+            if (player instanceof ServerPlayer serverPlayer) {
+                ModMessages.sendToPlayer(new SuitChargerSubsSyncS2CPacket(subBlockPositions, pos), serverPlayer);
             }
         }
     }
