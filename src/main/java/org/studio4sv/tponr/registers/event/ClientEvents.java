@@ -30,6 +30,10 @@ public class ClientEvents {
             event.setCanceled(true);
         if (event.getOverlay() == VanillaGuiOverlay.EXPERIENCE_BAR.type())
             event.setCanceled(true);
+        if (event.getOverlay() == VanillaGuiOverlay.ARMOR_LEVEL.type())
+            event.setCanceled(true);
+        if (event.getOverlay() == VanillaGuiOverlay.AIR_LEVEL.type())
+            event.setCanceled(true);
     }
 
     @SubscribeEvent
