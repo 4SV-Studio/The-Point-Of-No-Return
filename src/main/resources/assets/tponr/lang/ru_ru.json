@@ -1,0 +1,71 @@
+{
+  "creativetab.tponr_tab": "Точка Невозврата",
+
+  "block.tponr.bunker_door_block": "Дверь бункера",
+  "block.tponr.clock": "Часы",
+  "block.tponr.black_block": "Твёрдая Тьма",
+  "block.tponr.suit_dyer_block": "Покрасчик Скафандров",
+  "block.tponr.suit_charger_block": "Зарядник Скафандров",
+  "block.tponr.filter_block": "Скинтонитовый фильтратор",
+  "block.tponr.steel_block": "Стальной Блок",
+
+  "item.tponr.hazmat_suit_helmet": "Шлем скафандра",
+  "item.tponr.hazmat_suit_chestplate": "Нагрудник Скафандра",
+  "item.tponr.hazmat_suit_leggings": "Штаны Скафандра",
+  "item.tponr.hazmat_suit_boots": "Сапоги Скафандра",
+  "item.tponr.hazmat_suit_pack": "Скафандр",
+  "item.tponr.tomato_soup": "Томатный суп",
+  "item.tponr.steel_mix": "Стальная смесь",
+  "item.tponr.steel_ingot": "Стальной слиток",
+  "item.tponr.steel_nugget": "Стальной самородок",
+  "item.tponr.scintonit": "Кристал Скинтонита",
+  "item.tponr.charger_component": "Компонент батареи",
+  "item.tponr.dye_cartridge": "Цветной картридж",
+  "item.tponr.input_component": "Компонент ввода",
+  "item.tponr.propeller": "Пропеллер",
+
+  "command.tponr.forbidden": "Только операторы могут использовать эту команду на других игроках!",
+
+  "key.categories.tponr": "Ночка Невозврата",
+  "key.tponr.open_upgrade_screen": "Открыть меню прокачки",
+
+  "tooltip.tponr.required_stats": "Требования для использования:",
+
+  "gui.tponr.upgrade_screen": "Прокачка персонажа",
+
+  "gui.tponr.level": "Уровень",
+  "gui.tponr.stats": "Показатели",
+  "gui.tponr.attributes": "Атрибуты",
+
+  "gui.tponr.health_capacity": "Здоровье",
+  "gui.tponr.stamina_capacity": "Запас сил",
+  "gui.tponr.mana_capacity": "Мана",
+  "gui.tponr.level_up": "повышения уровня",
+
+  "stat.tponr.health": "Живучесть",
+  "stat.tponr.stamina": "Выносливость",
+  "stat.tponr.strength": "Сила",
+  "stat.tponr.agility": "Ловкость",
+  "stat.tponr.intelligence": "Интеллект",
+  "stat.tponr.luck": "Удача",
+  "stat.tponr.mana": "мана",
+
+  "tooltip.tponr.health": "Показатель жизненной силы персонажа.\nПовышение уровня увеличивает здоровье\nи снижает риск травмы.",
+  "tooltip.tponr.stamina": "Показатель стойкости персонажа.\nПовышение уровня увеличивает переносимый вес и загас сил.",
+  "tooltip.tponr.strength": "Показатель физической мощи персонажа.\nПовышение уровня увеличивает физический урон\nи скорость добычи простыми инструментами.",
+  "tooltip.tponr.agility": "Показатель моторики персонажа.\nПовышение уровня улучшает навыки обращения\nс инструментами и оружием.",
+  "tooltip.tponr.intelligence": "Показатель разумности персонажа.\nПовышение уровня увеличивает запас магических сил,\nа также восприимчивость к новым знаниям.",
+  "tooltip.tponr.luck": "Показатель везучести персонажа.\nПовышение уровня увеличивает шансы\nнаходить больше ценных ресурсов.",
+
+  "item.tponr.hazmat_suit.desc": "Заряд скафандра",
+  "item.tponr.hazmat_suit_pack.desc": "Нажмите ПКМ чтобы экипировать скафандр",
+
+  "gui.tponr.lvl": "Ур.",
+  "gui.tponr.apply": "Применить",
+
+  "gui.hudcompass.direction.N": "С",
+  "gui.hudcompass.direction.S": "Ю",
+  "gui.hudcompass.direction.W": "З",
+  "gui.hudcompass.direction.E": "В",
+  "gui.hudcompass.home": "Бункер"
+}
