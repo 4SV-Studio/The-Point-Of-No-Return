@@ -26,7 +26,7 @@
 
   "command.tponr.forbidden": "Только операторы могут использовать эту команду на других игроках!",
 
-  "key.categories.tponr": "Ночка Невозврата",
+  "key.categories.tponr": "Точка Невозврата",
   "key.tponr.open_upgrade_screen": "Открыть меню прокачки",
 
   "tooltip.tponr.required_stats": "Требования для использования:",
