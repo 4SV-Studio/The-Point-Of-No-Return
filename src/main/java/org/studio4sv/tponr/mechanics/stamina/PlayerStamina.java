@@ -3,7 +3,7 @@ package org.studio4sv.tponr.mechanics.stamina;
 import net.minecraft.nbt.CompoundTag;
 
 public class PlayerStamina {
-    private int stamina;
+    private float stamina;
     private int maxStamina;
     private boolean staminaEnabled;
     private static final int limit = 1000;
@@ -30,7 +30,7 @@ public class PlayerStamina {
         return this.staminaEnabled;
     }
 
-    public int getStamina() {
+    public float getStamina() {
         return stamina;
     }
 
@@ -50,12 +50,12 @@ public class PlayerStamina {
         if (staminaEnabled) this.stamina = Math.min(stamina + amount, maxStamina);
     }
 
-    public void subStamina(int amount) {
+    public void subStamina(float amount) {
         if (staminaEnabled) this.stamina = Math.max(stamina - amount, 0);
     }
 
     public void saveNBTData(CompoundTag nbt) {
-        nbt.putInt("stamina", stamina);
+        nbt.putFloat("stamina", stamina);
         nbt.putInt("maxStamina", maxStamina);
         nbt.putBoolean("staminaEnabled", staminaEnabled);
     }

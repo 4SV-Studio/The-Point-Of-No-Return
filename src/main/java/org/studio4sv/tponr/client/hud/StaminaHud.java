@@ -8,7 +8,7 @@ import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.client.ClientStaminaData;
 
 public class StaminaHud {
-    private static int staminaAmount;
+    private static float staminaAmount;
     private static boolean enabled = true;
 
     public static void toggle() {
@@ -17,7 +17,7 @@ public class StaminaHud {
 
     private final static ResourceLocation STAMINA_TEXTURE = TPONR.id("textures/gui/stamina.png");
 
-    public static void setStaminaAmount(int stamina) {
+    public static void setStaminaAmount(float stamina) {
         staminaAmount = Math.max(0, Math.min(stamina, ClientStaminaData.getMax()));
     }
 
@@ -34,7 +34,7 @@ public class StaminaHud {
 
         final int SCALE_FACTOR = 3;
         int maxStaminaPixels = ClientStaminaData.getMax() / SCALE_FACTOR;
-        int currentStaminaPixels = staminaAmount / SCALE_FACTOR;
+        int currentStaminaPixels = (int) staminaAmount / SCALE_FACTOR;
 
         int centerX = screenWidth / 2;
         
