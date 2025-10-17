@@ -2,6 +2,7 @@ package org.studio4sv.tponr.util;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -9,6 +10,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.studio4sv.tponr.TPONR;
 import org.studio4sv.tponr.blocks.custom.BunkerDoor.BunkerDoorBlock;
 import org.studio4sv.tponr.blocks.custom.BunkerDoor.BunkerDoorSubBlock;
 import org.studio4sv.tponr.blocks.entity.BunkerDoor.BunkerDoorBlockEntity;
@@ -60,9 +62,15 @@ public class RadiationUtils {
             if (tracker.isSafe(blockBottom) && tracker.isSafe(blockTop)) {
                 return 0;
             }
+            if (player.level().dimension().registry() == TPONR.BUNKER_MOD_SAFE) {
+                return 0;
+            }
         } else if (player.level().isClientSide()) {
             ResourceKey<Level> dimension = player.level().dimension();
             if (ClientSafeAreaTracker.isSafe(dimension, blockBottom) && ClientSafeAreaTracker.isSafe(dimension, blockTop)) {
+                return 0;
+            }
+            if (dimension.registry() == TPONR.BUNKER_MOD_SAFE) {
                 return 0;
             }
         }

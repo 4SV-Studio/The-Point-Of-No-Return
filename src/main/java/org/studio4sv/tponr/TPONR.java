@@ -28,6 +28,8 @@ public class TPONR
     public static final String MOD_ID = "tponr";
     private static final Logger LOGGER = LogUtils.getLogger();
 
+    public static final ResourceLocation BUNKER_MOD_SAFE = ResourceLocation.fromNamespaceAndPath("bunker", "safe");
+
     public static ResourceLocation id(String path) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
