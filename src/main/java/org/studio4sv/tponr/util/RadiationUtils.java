@@ -59,10 +59,11 @@ public class RadiationUtils {
         if (!player.level().isClientSide() && player.level() instanceof ServerLevel serverLevel) {
             SafeAreaTracker tracker = SafeAreaTracker.get(serverLevel);
 
+
             if (tracker.isSafe(blockBottom) && tracker.isSafe(blockTop)) {
                 return 0;
             }
-            if (player.level().dimension().registry() == TPONR.BUNKER_MOD_SAFE) {
+            if (player.level().dimension().location().equals(TPONR.BUNKER_MOD_SAFE)) {
                 return 0;
             }
         } else if (player.level().isClientSide()) {
@@ -70,7 +71,7 @@ public class RadiationUtils {
             if (ClientSafeAreaTracker.isSafe(dimension, blockBottom) && ClientSafeAreaTracker.isSafe(dimension, blockTop)) {
                 return 0;
             }
-            if (dimension.registry() == TPONR.BUNKER_MOD_SAFE) {
+            if (dimension.location().equals(TPONR.BUNKER_MOD_SAFE)) {
                 return 0;
             }
         }
