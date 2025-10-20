@@ -1,5 +1,6 @@
 package org.studio4sv.tponr.registers;
 
+import net.minecraft.nbt.CompoundTag;
 import org.studio4sv.tponr.TPONR;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -14,7 +15,12 @@ public class ModCreativeModTabs {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TPONR.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> TPONR_TAB = CREATIVE_MODE_TABS.register(TPONR.MOD_ID + "_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.FAKE_SUIT.get()))
+            () -> CreativeModeTab.builder().icon(() -> {
+                        ItemStack icon = new ItemStack(ModItems.HAZMAT_SUIT_PACK.get());
+                        CompoundTag tag = icon.getOrCreateTagElement("display");
+                        tag.putInt("color", 0xFF6400);
+                        return icon;
+                    })
                     .title(Component.translatable("creativetab." + TPONR.MOD_ID + "_tab"))
                     .displayItems((pParameters, pOutput) -> {
 
@@ -26,9 +32,19 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.SUIT_DYER.get());
                         pOutput.accept(ModItems.CHARGER.get());
                         pOutput.accept(ModItems.FILTER.get());
+                        pOutput.accept(ModItems.STEEL_MIX.get());
+                        pOutput.accept(ModItems.STEEL_INGOT.get());
+                        pOutput.accept(ModItems.CHARGER_COMPONENT.get());
+                        pOutput.accept(ModItems.DYE_CARTRIDGE.get());
+                        pOutput.accept(ModItems.INPUT_COMPONENT.get());
+                        pOutput.accept(ModItems.PROPELLER.get());
+                        pOutput.accept(ModItems.SCINTONIT.get());
+                        pOutput.accept(ModBlocks.STEEL_BLOCK.get());
+                        pOutput.accept(ModItems.STEEL_NUGGET.get());
+                        pOutput.accept(ModItems.SOUP.get());
+                        pOutput.accept(ModItems.SUIT_STAND.get());
                     })
                     .build());
-
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);

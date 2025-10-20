@@ -321,13 +321,13 @@ public class UpgradeScreen extends Screen {
         renderScaledText(pGuiGraphics, getTranslation("gui.tponr.stamina_capacity"), screenWidthStart + 38, screenHeightStart + 104, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
         renderScaledText(pGuiGraphics, "§k" + getTranslation("gui.tponr.mana_capacity"), screenWidthStart + 38, screenHeightStart + 118, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
 
-        renderScaledText(pGuiGraphics, String.valueOf((int) player.getMaxHealth()), screenWidthStart + 94 - font.width(String.valueOf((int) player.getMaxHealth())), screenHeightStart + 91, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
-        renderScaledText(pGuiGraphics, String.valueOf(calculateStamina()), screenWidthStart + 94 - font.width(String.valueOf(calculateStamina())), screenHeightStart + 105, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
-        renderScaledText(pGuiGraphics, "???", screenWidthStart + 94 - font.width("???"), screenHeightStart + 117, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, String.valueOf((int) player.getMaxHealth()), screenWidthStart + 114 - font.width(String.valueOf((int) player.getMaxHealth())), screenHeightStart + 91, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, String.valueOf(calculateStamina()), screenWidthStart + 114 - font.width(String.valueOf(calculateStamina())), screenHeightStart + 105, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, "???", screenWidthStart + 114 - font.width("???"), screenHeightStart + 117, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
 
-        renderScaledText(pGuiGraphics, String.valueOf(newHp), screenWidthStart + 101, screenHeightStart + 91, (newHp != player.getMaxHealth()) ? 0x26A042 : 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
-        renderScaledText(pGuiGraphics, String.valueOf(newStamina), screenWidthStart + 101, screenHeightStart + 105, (newStamina != calculateStamina()) ? 0x26A042 : 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
-        renderScaledText(pGuiGraphics, "???", screenWidthStart + 101, screenHeightStart + 117, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, String.valueOf(newHp), screenWidthStart + 118, screenHeightStart + 91, (newHp != player.getMaxHealth()) ? 0x26A042 : 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, String.valueOf(newStamina), screenWidthStart + 118, screenHeightStart + 105, (newStamina != calculateStamina()) ? 0x26A042 : 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
+        renderScaledText(pGuiGraphics, "???", screenWidthStart + 118, screenHeightStart + 117, 0xF6F6F6, 0.9F, pMouseX, pMouseY, null);
 
         renderScaledText(pGuiGraphics, getTranslation("gui.tponr.attributes"), screenWidthStart + 172, screenHeightStart + 20, 0x11FC67, 1.0F, pMouseX, pMouseY, null);
 

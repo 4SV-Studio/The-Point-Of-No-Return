@@ -132,6 +132,9 @@ dependencies {
     implementation fg.deobf("curse.maven:hud-compass-420249:5856969")
 
     implementation fg.deobf("curse.maven:first-aid-276837:5531834")
+
+    // EMI for dev runs
+    runtimeOnly fg.deobf("curse.maven:emi-580555:6420945")
 }
 
 tasks.named('processResources', ProcessResources).configure {

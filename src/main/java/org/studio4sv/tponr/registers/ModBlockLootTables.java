@@ -15,13 +15,6 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        dropSelf(ModBlocks.BUNKER_DOOR.get());
-        dropSelf(ModBlocks.BUNKER_DOOR_SUB.get());
-        dropSelf(ModBlocks.CLOCK.get());
-        dropSelf(ModBlocks.SUIT_CHARGER.get());
-        dropSelf(ModBlocks.SUIT_CHARGER_SUB.get());
-        dropSelf(ModBlocks.SUIT_DYER.get());
-        dropSelf(ModBlocks.SUIT_DYER_SUB.get());
     }
 
 

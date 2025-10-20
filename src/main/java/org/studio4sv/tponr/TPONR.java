@@ -9,6 +9,7 @@ import org.studio4sv.tponr.client.entity.ClockBlockItem.ClockBlockRenderer;
 import org.studio4sv.tponr.client.entity.FilterBlockItem.FilterBlockRenderer;
 import org.studio4sv.tponr.client.entity.SuitChargerBlockItem.SuitChargerRenderer;
 import org.studio4sv.tponr.client.entity.SuitDyerBlockItem.SuitDyerBlockRenderer;
+import org.studio4sv.tponr.client.entity.SuitStandBlockItem.SuitStandBlockRenderer;
 import org.studio4sv.tponr.networking.ModMessages;
 import org.studio4sv.tponr.registers.*;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -27,6 +28,8 @@ public class TPONR
 {
     public static final String MOD_ID = "tponr";
     private static final Logger LOGGER = LogUtils.getLogger();
+
+    public static final ResourceLocation BUNKER_MOD_SAFE = ResourceLocation.fromNamespaceAndPath("bunker", "safe");
 
     public static ResourceLocation id(String path) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
@@ -61,6 +64,7 @@ public class TPONR
             BlockEntityRenderers.register(ModBlockEntities.SUIT_DYER_ENTITY.get(), SuitDyerBlockRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.SUIT_CHARGER_ENTITY.get(), SuitChargerRenderer::new);
             BlockEntityRenderers.register(ModBlockEntities.FILTER_ENTITY.get(), FilterBlockRenderer::new);
+            BlockEntityRenderers.register(ModBlockEntities.STAND_ENTITY.get(), SuitStandBlockRenderer::new);
 
             Minecraft.getInstance().getItemColors().register(
                     (stack, tintIndex) -> tintIndex == 0 ? ((DyeableLeatherItem) stack.getItem()).getColor(stack) : -1,

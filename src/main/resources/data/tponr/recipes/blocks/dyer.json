@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#SS",
+    "CDG",
+    "#SS"
+  ],
+  "key": {
+    "S": {
+      "item": "tponr:steel_block"
+    },
+    "C": {
+      "item": "tponr:input_component"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "D": {
+      "item": "tponr:dye_cartridge"
+    },
+    "#": {
+      "item": "tponr:steel_ingot"
+    }
+  },
+  "result": {
+    "item": "tponr:suit_dyer",
+    "count": 1
+  }
+}

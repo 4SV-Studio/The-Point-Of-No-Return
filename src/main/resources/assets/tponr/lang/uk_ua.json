@@ -1,0 +1,72 @@
+{
+  "creativetab.tponr_tab": "Точка Неповернення",
+
+  "block.tponr.bunker_door_block": "Двері бункера",
+  "block.tponr.clock": "Годинник",
+  "block.tponr.black_block": "Тверда Темрява",
+  "block.tponr.suit_dyer_block": "Фарбник Скафандрів",
+  "block.tponr.suit_charger_block": "Зарядник Скафандрів",
+  "block.tponr.filter_block": "Скінтонітовий фільтратор",
+  "block.tponr.steel_block": "Сталевий Блок",
+  "block.tponr.suit_stand_block": "Стійка для Скафандра",
+
+  "item.tponr.hazmat_suit_helmet": "Шолом скафандра",
+  "item.tponr.hazmat_suit_chestplate": "Нагрудник Скафандра",
+  "item.tponr.hazmat_suit_leggings": "Штани Скафандра",
+  "item.tponr.hazmat_suit_boots": "Чоботи Скафандра",
+  "item.tponr.hazmat_suit_pack": "Скафандр",
+  "item.tponr.tomato_soup": "Томатный суп",
+  "item.tponr.steel_mix": "Сталева суміш",
+  "item.tponr.steel_ingot": "Сталевий злиток",
+  "item.tponr.steel_nugget": "Сталевий самородок",
+  "item.tponr.scintonit": "Кристал Скінтоніту",
+  "item.tponr.charger_component": "Компонент батареї",
+  "item.tponr.dye_cartridge": "Кольоровий картридж",
+  "item.tponr.input_component": "Компонент уведення",
+  "item.tponr.propeller": "Пропелер",
+
+  "command.tponr.forbidden": "Тільки оператори можуть скористатися цією командою на інших гравцях!",
+
+  "key.categories.tponr": "Точка Неповернення",
+  "key.tponr.open_upgrade_screen": "Відкрити меню прокачування персонажа",
+
+  "tooltip.tponr.required_stats": "Вимоги до використання:",
+
+  "gui.tponr.upgrade_screen": "Прокачування персонажа",
+
+  "gui.tponr.level": "Рівень",
+  "gui.tponr.stats": "Показники",
+  "gui.tponr.attributes": "Атрибути",
+
+  "gui.tponr.health_capacity": "Здоров'я",
+  "gui.tponr.stamina_capacity": "Запас сил",
+  "gui.tponr.mana_capacity": "Мана",
+  "gui.tponr.level_up": "підвищення рівня",
+
+  "stat.tponr.health": "Живучість",
+  "stat.tponr.stamina": "Витривалість",
+  "stat.tponr.strength": "Сила",
+  "stat.tponr.agility": "Спритність",
+  "stat.tponr.intelligence": "Інтелект",
+  "stat.tponr.luck": "Удача",
+  "stat.tponr.mana": "мана",
+
+  "tooltip.tponr.health": "Показник життєвої сили персонажа.\nПідвищення рівня підвищує здоров'я\nта знижує ризик травми.",
+  "tooltip.tponr.stamina": "Показник стійкості персонажа.\nПідвищення рівня збільшує вагу, що переноситься, і запас сил.",
+  "tooltip.tponr.strength": "Показник фізичної сили персонажа.\nПідвищення рівня збільшує фізичну урон\nта швидкість видобутку простими інструментами.",
+  "tooltip.tponr.agility": "Показник моторики персонажа.\nПідвищення рівня покращує навички користування\nінструментами та зброєю.",
+  "tooltip.tponr.intelligence": "Показник розумності персонажа.\nПідвищення рівня збільшує запас магічних сил,\nа також сприйнятливість до нових знань.",
+  "tooltip.tponr.luck": "Показник щасливості персонажа.\nПідвищення рівня збільшує шанси\nзнаходити більше цінних ресурсів.",
+
+  "item.tponr.hazmat_suit.desc": "Заряд скафандра",
+  "item.tponr.hazmat_suit_pack.desc": "Натисніть ПКМ, щоб екіпірувати скафандр",
+
+  "gui.tponr.lvl": "Рів.",
+  "gui.tponr.apply": "Застосувати",
+
+  "gui.hudcompass.direction.N": "Пн",
+  "gui.hudcompass.direction.S": "Пд",
+  "gui.hudcompass.direction.W": "Зх",
+  "gui.hudcompass.direction.E": "Сх",
+  "gui.hudcompass.home": "Бункер"
+}

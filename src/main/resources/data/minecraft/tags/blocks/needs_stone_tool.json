@@ -1,6 +1,7 @@
 {
   "replace": "false",
   "values": [
-    "tponr:clock"
+    "tponr:clock",
+    "tponr:filter_block"
   ]
 }

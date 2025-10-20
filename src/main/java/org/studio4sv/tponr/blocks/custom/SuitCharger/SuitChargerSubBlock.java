@@ -54,8 +54,6 @@ public class SuitChargerSubBlock extends BaseEntityBlock {
 
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
-        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
-
         if (!pState.is(pNewState.getBlock()) && !pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof SuitChargerSubBlockEntity subEntity) {
@@ -68,5 +66,6 @@ public class SuitChargerSubBlock extends BaseEntityBlock {
                 }
             }
         }
+        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
     }
 }

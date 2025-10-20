@@ -17,7 +17,7 @@ import org.studio4sv.tponr.networking.packet.S2C.StaminaDataSyncS2CPacket;
 
 @Mod.EventBusSubscriber(modid = TPONR.MOD_ID)
 public class StaminaHandler {
-    public static final int SPRINT_COST = 1;
+    public static final float SPRINT_COST = 0.3F;
     public static final int JUMP_COST = 5;
     public static final int MINING_COST = 10;
 
@@ -116,7 +116,7 @@ public class StaminaHandler {
         }
     }
 
-    private static void syncStamina(ServerPlayer player, int stamina, int maxStamina) {
+    private static void syncStamina(ServerPlayer player, float stamina, int maxStamina) {
         ModMessages.sendToPlayer(new StaminaDataSyncS2CPacket(stamina, maxStamina), player);
     }
 }
