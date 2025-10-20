@@ -18,6 +18,7 @@ import org.studio4sv.tponr.blocks.custom.SuitCharger.SuitChargerBlock;
 import org.studio4sv.tponr.blocks.custom.SuitCharger.SuitChargerSubBlock;
 import org.studio4sv.tponr.blocks.custom.SuitDyer.SuitDyerBlock;
 import org.studio4sv.tponr.blocks.custom.SuitDyer.SuitDyerSubBlock;
+import org.studio4sv.tponr.blocks.custom.SuitStandBlock;
 
 import java.util.function.Supplier;
 
@@ -60,6 +61,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> STEEL_BLOCK = registerBlock("steel_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK))
     );
+
+    public static final RegistryObject<Block> SUIT_STAND = BLOCKS.register("suit_stand_block",
+            () -> new SuitStandBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

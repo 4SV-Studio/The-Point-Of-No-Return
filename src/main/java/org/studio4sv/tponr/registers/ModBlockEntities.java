@@ -14,6 +14,7 @@ import org.studio4sv.tponr.blocks.entity.SuitCharger.SuitChargerBlockEntity;
 import org.studio4sv.tponr.blocks.entity.SuitCharger.SuitChargerSubBlockEntity;
 import org.studio4sv.tponr.blocks.entity.SuitDyer.SuitDyerBlockEntity;
 import org.studio4sv.tponr.blocks.entity.SuitDyer.SuitDyerSubBlockEntity;
+import org.studio4sv.tponr.blocks.entity.SuitStandEntity;
 
 public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
@@ -58,6 +59,11 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("filter_block_entity", () ->
                     BlockEntityType.Builder.of(FilterBlockEntity::new,
                             ModBlocks.FILTER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<SuitStandEntity>> STAND_ENTITY =
+            BLOCK_ENTITIES.register("suit_stand_entity", () ->
+                    BlockEntityType.Builder.of(SuitStandEntity::new,
+                            ModBlocks.SUIT_STAND.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

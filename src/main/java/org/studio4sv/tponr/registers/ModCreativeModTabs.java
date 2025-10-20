@@ -42,6 +42,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.STEEL_BLOCK.get());
                         pOutput.accept(ModItems.STEEL_NUGGET.get());
                         pOutput.accept(ModItems.SOUP.get());
+                        pOutput.accept(ModItems.SUIT_STAND.get());
                     })
                     .build());
 

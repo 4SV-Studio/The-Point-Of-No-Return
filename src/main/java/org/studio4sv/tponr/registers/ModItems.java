@@ -75,6 +75,9 @@ public class ModItems {
     public static final RegistryObject<Item> SOUP = ITEMS.register("tomato_soup",
             () -> new Item(new Item.Properties().food(Foods.BAKED_POTATO)));
 
+    public static final RegistryObject<Item> SUIT_STAND = ITEMS.register("suit_stand",
+            () -> new SuitStandBlockItem(ModBlocks.SUIT_STAND.get(), new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

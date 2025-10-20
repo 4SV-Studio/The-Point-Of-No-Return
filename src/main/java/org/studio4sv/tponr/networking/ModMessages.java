@@ -88,6 +88,12 @@ public class ModMessages {
                 .consumerMainThread(SuitChargerSubsSyncS2CPacket::handle)
                 .add();
 
+        net.messageBuilder(SuitStandDataSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SuitStandDataSyncS2CPacket::new)
+                .encoder(SuitStandDataSyncS2CPacket::toBytes)
+                .consumerMainThread(SuitStandDataSyncS2CPacket::handle)
+                .add();
+
         // Client 2 Server
         net.messageBuilder(DyerChangeColorS2CPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(DyerChangeColorS2CPacket::new)
